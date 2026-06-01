@@ -2,440 +2,385 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Treino 5x — 45min</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Treino">
+<title>Treino 5x</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0f0e0c;--s1:#1a1916;--s2:#222120;--br:#2e2d2a;--tx:#e8e4dc;--mt:#8a877f;--ac:#d4a853;--bl:#4a8fa8;--gn:#5a9e72;--rd:#c44b4b;--am:#c97d3a;--pu:#7a6bbf;--pk:#b85c8a;--inf:#4a8fa8;--suc:#5a9e72;--dan:#c44b4b;--war:#c97d3a}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{display:flex;flex-direction:column}
 
-  :root {
-    --bg: #0f0e0c;
-    --surface: #1a1916;
-    --surface2: #222120;
-    --border: #2e2d2a;
-    --text: #e8e4dc;
-    --muted: #8a877f;
-    --faint: #3a3835;
-    --push: #c97d3a;
-    --pull: #4a8fa8;
-    --legs: #7a6bbf;
-    --upper: #5a9e72;
-    --perf: #b85c8a;
-    --warn: #c44b4b;
-    --accent: #d4a853;
-  }
+/* NAV PRINCIPAL */
+.main-nav{display:flex;border-bottom:1px solid var(--br);flex-shrink:0;background:var(--bg)}
+.main-tab{flex:1;padding:14px 8px;font-size:11px;font-weight:500;color:var(--mt);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;letter-spacing:.03em;transition:all .2s}
+.main-tab.on{color:var(--tx);border-bottom-color:var(--ac)}
 
-  html { font-size: 16px; }
+/* HEADER */
+.hdr{padding:max(48px,env(safe-area-inset-top)) 16px 14px;border-bottom:1px solid var(--br);flex-shrink:0}
+.hdr-lbl{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--mt);margin-bottom:4px}
+.hdr-ttl{font-size:22px;font-weight:600;color:var(--tx);line-height:1.1}
+.hdr-ttl span{color:var(--ac);font-weight:300;font-style:italic}
+.hdr-sub{font-size:11px;color:var(--mt);margin-top:4px}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    padding-bottom: env(safe-area-inset-bottom, 20px);
-  }
+/* LEGEND */
+.lgd{display:flex;gap:10px;padding:8px 16px;border-bottom:1px solid var(--br);flex-shrink:0;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mt)}
+.ld{width:5px;height:5px;border-radius:50%}
 
-  /* HEADER */
-  .header {
-    padding: 52px 20px 28px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -40px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(201,125,58,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .header-label {
-    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 8px;
-  }
-  .header-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 30px; line-height: 1.1;
-    color: var(--text);
-  }
-  .header-title em { font-style: italic; color: var(--accent); }
-  .header-sub {
-    margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.5;
-  }
+/* TABS DIAS */
+.day-tabs{display:flex;gap:0;border-bottom:1px solid var(--br);flex-shrink:0;overflow-x:auto;scrollbar-width:none;background:var(--bg)}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex:1;min-width:58px;display:flex;flex-direction:column;align-items:center;padding:9px 6px 7px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;color:var(--mt)}
+.day-tab.on{color:var(--tx)}
+.dtd{font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.dtn{font-size:11px;font-weight:500;margin-top:1px;white-space:nowrap}
 
-  /* LEGEND */
-  .legend {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .leg-item {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 10px; color: var(--muted);
-  }
-  .leg-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    flex-shrink: 0;
-  }
+/* SCROLL */
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.view{display:none}.view.on{display:flex;flex-direction:column;height:100%}
 
-  /* DAY TABS */
-  .tabs-wrap {
-    padding: 16px 20px 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .tabs-wrap::-webkit-scrollbar { display: none; }
-  .tabs {
-    display: flex; gap: 8px; width: max-content;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .tab {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 10px 16px; border-radius: 10px;
-    border: 1px solid var(--border);
-    background: transparent; cursor: pointer;
-    transition: all .2s; min-width: 64px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .tab.active { background: var(--surface); border-color: var(--faint); }
-  .tab-day { font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-  .tab-name { font-size: 12px; font-weight: 500; color: var(--text); margin-top: 2px; white-space: nowrap; }
-  .tab-bar {
-    width: 20px; height: 2px; border-radius: 1px;
-    margin-top: 6px; opacity: 0; transition: opacity .2s;
-  }
-  .tab.active .tab-bar { opacity: 1; }
+/* PANELS */
+.panel{display:none;padding:14px 16px 32px}
+.panel.on{display:block}
 
-  /* PANELS */
-  .panels { padding: 0 20px; }
-  .panel { display: none; padding: 20px 0; }
-  .panel.active { display: block; }
+/* BADGES */
+.bdg{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:5px}
+.ptl{font-size:17px;font-weight:600;color:var(--tx);margin-bottom:2px}
+.pfoc{font-size:11px;color:var(--mt);margin-bottom:12px;line-height:1.4}
 
-  /* DAY HEADER */
-  .day-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .day-badge {
-    font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 20px; margin-bottom: 6px;
-    display: inline-block;
-  }
-  .day-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px; line-height: 1.1; color: var(--text);
-  }
-  .day-focus { font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+/* TIMELINE */
+.tl{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--br);margin-bottom:14px}
+.ts{flex:1;padding:6px 2px;text-align:center;font-size:8px;color:var(--mt);line-height:1.35;border-right:1px solid var(--br)}
+.ts:last-child{border-right:none}
+.ts.hi{background:var(--s1);color:var(--tx)}
+.tm{font-size:7px;color:var(--mt)}
 
-  /* TIMELINE */
-  .timeline {
-    display: flex; border-radius: 8px; overflow: hidden;
-    border: 1px solid var(--border); margin-bottom: 20px;
-  }
-  .tl-seg {
-    flex: 1; padding: 8px 4px; text-align: center;
-    font-size: 10px; color: var(--muted); line-height: 1.4;
-    border-right: 1px solid var(--border);
-  }
-  .tl-seg:last-child { border-right: none; }
-  .tl-seg.hi { background: var(--surface); color: var(--text); }
-  .tl-min { font-size: 9px; color: var(--muted); }
-  .tl-seg.hi .tl-min { color: var(--muted); }
+/* EXERCISE CARDS */
+.ec{background:var(--s1);border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden}
+.ea{position:absolute;left:0;top:0;bottom:0;width:3px}
+.en{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.enm{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-bottom:6px}
+.etgs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.etg{font-size:9px;font-weight:500;padding:1px 6px;border-radius:8px}
+.ep{background:rgba(74,143,168,.18);color:#7ec8e3}
+.ec2{background:rgba(196,75,75,.18);color:#e07070}
+.ef{background:rgba(184,92,138,.18);color:#d47daa}
+.ests{display:flex;gap:14px;margin-bottom:8px}
+.est{display:flex;flex-direction:column}
+.esl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.05em}
+.esv{font-size:17px;font-weight:600;color:var(--tx);line-height:1.2}
+.esv.sm{font-size:13px}
+.enote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
 
-  /* EXERCISE LIST */
-  .ex-list { display: flex; flex-direction: column; gap: 1px; }
+/* PHASE CARDS (cardio) */
+.pc{background:var(--s1);border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden}
+.pa{position:absolute;left:0;top:0;bottom:0;width:3px}
+.pn{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.pt{font-size:14px;font-weight:500;color:var(--tx);margin-bottom:8px;line-height:1.3}
+.psts{display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.pst{display:flex;flex-direction:column}
+.psl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.05em}
+.psv{font-size:13px;font-weight:500;color:var(--tx);line-height:1.3}
+.pnote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
 
-  .ex-card {
-    background: var(--surface);
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 8px;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .ex-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-  }
-  .ex-num {
-    font-size: 10px; color: var(--muted); letter-spacing: .06em;
-    text-transform: uppercase; margin-bottom: 5px;
-  }
-  .ex-name {
-    font-size: 15px; font-weight: 500; color: var(--text);
-    line-height: 1.3; margin-bottom: 6px;
-  }
-  .ex-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
-  .tag {
-    font-size: 9px; font-weight: 500; letter-spacing: .08em;
-    text-transform: uppercase; padding: 2px 7px; border-radius: 10px;
-  }
-  .tag-pico { background: rgba(74,143,168,0.15); color: #6ab3cc; }
-  .tag-col  { background: rgba(196,75,75,0.15);  color: #e07070; }
-  .tag-perf { background: rgba(184,92,138,0.15); color: #d47daa; }
+/* META */
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.mc{background:var(--s2);border-radius:8px;padding:9px 11px}
+.ml{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
+.mv{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-top:2px}
 
-  .ex-stats {
-    display: flex; gap: 16px; margin-bottom: 8px;
-  }
-  .stat { display: flex; flex-direction: column; }
-  .stat-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
-  .stat-value { font-size: 16px; font-weight: 500; color: var(--text); line-height: 1.2; }
-  .stat-unit { font-size: 10px; color: var(--muted); }
+/* ZONA BAR */
+.hz-bar{border-radius:8px;overflow:hidden;border:1px solid var(--br);margin-bottom:8px}
+.hz-row{display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid var(--br);font-size:11px;gap:8px}
+.hz-row:last-child{border-bottom:none}
+.hz-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.hz-lbl{color:var(--mt);flex:1;font-size:10px}
+.hz-bpm{color:var(--tx);font-weight:500;font-size:11px;white-space:nowrap}
 
-  .ex-note {
-    font-size: 12px; color: var(--muted); line-height: 1.5;
-    padding-top: 8px; border-top: 1px solid var(--border);
-  }
+/* INFO BOX */
+.ibox{background:var(--s2);border-radius:8px;padding:10px 12px;margin:4px 0 12px;font-size:11px;color:var(--mt);line-height:1.6}
+.ibox b{color:var(--tx);font-weight:500}
 
-  /* INFO CARD */
-  .info-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px; padding: 14px;
-    margin-top: 4px;
-    font-size: 12px; color: var(--muted); line-height: 1.6;
-  }
-  .info-card strong { color: var(--text); font-weight: 500; }
+/* SECTION LABEL */
+.slbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--mt);margin:12px 0 8px}
 
-  /* FOOTER */
-  .footer {
-    margin: 0 20px 40px;
-    padding: 16px;
-    background: var(--surface);
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    font-size: 11px; color: var(--muted); line-height: 1.7;
-  }
-  .footer-title {
-    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 8px;
-  }
+/* PROG CARDS */
+.pgc{background:var(--s1);border-radius:8px;padding:10px 12px;margin-bottom:6px;border:1px solid var(--br);font-size:11px;color:var(--mt);line-height:1.6}
+.pgc b{color:var(--tx);font-weight:500}
 
-  /* COLOR ACCENTS */
-  .push  { background: rgba(201,125,58,0.12);  color: var(--push);  }
-  .pull  { background: rgba(74,143,168,0.12);  color: var(--pull);  }
-  .legs  { background: rgba(122,107,191,0.12); color: var(--legs);  }
-  .upper { background: rgba(90,158,114,0.12);  color: var(--upper); }
-
-  .push-bar  { background: var(--push);  }
-  .pull-bar  { background: var(--pull);  }
-  .legs-bar  { background: var(--legs);  }
-  .upper-bar { background: var(--upper); }
+/* FOOTER */
+.ftr{background:var(--s1);border-radius:10px;border:1px solid var(--br);padding:12px;font-size:10px;color:var(--mt);line-height:1.7;margin-top:4px}
+.ftrtl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--mt);margin-bottom:6px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-label">Programa de treino</div>
-  <h1 class="header-title">5x semana<br><em>45 minutos</em></h1>
-  <p class="header-sub">Séries tradicionais · Descanso real · Progressão de carga</p>
+<div class="hdr">
+  <div class="hdr-lbl">Programa completo</div>
+  <div class="hdr-ttl">5x semana &nbsp;<span>45 min</span></div>
+  <div class="hdr-sub">Musculação · Condicionamento · Performance</div>
 </div>
 
-<div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:var(--pull)"></div>◆ principal</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--warn)"></div>⚠ coluna</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--perf)"></div>⚡ performance</div>
+<div class="main-nav">
+  <button class="main-tab on" onclick="switchMain(0,this)">Musculação</button>
+  <button class="main-tab" onclick="switchMain(1,this)">Cardio</button>
 </div>
 
-<div class="tabs-wrap">
-  <div class="tabs" id="tabs"></div>
+<!-- VIEW MUSCULAÇÃO -->
+<div class="view on" id="v0">
+  <div class="lgd">
+    <div class="li"><div class="ld" style="background:#7ec8e3"></div>◆ principal</div>
+    <div class="li"><div class="ld" style="background:#e07070"></div>⚠ coluna</div>
+    <div class="li"><div class="ld" style="background:#d47daa"></div>⚡ perf</div>
+  </div>
+  <div class="day-tabs" id="dtabs"></div>
+  <div class="scroll"><div id="dpanels"></div></div>
 </div>
 
-<div class="panels" id="panels"></div>
-
-<div class="footer">
-  <div class="footer-title">Diretrizes gerais</div>
-  Aquecimento: 3 min mobilidade + 1 série leve (50% da carga) no composto principal.<br>
-  Progressão: aumente a carga quando completar todas as séries e reps com técnica limpa por 2 sessões consecutivas.<br>
-  Coluna: lordose neutra em todos os movimentos — especialmente RDL e remada curvada.<br>
-  Sábado e domingo: descanso ativo (caminhada, mobilidade).
+<!-- VIEW CARDIO -->
+<div class="view" id="v1">
+  <div class="day-tabs" id="ctabs"></div>
+  <div class="scroll"><div id="cpanels"></div></div>
 </div>
 
 <script>
-const days = [
-  {
-    label: "Seg", name: "Peito", badge: "Push", badgeClass: "push", barClass: "push-bar",
-    focus: "Volume horizontal — peitoral como protagonista",
-    tl: [
-      {label:"Aquec.",min:"3min",hi:false},
-      {label:"Supino incl.",min:"14min",hi:true},
-      {label:"Crossover",min:"10min",hi:true},
-      {label:"Tríceps corda",min:"10min",hi:true},
-      {label:"Tríceps testa",min:"8min",hi:true},
-    ],
-    exercises: [
-      { name: "Supino inclinado com halteres", tags:["pico"], sets:"4", reps:"8–10", rest:"90s", note:"Escápulas retraídas e fixas. Composto principal — priorize a carga aqui." },
-      { name: "Crossover cabo alto", tags:[], sets:"3", reps:"12–15", rest:"75s", note:"Peitoral inferior — expire na contração, pausa de 1s no pico." },
-      { name: "Tríceps corda no cabo", tags:[], sets:"3", reps:"12", rest:"60s", note:"Cotovelos fixos ao lado do corpo." },
-      { name: "Tríceps testa EZ-bar", tags:[], sets:"3", reps:"10–12", rest:"60s", note:"Úmero perpendicular ao chão — não deixe cair para trás." },
-    ],
-    info: "13 séries totais. Peitoral recebe 7 séries diretas + contribuição indireta do tríceps. Volume adequado para hipertrofia sem comprometer recuperação."
-  },
-  {
-    label: "Ter", name: "Costas", badge: "Pull", badgeClass: "pull", barClass: "pull-bar",
-    focus: "Largura e espessura — puxadas e remadas com qualidade",
-    tl: [
-      {label:"Aquec.",min:"3min",hi:false},
-      {label:"Puxada",min:"14min",hi:true},
-      {label:"Remada",min:"11min",hi:true},
-      {label:"Rosca direta",min:"10min",hi:true},
-      {label:"Rosca martelo",min:"8min",hi:true},
-    ],
-    exercises: [
-      { name: "Puxada frontal pegada aberta", tags:["pico"], sets:"4", reps:"8–10", rest:"90s", note:"Cotovelos apontam para o chão na descida. Puxe pela escápula, não pelo braço." },
-      { name: "Remada serrote com haltere", tags:["col"], sets:"4", reps:"10–12", rest:"75s", note:"Apoio firme no banco — elimina variáveis lombares. Carga progressiva aqui." },
-      { name: "Rosca direta barra EZ", tags:["pico"], sets:"3", reps:"10–12", rest:"75s", note:"Sem balanço de tronco — isola bíceps com qualidade." },
-      { name: "Rosca martelo alternada", tags:[], sets:"3", reps:"12/lado", rest:"60s", note:"Braquiorradial e bíceps — volume de braço completo." },
-    ],
-    info: "Remada serrote no banco é a escolha estratégica: permite carga alta sem risco lombar. Costas respondem bem a cargas pesadas — não subestime o peso na puxada."
-  },
-  {
-    label: "Qua", name: "Pernas", badge: "Legs", badgeClass: "legs", barClass: "legs-bar",
-    focus: "Base hormonal da semana — maior impacto em TRT e performance",
-    tl: [
-      {label:"Aquec.",min:"4min",hi:false},
-      {label:"Leg press",min:"14min",hi:true},
-      {label:"Hip thrust",min:"13min",hi:true},
-      {label:"Flexora",min:"9min",hi:true},
-      {label:"Panturrilha",min:"6min",hi:true},
-    ],
-    exercises: [
-      { name: "Leg press 45°", tags:["pico","col"], sets:"4", reps:"10–12", rest:"90s", note:"Lombar colada ao banco. Substituto seguro ao agachamento livre para histórico de ciático." },
-      { name: "Hip thrust com barra", tags:["perf","col"], sets:"4", reps:"12", rest:"90s", note:"Glúteo máximo — principal músculo para força pélvica e performance sexual. Não apresse a série." },
-      { name: "Flexora deitada", tags:[], sets:"3", reps:"12–15", rest:"60s", note:"Cadeia posterior — complementa o hip thrust." },
-      { name: "Panturrilha em pé na máquina", tags:[], sets:"3", reps:"20", rest:"45s", note:"Amplitude total — calcâneo abaixo da plataforma." },
-    ],
-    info: "Quarta é o dia mais importante. Leg press + hip thrust sob carga pesada são os maiores estimuladores de testosterona endógena — potencializam a TRT."
-  },
-  {
-    label: "Qui", name: "Ombros", badge: "Upper", badgeClass: "upper", barClass: "upper-bar",
-    focus: "Ombros 3D + estabilidade pélvica — sessão técnica",
-    tl: [
-      {label:"Aquec.",min:"3min",hi:false},
-      {label:"Desenvolv.",min:"14min",hi:true},
-      {label:"Elev. lateral",min:"10min",hi:true},
-      {label:"Del. post.",min:"10min",hi:true},
-      {label:"Core",min:"8min",hi:true},
-    ],
-    exercises: [
-      { name: "Desenvolvimento halteres sentado (encosto 80°)", tags:["pico","col"], sets:"4", reps:"10–12", rest:"90s", note:"Encosto protege lombar. Não leve o cotovelo além do plano do ombro." },
-      { name: "Elevação lateral no cabo (unilateral)", tags:[], sets:"3", reps:"15/lado", rest:"60s", note:"Tensão constante. Cotovelo levemente dobrado." },
-      { name: "Crucifixo invertido — deltoide posterior", tags:["perf"], sets:"3", reps:"15", rest:"60s", note:"Postura e manguito rotador. Longevidade articular — não negligencie." },
-      { name: "Dead bug + Pallof press alternados", tags:["perf","col"], sets:"3", reps:"10/lado · 12/lado", rest:"45s", note:"Assoalho pélvico e anti-rotação. Base muscular para controle pélvico e performance sexual." },
-    ],
-    info: "O bloco de core não é estético — é funcional. Dead bug e Pallof press ativam musculatura profunda que sustenta estabilidade pélvica. Combinado com hip thrust de quarta, formam o protocolo de performance."
-  },
-  {
-    label: "Sex", name: "Posterior", badge: "Pull", badgeClass: "pull", barClass: "pull-bar",
-    focus: "Fechamento semanal — cadeia posterior e braços",
-    tl: [
-      {label:"Aquec.",min:"4min",hi:false},
-      {label:"RDL",min:"15min",hi:true},
-      {label:"Abdução",min:"10min",hi:true},
-      {label:"Rosca scott",min:"10min",hi:true},
-      {label:"Martelo",min:"7min",hi:true},
-    ],
-    exercises: [
-      { name: "RDL romeno com halteres", tags:["pico","col","perf"], sets:"4", reps:"10–12", rest:"90s", note:"COLUNA NEUTRA — não flexione lombar sob carga. Sinta o alongamento dos isquiotibiais." },
-      { name: "Abdução quadril na máquina", tags:["perf"], sets:"3", reps:"15", rest:"60s", note:"Glúteo médio — estabilidade lateral do quadril. Direto na performance sexual e saúde do ciático." },
-      { name: "Rosca scott (preacher curl)", tags:["pico"], sets:"3", reps:"10–12", rest:"75s", note:"Isolamento completo do bíceps — sem trapaça possível." },
-      { name: "Rosca martelo pegada neutra", tags:[], sets:"3", reps:"12", rest:"60s", note:"Encerra o volume de braço da semana." },
-    ],
-    info: "RDL é o exercício mais importante do dia. Se o tempo apertar, preserve-o e corte o último exercício. Cadeia posterior forte = lombar protegida + performance elevada."
-  },
-];
-
-function tagHtml(t) {
-  if (t === 'pico') return '<span class="tag tag-pico">◆ principal</span>';
-  if (t === 'col')  return '<span class="tag tag-col">⚠ coluna</span>';
-  if (t === 'perf') return '<span class="tag tag-perf">⚡ perf</span>';
-  return '';
+function switchMain(idx,el){
+  document.querySelectorAll('.main-tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('on')});
+  el.classList.add('on');
+  document.getElementById('v'+idx).classList.add('on');
 }
 
-const tabsEl   = document.getElementById('tabs');
-const panelsEl = document.getElementById('panels');
+/* ===== MUSCULAÇÃO ===== */
+var MUSC=[
+  {l:"Seg",n:"Peito",c:"#c97d3a",
+   foc:"Volume horizontal — peitoral e tríceps com 5 exercícios",
+   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Supino incl.",m:"13min",h:1},{t:"Supino máq.",m:"11min",h:1},{t:"Crossover",m:"9min",h:1},{t:"Tríceps corda",m:"7min",h:1},{t:"Tríceps testa",m:"7min",h:1}],
+   ex:[
+     {n:"Supino inclinado com halteres",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Escápulas retraídas e fixas. Composto principal — priorize a carga aqui."},
+     {n:"Supino reto na máquina",tg:[],s:"3",r:"10–12",d:"75s",nt:"Estabilidade escapular garantida — foco total na contração do peitoral."},
+     {n:"Crossover cabo alto",tg:[],s:"3",r:"12–15",d:"60s",nt:"Peitoral inferior — expire na contração, pausa de 1s no pico."},
+     {n:"Tríceps corda no cabo",tg:[],s:"3",r:"12",d:"60s",nt:"Cotovelos fixos ao lado do corpo. Extensão total na descida."},
+     {n:"Tríceps testa EZ-bar",tg:[],s:"3",r:"10–12",d:"60s",nt:"Úmero perpendicular ao chão — não deixe cair para trás."}
+   ],
+   info:"16 séries totais. Peitoral recebe 10 séries diretas. Tríceps fecha com 6 séries de qualidade."},
+  {l:"Ter",n:"Costas",c:"#4a8fa8",
+   foc:"Largura, espessura e bíceps — puxadas, remadas e curl",
+   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Puxada",m:"13min",h:1},{t:"Rem. serrote",m:"11min",h:1},{t:"Polia baixa",m:"9min",h:1},{t:"Rosca direta",m:"8min",h:1},{t:"Rosca martelo",m:"7min",h:1}],
+   ex:[
+     {n:"Puxada frontal pegada aberta",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Cotovelos apontam para o chão na descida. Puxe pela escápula, não pelo braço."},
+     {n:"Remada serrote com haltere",tg:["c"],s:"4",r:"10–12",d:"75s",nt:"Apoio firme no banco — elimina variáveis lombares. Carga progressiva aqui."},
+     {n:"Remada polia baixa pegada neutra",tg:[],s:"3",r:"12–15",d:"60s",nt:"Espessura do meio das costas. Cotovelos colados ao corpo na chegada."},
+     {n:"Rosca direta barra EZ",tg:["p"],s:"3",r:"10–12",d:"75s",nt:"Sem balanço de tronco — isola bíceps com qualidade."},
+     {n:"Rosca martelo simultânea",tg:[],s:"3",r:"12",d:"60s",nt:"Braquiorradial e bíceps — volume de braço completo. Simultânea, não alternada."}
+   ],
+   info:"17 séries totais. Costas recebem 11 séries com variação de ângulo. Bíceps fecha com 6 séries."},
+  {l:"Qua",n:"Pernas",c:"#7a6bbf",
+   foc:"Base hormonal da semana — maior impacto em TRT e performance",
+   tl:[{t:"Aquec.",m:"4min",h:0},{t:"Leg press",m:"13min",h:1},{t:"Hip thrust",m:"12min",h:1},{t:"Extensora",m:"8min",h:1},{t:"Flexora",m:"7min",h:1},{t:"Panturrilha",m:"6min",h:1}],
+   ex:[
+     {n:"Leg press 45°",tg:["p","c"],s:"4",r:"10–12",d:"90s",nt:"Lombar colada ao banco. Substituto seguro ao agachamento livre para histórico de ciático."},
+     {n:"Hip thrust com barra",tg:["f","c"],s:"4",r:"12",d:"90s",nt:"Glúteo máximo — principal músculo para força pélvica e performance sexual."},
+     {n:"Extensora",tg:[],s:"3",r:"12–15",d:"60s",nt:"Quadríceps isolado — sem carga axial na coluna. Extensão total com pausa de 1s no topo."},
+     {n:"Flexora deitada bilateral",tg:[],s:"3",r:"12–15",d:"60s",nt:"Cadeia posterior — bilateral, sem assimetria. Complementa o hip thrust."},
+     {n:"Panturrilha em pé na máquina",tg:[],s:"4",r:"20",d:"45s",nt:"Amplitude total — calcâneo abaixo da plataforma. Pausa de 1s no alongamento."}
+   ],
+   info:"Dia mais importante. Leg press + hip thrust estimulam testosterona endógena — potencializam a TRT. Extensora substitui o afundo, sem risco lombar."},
+  {l:"Qui",n:"Ombros",c:"#5a9e72",
+   foc:"Ombros 3D completos + protocolo de core para performance",
+   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Desenvolv.",m:"13min",h:1},{t:"Elev. lateral",m:"9min",h:1},{t:"Del. post.",m:"8min",h:1},{t:"Face pull",m:"7min",h:1},{t:"Core",m:"8min",h:1}],
+   ex:[
+     {n:"Desenvolvimento halteres sentado (encosto 80°)",tg:["p","c"],s:"4",r:"10–12",d:"90s",nt:"Encosto protege lombar. Não leve o cotovelo além do plano do ombro."},
+     {n:"Elevação lateral com halteres bilateral",tg:[],s:"3",r:"15",d:"60s",nt:"Bilateral simultâneo. Cotovelo levemente dobrado — não balance o tronco."},
+     {n:"Crucifixo invertido — deltoide posterior",tg:["f"],s:"3",r:"15",d:"60s",nt:"Postura e manguito rotador. Longevidade articular — não negligencie."},
+     {n:"Face pull com corda",tg:[],s:"3",r:"15",d:"60s",nt:"Rotação externa do ombro. Puxe para a testa, não para o queixo."},
+     {n:"Dead bug + Pallof press alternados",tg:["f","c"],s:"3",r:"10/lado · 12/lado",d:"45s",nt:"Assoalho pélvico e anti-rotação. Base para controle pélvico e performance sexual."}
+   ],
+   info:"Ombros em 3 ângulos. Face pull protege o manguito rotador a longo prazo. Core fecha com protocolo de performance."},
+  {l:"Sex",n:"Posterior",c:"#4a8fa8",
+   foc:"Fechamento semanal — cadeia posterior completa e braços",
+   tl:[{t:"Aquec.",m:"4min",h:0},{t:"RDL",m:"14min",h:1},{t:"Flexora",m:"8min",h:1},{t:"Abdução",m:"7min",h:1},{t:"Rosca scott",m:"8min",h:1},{t:"Rosca martelo",m:"6min",h:1}],
+   ex:[
+     {n:"RDL romeno com halteres",tg:["p","c","f"],s:"4",r:"10–12",d:"90s",nt:"COLUNA NEUTRA — não flexione lombar sob carga. Sinta o alongamento dos isquiotibiais."},
+     {n:"Flexora deitada bilateral",tg:[],s:"3",r:"12–15",d:"60s",nt:"Isquiotibial — bilateral, sem assimetria. Amplitude total."},
+     {n:"Abdução quadril na máquina",tg:["f"],s:"3",r:"15",d:"60s",nt:"Glúteo médio — estabilidade lateral do quadril. Direto na performance sexual e saúde do ciático."},
+     {n:"Rosca scott (preacher curl)",tg:["p"],s:"3",r:"10–12",d:"75s",nt:"Isolamento completo do bíceps — sem trapaça possível."},
+     {n:"Rosca martelo simultânea",tg:[],s:"3",r:"12",d:"60s",nt:"Encerra o volume de braço da semana. Simultânea, não alternada."}
+   ],
+   info:"RDL é o exercício mais importante do dia — preserve-o se o tempo apertar. Todos os exercícios bilaterais, sem assimetria lombar."}
+];
 
-days.forEach((day, i) => {
-  // Tab
-  const tab = document.createElement('button');
-  tab.className = 'tab' + (i === 0 ? ' active' : '');
-  tab.innerHTML = `
-    <span class="tab-day">${day.label}</span>
-    <span class="tab-name">${day.name}</span>
-    <span class="tab-bar ${day.barClass}"></span>`;
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('panel-' + i).classList.add('active');
-    document.getElementById('panel-' + i).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+/* ===== CARDIO ===== */
+var CARD=[
+  {l:"Qua",n:"Base + Pico",badge:"Sessão 1",c:"#c44b4b",
+   foc:"Pós-pernas — introdução ao esforço máximo com base aeróbica",
+   dur:"11 min",equip:"Bike ou elíptico",obj:"Primeiro contato com zona 5 e treino de recuperação",
+   phases:[
+     {n:"Fase 1",t:"Aquecimento ativo",dur:"3 min",zona:"Zona 2",int:"Resistência leve",c:"#5a9e72",
+      note:"60–70% FCmax. Cadência moderada. Respire pelo nariz — ativa o sistema parassimpático antes do esforço."},
+     {n:"Fase 2",t:"Intervalos de pico",dur:"5 × (20s esforço / 40s recuperação)",zona:"Zona 5 → Zona 3",int:"Máximo → leve",c:"#c44b4b",
+      note:"Nos 20s: vá ao máximo. Nos 40s: pedale leve, não pare. Objetivo: sentir o coração acelerar e treinar a descida. 5 repetições."},
+     {n:"Fase 3",t:"Recuperação ativa",dur:"3 min",zona:"Zona 2",int:"Resistência mínima",c:"#5a9e72",
+      note:"Cadência baixa, respiração controlada. Observe quanto tempo leva para o coração voltar abaixo de 120bpm."},
+   ],
+   info:"Dia mais pesado de musculação — cardio mais curto com mais recuperação entre picos. Objetivo: introduzir o estímulo sem comprometer recuperação muscular."},
+  {l:"Qui",n:"Intervalado",badge:"Sessão 2",c:"#c97d3a",
+   foc:"Pós-ombros — sessão principal de condicionamento da semana",
+   dur:"12 min",equip:"Bike ou elíptico",obj:"Volume de intervalos — o dia mais importante do protocolo",
+   phases:[
+     {n:"Fase 1",t:"Aquecimento progressivo",dur:"2 min",zona:"Zona 2–3",int:"Resistência crescente",c:"#c97d3a",
+      note:"Comece leve e aumente gradualmente. Chegue ao final dos 2 min já em Zona 3 — 70–80% FCmax."},
+     {n:"Fase 2",t:"Intervalos principais",dur:"6 × (30s esforço / 30s recuperação)",zona:"Zona 4–5 → Zona 3",int:"Muito alto → moderado",c:"#7a6bbf",
+      note:"Nos 30s de esforço: zona 4–5, ritmo alto sustentado. Nos 30s de recuperação: zona 3, não caia abaixo. 6 repetições. Padrão 1:1 é o mais eficiente para desenvolver recuperação cardiovascular."},
+     {n:"Fase 3",t:"Descida controlada",dur:"2 min",zona:"Zona 2",int:"Resistência mínima",c:"#5a9e72",
+      note:"Não pare abruptamente — continue pedalando leve. A remoção de lactato acontece durante o movimento."},
+     {n:"Fase 4",t:"Respiração de finalização",dur:"1 min",zona:"—",int:"Parado ou cadência mínima",c:"#4a8fa8",
+      note:"4s inspira · 4s segura · 6s expira. Repete 4 vezes. Ativa o sistema nervoso parassimpático — parte do treino, não opcional."},
+   ],
+   info:"Sessão mais importante do protocolo. Intervalo 30s/30s em zona 4–5 é o estímulo mais eficiente para melhorar recuperação cardiovascular em esforço intenso."},
+  {l:"Sex",n:"Limiar",badge:"Sessão 3",c:"#5a9e72",
+   foc:"Fechamento semanal — resistência em zona alta por tempo contínuo",
+   dur:"12 min",equip:"Bike ou elíptico",obj:"Elevar o limiar anaeróbico — aguentar mais tempo em intensidade alta",
+   phases:[
+     {n:"Fase 1",t:"Aquecimento",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#5a9e72",
+      note:"Cadência moderada, resistência baixa. Prepare as pernas que já estão fatigadas da semana."},
+     {n:"Fase 2",t:"Bloco de limiar",dur:"6 min contínuos",zona:"Zona 3–4",int:"Moderado-alto sustentado",c:"#c97d3a",
+      note:"6 minutos contínuos em 75–85% FCmax. Sem parar, sem picos. Exige manter intensidade alta por tempo prolongado — exatamente o padrão que você quer desenvolver."},
+     {n:"Fase 3",t:"Recuperação ativa",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#5a9e72",
+      note:"Pedale leve. Observe a frequência cardíaca descer — com o tempo essa descida será cada vez mais rápida."},
+     {n:"Fase 4",t:"Respiração de finalização",dur:"2 min",zona:"—",int:"Parado ou cadência mínima",c:"#4a8fa8",
+      note:"4s inspira · 4s segura · 6s expira. 6 repetições. Encerra a semana com o sistema nervoso regulado."},
+   ],
+   info:"Trabalha resistência de limiar — aguentar zona 3–4 por tempo prolongado. É o que mais se correlaciona com resistência real em esforço sexual sustentado."}
+];
+
+var TM={p:['ep','◆ principal'],c:['ec2','⚠ coluna'],f:['ef','⚡ perf']};
+
+function buildMusc(){
+  var tabs=document.getElementById('dtabs');
+  var panels=document.getElementById('dpanels');
+  MUSC.forEach(function(d,i){
+    var tb=document.createElement('button');
+    tb.className='day-tab'+(i===0?' on':'');
+    tb.style.borderBottomColor=i===0?d.c:'transparent';
+    tb.style.color=i===0?'var(--tx)':'var(--mt)';
+    tb.innerHTML='<span class="dtd">'+d.l+'</span><span class="dtn">'+d.n+'</span>';
+    tb.addEventListener('click',function(){
+      document.querySelectorAll('#dtabs .day-tab').forEach(function(t){t.classList.remove('on');t.style.borderBottomColor='transparent';t.style.color='var(--mt)'});
+      document.querySelectorAll('#dpanels .panel').forEach(function(p){p.classList.remove('on')});
+      tb.classList.add('on');tb.style.borderBottomColor=d.c;tb.style.color='var(--tx)';
+      document.getElementById('dp'+i).classList.add('on');
+      document.querySelector('#v0 .scroll').scrollTop=0;
+    });
+    tabs.appendChild(tb);
+
+    var pnl=document.createElement('div');
+    pnl.className='panel'+(i===0?' on':'');
+    pnl.id='dp'+i;
+
+    var tl='<div class="tl">';
+    d.tl.forEach(function(s){tl+='<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>';});
+    tl+='</div>';
+
+    var ex='';
+    d.ex.forEach(function(e,ei){
+      var tgs='';
+      if(e.tg.length){tgs='<div class="etgs">';e.tg.forEach(function(t){var m=TM[t];tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>';});tgs+='</div>';}
+      ex+='<div class="ec"><div class="ea" style="background:'+d.c+'"></div>'
+        +'<div class="en">Exercício '+(ei+1)+' / '+d.ex.length+'</div>'
+        +'<div class="enm">'+e.n+'</div>'+tgs
+        +'<div class="ests"><div class="est"><span class="esl">Séries</span><span class="esv">'+e.s+'</span></div>'
+        +'<div class="est"><span class="esl">Reps</span><span class="esv sm">'+e.r+'</span></div>'
+        +'<div class="est"><span class="esl">Descanso</span><span class="esv">'+e.d+'</span></div></div>'
+        +'<div class="enote">'+e.nt+'</div></div>';
+    });
+
+    pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.n+'</span>'
+      +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'
+      +tl+ex
+      +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
+      +'<div class="ftr"><div class="ftrtl">Diretrizes gerais</div>'
+      +'Aquecimento: 3–4 min + 1 série leve (50%) no composto principal.<br>'
+      +'Progressão: sobe a carga quando completar todas as reps com técnica limpa por 2 sessões seguidas.<br>'
+      +'Coluna: lordose neutra sempre — especialmente no RDL e remada.<br>'
+      +'Sem exercícios unilaterais — todos os movimentos são bilaterais ou em máquina.</div>';
+    panels.appendChild(pnl);
   });
-  tabsEl.appendChild(tab);
+}
 
-  // Panel
-  const panel = document.createElement('div');
-  panel.className = 'panel' + (i === 0 ? ' active' : '');
-  panel.id = 'panel-' + i;
+function buildCard(){
+  var tabs=document.getElementById('ctabs');
+  var panels=document.getElementById('cpanels');
 
-  let tlHtml = '<div class="timeline">';
-  day.tl.forEach(s => {
-    tlHtml += `<div class="tl-seg${s.hi ? ' hi' : ''}">
-      <div>${s.label}</div>
-      <div class="tl-min">${s.min}</div>
-    </div>`;
+  // Zonas + Progressão header
+  var header=document.createElement('div');
+  header.style.padding='14px 16px 0';
+  header.innerHTML='<div class="ibox" style="margin-top:0"><b>Protocolo:</b> Anexado ao final do treino de Qua, Qui e Sex. Bike ergométrica ou elíptico. 10–12 minutos por sessão.</div>'
+    +'<div class="slbl">Zonas de frequência cardíaca</div>'
+    +'<div class="hz-bar">'
+    +'<div class="hz-row"><div class="hz-dot" style="background:#5a9e72"></div><span class="hz-lbl">Zona 2 — base aeróbica</span><span class="hz-bpm">60–70% FCmax</span></div>'
+    +'<div class="hz-row"><div class="hz-dot" style="background:#c97d3a"></div><span class="hz-lbl">Zona 3 — limiar aeróbico</span><span class="hz-bpm">70–80% FCmax</span></div>'
+    +'<div class="hz-row"><div class="hz-dot" style="background:#c44b4b"></div><span class="hz-lbl">Zona 4 — limiar anaeróbico</span><span class="hz-bpm">80–90% FCmax</span></div>'
+    +'<div class="hz-row"><div class="hz-dot" style="background:#7a6bbf"></div><span class="hz-lbl">Zona 5 — pico máximo</span><span class="hz-bpm">90–100% FCmax</span></div>'
+    +'</div>'
+    +'<div style="font-size:10px;color:var(--mt);margin-bottom:10px">FCmax estimada = 220 − sua idade.</div>'
+    +'<div class="slbl">Progressão semanal</div>'
+    +'<div class="pgc"><b>Semanas 1–2:</b> Execute exatamente como descrito. Aprenda o ritmo dos intervalos e respeite as zonas.</div>'
+    +'<div class="pgc"><b>Semanas 3–4:</b> Aumente a resistência da bike/elíptico 1 nível nos blocos de esforço. Mantenha os tempos.</div>'
+    +'<div class="pgc"><b>Semanas 5–6:</b> Adicione 1 repetição extra nos intervalos de cada sessão.</div>'
+    +'<div class="pgc"><b>Semana 7+:</b> Se a recuperação já acontece abaixo de 130bpm, aumente a intensidade dos picos.</div>';
+  panels.appendChild(header);
+
+  CARD.forEach(function(d,i){
+    var tb=document.createElement('button');
+    tb.className='day-tab'+(i===0?' on':'');
+    tb.style.borderBottomColor=i===0?d.c:'transparent';
+    tb.style.color=i===0?'var(--tx)':'var(--mt)';
+    tb.innerHTML='<span class="dtd">'+d.l+'</span><span class="dtn">'+d.n+'</span>';
+    tb.addEventListener('click',function(){
+      document.querySelectorAll('#ctabs .day-tab').forEach(function(t){t.classList.remove('on');t.style.borderBottomColor='transparent';t.style.color='var(--mt)'});
+      document.querySelectorAll('#cpanels .panel').forEach(function(p){p.classList.remove('on')});
+      tb.classList.add('on');tb.style.borderBottomColor=d.c;tb.style.color='var(--tx)';
+      document.getElementById('cp'+i).classList.add('on');
+      document.querySelector('#v1 .scroll').scrollTop=0;
+    });
+    tabs.appendChild(tb);
+
+    var pnl=document.createElement('div');
+    pnl.className='panel'+(i===0?' on':'');
+    pnl.id='cp'+i;
+
+    var meta='<div class="meta">'
+      +'<div class="mc"><div class="ml">Duração</div><div class="mv">'+d.dur+'</div></div>'
+      +'<div class="mc"><div class="ml">Equipamento</div><div class="mv">'+d.equip+'</div></div>'
+      +'</div>'
+      +'<div class="ibox"><b>Objetivo:</b> '+d.obj+'</div>';
+
+    var phases='<div class="slbl">Estrutura da sessão</div>';
+    d.phases.forEach(function(p,pi){
+      phases+='<div class="pc"><div class="pa" style="background:'+p.c+'"></div>'
+        +'<div class="pn">'+p.n+'</div><div class="pt">'+p.t+'</div>'
+        +'<div class="psts">'
+        +'<div class="pst"><span class="psl">Duração</span><span class="psv">'+p.dur+'</span></div>'
+        +'<div class="pst"><span class="psl">Zona</span><span class="psv">'+p.zona+'</span></div>'
+        +'<div class="pst"><span class="psl">Intensidade</span><span class="psv">'+p.int+'</span></div>'
+        +'</div>'
+        +'<div class="pnote">'+p.note+'</div></div>';
+    });
+
+    pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.badge+'</span>'
+      +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'
+      +meta+phases
+      +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>';
+    panels.appendChild(pnl);
   });
-  tlHtml += '</div>';
+}
 
-  let exHtml = '<div class="ex-list">';
-  day.exercises.forEach((ex, ei) => {
-    const tagsHtml = ex.tags.length ? `<div class="ex-tags">${ex.tags.map(tagHtml).join('')}</div>` : '';
-    exHtml += `<div class="ex-card">
-      <div class="ex-card-accent"></div>
-      <div class="ex-num">Exercício ${ei + 1} de ${day.exercises.length}</div>
-      <div class="ex-name">${ex.name}</div>
-      ${tagsHtml}
-      <div class="ex-stats">
-        <div class="stat">
-          <span class="stat-label">Séries</span>
-          <span class="stat-value">${ex.sets}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Reps</span>
-          <span class="stat-value" style="font-size:14px">${ex.reps}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Descanso</span>
-          <span class="stat-value">${ex.rest}</span>
-        </div>
-      </div>
-      <div class="ex-note">${ex.note}</div>
-    </div>`;
-  });
-  exHtml += '</div>';
-
-  panel.innerHTML = `
-    <div class="day-header">
-      <div>
-        <span class="day-badge ${day.badgeClass}">${day.badge} — ${day.label}</span>
-        <div class="day-title">${day.name}</div>
-        <div class="day-focus">${day.focus}</div>
-      </div>
-    </div>
-    ${tlHtml}
-    ${exHtml}
-    <div class="info-card"><strong>Nota:</strong> ${day.info}</div>
-  `;
-
-  panelsEl.appendChild(panel);
-});
+buildMusc();
+buildCard();
 </script>
 </body>
 </html>
