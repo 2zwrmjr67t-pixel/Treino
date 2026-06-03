@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Protocolo G">
+<link rel="apple-touch-icon" href="icon.png">
 <title>Protocolo Guilherme 45'</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -17,7 +18,6 @@
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 body{display:flex;flex-direction:column;height:100vh}
 
-/* HEADER */
 .hdr{padding:max(48px,env(safe-area-inset-top)) 20px 18px;border-bottom:1px solid var(--br);flex-shrink:0}
 .hdr-eyebrow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
 .hdr-title{font-size:28px;font-weight:300;color:var(--tx);line-height:1.05;letter-spacing:-.02em}
@@ -26,17 +26,14 @@ body{display:flex;flex-direction:column;height:100vh}
 .hdr-sub{font-size:11px;color:var(--mt);margin-top:8px;letter-spacing:.03em;line-height:1.5}
 .hdr-divider{width:32px;height:1px;background:var(--ac);opacity:.4;margin:12px 0 0}
 
-/* NAV */
 .main-nav{display:flex;border-bottom:1px solid var(--br);flex-shrink:0}
 .main-tab{flex:1;padding:13px 8px;font-size:10px;font-weight:500;color:var(--mt);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
 .main-tab.on{color:var(--ac);border-bottom-color:var(--ac)}
 
-/* LEGEND */
 .lgd{display:flex;gap:12px;padding:9px 20px;border-bottom:1px solid var(--br);flex-shrink:0;flex-wrap:wrap}
 .li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mt)}
 .ld{width:5px;height:5px;border-radius:50%}
 
-/* DAY TABS */
 .day-tabs{display:flex;border-bottom:1px solid var(--br);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
 .day-tabs::-webkit-scrollbar{display:none}
 .day-tab{flex:1;min-width:58px;display:flex;flex-direction:column;align-items:center;padding:9px 6px 7px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;color:var(--mt)}
@@ -44,26 +41,26 @@ body{display:flex;flex-direction:column;height:100vh}
 .dtd{font-size:9px;letter-spacing:.08em;text-transform:uppercase}
 .dtn{font-size:11px;font-weight:500;margin-top:1px;white-space:nowrap}
 
-/* VIEWS */
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
 .view{display:none;min-height:0}.view.on{display:flex;flex-direction:column;flex:1;min-height:0}
 .panel{display:none;padding:16px 20px 36px}.panel.on{display:block}
 
-/* BADGE */
 .bdg{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:6px}
 .ptl{font-size:19px;font-weight:300;color:var(--tx);letter-spacing:-.01em;margin-bottom:3px}
 .pfoc{font-size:11px;color:var(--mt);margin-bottom:14px;line-height:1.4}
 
-/* TIMELINE */
 .tl{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--br);margin-bottom:14px}
 .ts{flex:1;padding:6px 2px;text-align:center;font-size:8px;color:var(--mt);line-height:1.35;border-right:1px solid var(--br)}
 .ts:last-child{border-right:none}
 .ts.hi{background:var(--s1);color:var(--tx)}
 .tm{font-size:7px;color:var(--mt)}
 
-/* EXERCISE CARDS */
-.ec{background:var(--s1);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden}
+/* EXERCISE CARD */
+.ec{background:var(--s1);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden;transition:opacity .2s}
+.ec.done{opacity:.5}
 .ea{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0}
+.ec-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.ec-body{flex:1;min-width:0}
 .en{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .enm{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-bottom:6px}
 .etgs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
@@ -76,9 +73,26 @@ body{display:flex;flex-direction:column;height:100vh}
 .esl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
 .esv{font-size:17px;font-weight:500;color:var(--tx);line-height:1.2}
 .esv.sm{font-size:13px}
-.enote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
+.enote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br);margin-bottom:8px}
 
-/* CARDIO PHASE CARDS */
+/* CHECK BUTTON */
+.chk-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--br2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;margin-top:2px}
+.chk-btn.on{background:var(--ac);border-color:var(--ac)}
+.chk-btn svg{width:14px;height:14px;stroke:#0d0c0a;stroke-width:2.5;fill:none;opacity:0;transition:opacity .2s}
+.chk-btn.on svg{opacity:1}
+
+/* REGISTRO DE CARGA */
+.reg{display:flex;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--br)}
+.reg-last{font-size:11px;color:var(--mt)}
+.reg-last b{color:var(--tx);font-weight:500}
+.reg-right{display:flex;align-items:center;gap:5px}
+.reg-inp{width:52px;padding:4px 6px;font-size:13px;font-weight:500;border-radius:6px;border:1px solid var(--br2);background:var(--s2);color:var(--tx);text-align:center;-webkit-appearance:none}
+.reg-inp:focus{outline:none;border-color:var(--ac)}
+.reg-unit{font-size:11px;color:var(--mt)}
+.reg-btn{font-size:11px;color:var(--ac);background:none;border:none;cursor:pointer;padding:4px 6px;font-weight:500}
+.reg-btn:active{opacity:.6}
+
+/* CARDIO */
 .pc{background:var(--s1);border-radius:10px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--br);position:relative;overflow:hidden}
 .pa{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0}
 .pn{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
@@ -89,13 +103,11 @@ body{display:flex;flex-direction:column;height:100vh}
 .psv{font-size:12px;font-weight:500;color:var(--tx);line-height:1.3}
 .pnote{font-size:11px;color:var(--mt);line-height:1.5;padding-top:8px;border-top:1px solid var(--br)}
 
-/* META */
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
 .mc{background:var(--s2);border-radius:8px;padding:10px 12px}
 .ml{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
 .mv{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3;margin-top:2px}
 
-/* ZONA BAR */
 .hz-bar{border-radius:8px;overflow:hidden;border:1px solid var(--br);margin-bottom:8px}
 .hz-row{display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid var(--br);gap:8px}
 .hz-row:last-child{border-bottom:none}
@@ -103,18 +115,11 @@ body{display:flex;flex-direction:column;height:100vh}
 .hz-lbl{color:var(--mt);flex:1;font-size:10px}
 .hz-bpm{color:var(--tx);font-weight:500;font-size:11px;white-space:nowrap}
 
-/* INFO BOX */
 .ibox{background:var(--s2);border-radius:8px;padding:10px 12px;margin:4px 0 12px;font-size:11px;color:var(--mt);line-height:1.6}
 .ibox b{color:var(--tx);font-weight:500}
-
-/* SECTION LABEL */
 .slbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mt);margin:12px 0 8px}
-
-/* PROG CARDS */
 .pgc{background:var(--s1);border-radius:8px;padding:10px 12px;margin-bottom:6px;border:1px solid var(--br);font-size:11px;color:var(--mt);line-height:1.6}
 .pgc b{color:var(--tx);font-weight:500}
-
-/* FOOTER */
 .ftr{background:var(--s1);border-radius:10px;border:1px solid var(--br);padding:13px 14px;font-size:10px;color:var(--mt);line-height:1.7;margin-top:6px}
 .ftrtl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--mt);margin-bottom:7px}
 .ftr-divider{width:20px;height:1px;background:var(--ac);opacity:.3;margin-bottom:10px}
@@ -134,7 +139,6 @@ body{display:flex;flex-direction:column;height:100vh}
   <button class="main-tab" onclick="switchMain(1,this)">Cardio</button>
 </div>
 
-<!-- VIEW MUSCULAÇÃO -->
 <div class="view on" id="v0">
   <div class="lgd">
     <div class="li"><div class="ld" style="background:var(--ac)"></div>◆ principal</div>
@@ -145,7 +149,6 @@ body{display:flex;flex-direction:column;height:100vh}
   <div class="scroll"><div id="dpanels"></div></div>
 </div>
 
-<!-- VIEW CARDIO -->
 <div class="view" id="v1">
   <div class="day-tabs" id="ctabs"></div>
   <div class="scroll"><div id="cpanels"></div></div>
@@ -226,30 +229,50 @@ var CARD=[
      {n:"Fase 2",t:"Intervalos de pico",dur:"5 × (20s esforço / 40s recuperação)",zona:"Zona 5 → Zona 3",int:"Máximo → leve",c:"#c07070",note:"Nos 20s: vá ao máximo. Nos 40s: pedale leve, não pare. Objetivo: sentir o coração acelerar e treinar a descida. 5 repetições."},
      {n:"Fase 3",t:"Recuperação ativa",dur:"3 min",zona:"Zona 2",int:"Resistência mínima",c:"#6a9a6a",note:"Cadência baixa, respiração controlada. Observe quanto tempo leva para o coração voltar abaixo de 120bpm."}
    ],
-   info:"Dia mais pesado de musculação — cardio mais curto com mais recuperação entre picos. Objetivo: introduzir o estímulo sem comprometer recuperação muscular."},
+   info:"Dia mais pesado de musculação — cardio mais curto com mais recuperação entre picos."},
   {l:"Qui",n:"Intervalado",badge:"Sessão 2",c:"#c9a05a",
    foc:"Pós-ombros — sessão principal de condicionamento da semana",
    dur:"12 min",equip:"Bike ou elíptico",obj:"Volume de intervalos — o dia mais importante do protocolo",
    phases:[
-     {n:"Fase 1",t:"Aquecimento progressivo",dur:"2 min",zona:"Zona 2–3",int:"Resistência crescente",c:"#c9a05a",note:"Comece leve e aumente gradualmente. Chegue ao final dos 2 min já em Zona 3 — 70–80% FCmax."},
-     {n:"Fase 2",t:"Intervalos principais",dur:"6 × (30s esforço / 30s recuperação)",zona:"Zona 4–5 → Zona 3",int:"Muito alto → moderado",c:"#7a6bbf",note:"Nos 30s de esforço: zona 4–5, ritmo alto sustentado. Nos 30s de recuperação: zona 3, não caia abaixo. 6 repetições. Padrão 1:1 é o mais eficiente para desenvolver recuperação cardiovascular."},
+     {n:"Fase 1",t:"Aquecimento progressivo",dur:"2 min",zona:"Zona 2–3",int:"Resistência crescente",c:"#c9a05a",note:"Comece leve e aumente gradualmente. Chegue ao final dos 2 min já em Zona 3."},
+     {n:"Fase 2",t:"Intervalos principais",dur:"6 × (30s esforço / 30s recuperação)",zona:"Zona 4–5 → Zona 3",int:"Muito alto → moderado",c:"#7a6bbf",note:"Nos 30s de esforço: zona 4–5. Nos 30s de recuperação: zona 3, não caia abaixo. 6 repetições."},
      {n:"Fase 3",t:"Descida controlada",dur:"2 min",zona:"Zona 2",int:"Resistência mínima",c:"#6a9a6a",note:"Não pare abruptamente — continue pedalando leve. A remoção de lactato acontece durante o movimento."},
-     {n:"Fase 4",t:"Respiração de finalização",dur:"1 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. Repete 4 vezes. Ativa o sistema nervoso parassimpático — parte do treino, não opcional."}
+     {n:"Fase 4",t:"Respiração de finalização",dur:"1 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. Repete 4 vezes. Parte do treino, não opcional."}
    ],
-   info:"Sessão mais importante do protocolo. Intervalo 30s/30s em zona 4–5 é o estímulo mais eficiente para melhorar recuperação cardiovascular em esforço intenso."},
+   info:"Sessão mais importante do protocolo. Intervalo 30s/30s em zona 4–5 é o estímulo mais eficiente para recuperação cardiovascular."},
   {l:"Sex",n:"Limiar",badge:"Sessão 3",c:"#6a9a6a",
    foc:"Fechamento semanal — resistência em zona alta por tempo contínuo",
    dur:"12 min",equip:"Bike ou elíptico",obj:"Elevar o limiar anaeróbico — aguentar mais tempo em intensidade alta",
    phases:[
-     {n:"Fase 1",t:"Aquecimento",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa. Prepare as pernas que já estão fatigadas da semana."},
-     {n:"Fase 2",t:"Bloco de limiar",dur:"6 min contínuos",zona:"Zona 3–4",int:"Moderado-alto sustentado",c:"#c9a05a",note:"6 minutos contínuos em 75–85% FCmax. Sem parar, sem picos. Exige manter intensidade alta por tempo prolongado — exatamente o padrão que você quer desenvolver."},
-     {n:"Fase 3",t:"Recuperação ativa",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Pedale leve. Observe a frequência cardíaca descer — com o tempo essa descida será cada vez mais rápida."},
+     {n:"Fase 1",t:"Aquecimento",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa."},
+     {n:"Fase 2",t:"Bloco de limiar",dur:"6 min contínuos",zona:"Zona 3–4",int:"Moderado-alto sustentado",c:"#c9a05a",note:"6 minutos contínuos em 75–85% FCmax. Sem parar, sem picos."},
+     {n:"Fase 3",t:"Recuperação ativa",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Pedale leve. Observe a frequência cardíaca descer."},
      {n:"Fase 4",t:"Respiração de finalização",dur:"2 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. 6 repetições. Encerra a semana com o sistema nervoso regulado."}
    ],
-   info:"Trabalha resistência de limiar — aguentar zona 3–4 por tempo prolongado. É o que mais se correlaciona com resistência real em esforço sexual sustentado."}
+   info:"Trabalha resistência de limiar — aguentar zona 3–4 por tempo prolongado. Maior correlação com resistência em esforço sexual sustentado."}
 ];
 
 var TM={p:['ep','◆ principal'],c:['ec2','⚠ coluna'],f:['ef','⚡ perf']};
+
+function getKey(dayIdx,exIdx){return'pg_d'+dayIdx+'_e'+exIdx;}
+
+function salvar(dayIdx,exIdx){
+  var inp=document.getElementById('inp_'+dayIdx+'_'+exIdx);
+  var lbl=document.getElementById('lbl_'+dayIdx+'_'+exIdx);
+  var val=parseFloat(inp.value);
+  if(!val||val<=0)return;
+  localStorage.setItem(getKey(dayIdx,exIdx),val);
+  lbl.innerHTML='Última: <b>'+val+' kg</b>';
+  inp.value='';
+  inp.placeholder='kg';
+}
+
+function toggleCheck(dayIdx,exIdx){
+  var btn=document.getElementById('chk_'+dayIdx+'_'+exIdx);
+  var card=document.getElementById('card_'+dayIdx+'_'+exIdx);
+  var on=btn.classList.toggle('on');
+  if(on){card.classList.add('done');}else{card.classList.remove('done');}
+}
 
 function buildMusc(){
   var tabs=document.getElementById('dtabs');
@@ -268,24 +291,47 @@ function buildMusc(){
       document.querySelector('#v0 .scroll').scrollTop=0;
     });
     tabs.appendChild(tb);
+
     var pnl=document.createElement('div');
     pnl.className='panel'+(i===0?' on':'');
     pnl.id='dp'+i;
+
     var tl='<div class="tl">';
     d.tl.forEach(function(s){tl+='<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>';});
     tl+='</div>';
+
     var ex='';
     d.ex.forEach(function(e,ei){
       var tgs='';
       if(e.tg.length){tgs='<div class="etgs">';e.tg.forEach(function(t){var m=TM[t];tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>';});tgs+='</div>';}
-      ex+='<div class="ec"><div class="ea" style="background:'+d.c+'"></div>'
+      var saved=localStorage.getItem(getKey(i,ei));
+      var lblHtml=saved?'Última: <b>'+saved+' kg</b>':'<span style="font-style:italic;color:var(--mt)">Sem registro</span>';
+      ex+='<div class="ec" id="card_'+i+'_'+ei+'">'
+        +'<div class="ea" style="background:'+d.c+'"></div>'
+        +'<div class="ec-top">'
+        +'<div class="ec-body">'
         +'<div class="en">Exercício '+(ei+1)+' / '+d.ex.length+'</div>'
         +'<div class="enm">'+e.n+'</div>'+tgs
         +'<div class="ests"><div class="est"><span class="esl">Séries</span><span class="esv">'+e.s+'</span></div>'
         +'<div class="est"><span class="esl">Reps</span><span class="esv sm">'+e.r+'</span></div>'
         +'<div class="est"><span class="esl">Descanso</span><span class="esv">'+e.d+'</span></div></div>'
-        +'<div class="enote">'+e.nt+'</div></div>';
+        +'<div class="enote">'+e.nt+'</div>'
+        +'</div>'
+        +'<button class="chk-btn" id="chk_'+i+'_'+ei+'" onclick="toggleCheck('+i+','+ei+')" aria-label="Marcar como concluído">'
+        +'<svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>'
+        +'</button>'
+        +'</div>'
+        +'<div class="reg">'
+        +'<div class="reg-last" id="lbl_'+i+'_'+ei+'">'+lblHtml+'</div>'
+        +'<div class="reg-right">'
+        +'<input class="reg-inp" type="number" id="inp_'+i+'_'+ei+'" placeholder="kg" min="0" max="300" step="1" inputmode="decimal"/>'
+        +'<span class="reg-unit">kg</span>'
+        +'<button class="reg-btn" onclick="salvar('+i+','+ei+')">Salvar</button>'
+        +'</div>'
+        +'</div>'
+        +'</div>';
     });
+
     pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.n+'</span>'
       +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'
       +tl+ex
