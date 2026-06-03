@@ -30,7 +30,9 @@ body{display:flex;flex-direction:column;height:100vh}
 .main-tab{flex:1;padding:13px 8px;font-size:10px;font-weight:500;color:var(--mt);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
 .main-tab.on{color:var(--ac);border-bottom-color:var(--ac)}
 
-.lgd{display:flex;gap:12px;padding:9px 20px;border-bottom:1px solid var(--br);flex-shrink:0;flex-wrap:wrap}
+.lgd{display:flex;gap:12px;padding:9px 20px;border-bottom:1px solid var(--br);flex-shrink:0;flex-wrap:wrap;align-items:center}
+.lgd-reset{margin-left:auto;font-size:10px;color:var(--mt);background:none;border:none;cursor:pointer;padding:2px 0;letter-spacing:.03em}
+.lgd-reset:active{opacity:.5}
 .li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mt)}
 .ld{width:5px;height:5px;border-radius:50%}
 
@@ -144,6 +146,7 @@ body{display:flex;flex-direction:column;height:100vh}
     <div class="li"><div class="ld" style="background:var(--ac)"></div>◆ principal</div>
     <div class="li"><div class="ld" style="background:var(--rd)"></div>⚠ coluna</div>
     <div class="li"><div class="ld" style="background:var(--pu)"></div>⚡ perf</div>
+    <button class="lgd-reset" onclick="resetChecks()">↺ reset</button>
   </div>
   <div class="day-tabs" id="dtabs"></div>
   <div class="scroll"><div id="dpanels"></div></div>
@@ -262,9 +265,14 @@ function salvar(dayIdx,exIdx){
   var val=parseFloat(inp.value);
   if(!val||val<=0)return;
   localStorage.setItem(getKey(dayIdx,exIdx),val);
-  lbl.innerHTML='Última: <b>'+val+' kg</b>';
+  lbl.innerHTML='Atual: <b>'+val+' kg</b>';
   inp.value='';
   inp.placeholder='kg';
+}
+
+function resetChecks(){
+  document.querySelectorAll('.chk-btn').forEach(function(b){b.classList.remove('on')});
+  document.querySelectorAll('.ec').forEach(function(c){c.classList.remove('done')});
 }
 
 function toggleCheck(dayIdx,exIdx){
@@ -305,7 +313,7 @@ function buildMusc(){
       var tgs='';
       if(e.tg.length){tgs='<div class="etgs">';e.tg.forEach(function(t){var m=TM[t];tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>';});tgs+='</div>';}
       var saved=localStorage.getItem(getKey(i,ei));
-      var lblHtml=saved?'Última: <b>'+saved+' kg</b>':'<span style="font-style:italic;color:var(--mt)">Sem registro</span>';
+      var lblHtml=saved?'Atual: <b>'+saved+' kg</b>':'<span style="font-style:italic;color:var(--mt)">Sem registro</span>';
       ex+='<div class="ec" id="card_'+i+'_'+ei+'">'
         +'<div class="ea" style="background:'+d.c+'"></div>'
         +'<div class="ec-top">'
