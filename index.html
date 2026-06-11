@@ -148,6 +148,7 @@ body{display:flex;flex-direction:column;height:100vh}
     <div class="li"><div class="ld" style="background:var(--pu)"></div>⚡ perf</div>
     <button class="lgd-reset" onclick="resetChecks()">↺ reset</button>
   </div>
+  <div style="padding:8px 20px;border-bottom:1px solid var(--br);font-size:10px;color:var(--mt);line-height:1.5;background:var(--s1)"><b style="color:var(--ac)">Versão de proteção</b> · ajustes conservadores de coluna aplicados em 09/06/2026, enquanto o quadro está em avaliação. Direcionamentos definitivos após a consulta.</div>
   <div class="day-tabs" id="dtabs"></div>
   <div class="scroll"><div id="dpanels"></div></div>
 </div>
@@ -181,24 +182,24 @@ var MUSC=[
    foc:"Base hormonal da semana — maior impacto em TRT e performance",
    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Leg press",m:"13min",h:1},{t:"Hip thrust",m:"12min",h:1},{t:"Extensora",m:"8min",h:1},{t:"Flexora",m:"7min",h:1},{t:"Panturrilha",m:"6min",h:1}],
    ex:[
-     {n:"Leg press 45°",tg:["p","c"],s:"4",r:"10–12",d:"90s",nt:"Lombar colada ao banco. Substituto seguro ao agachamento livre para histórico de ciático."},
-     {n:"Hip thrust com barra",tg:["f","c"],s:"4",r:"12",d:"90s",nt:"Glúteo máximo — principal músculo para força pélvica e performance sexual."},
+     {n:"Leg press 45°",tg:["p","c"],s:"4",r:"10–12",d:"90s",nt:"Lombar colada ao banco. Conserve a amplitude — não desça ao ponto de a bacia arredondar (sem flexão lombar carregada). Cautela reforçada até esclarecer o D11-D12."},
+     {n:"Hip thrust com barra",tg:["f","c"],s:"4",r:"12",d:"90s",nt:"Glúteo máximo — força pélvica. Queixo levemente recolhido e pescoço neutro sob carga: não projete a cabeça nem olhe para cima. Coluna apoiada no banco."},
      {n:"Extensora",tg:[],s:"3",r:"12–15",d:"60s",nt:"Quadríceps isolado — sem carga axial na coluna. Pausa de 1s no topo."},
      {n:"Flexora deitada bilateral",tg:[],s:"3",r:"12–15",d:"60s",nt:"Cadeia posterior — bilateral, sem assimetria. Complementa o hip thrust."},
-     {n:"Panturrilha em pé na máquina",tg:[],s:"4",r:"20",d:"45s",nt:"Amplitude total — calcâneo abaixo da plataforma. Pausa de 1s no alongamento."}
+     {n:"Panturrilha sentada na máquina",tg:[],s:"4",r:"20",d:"45s",nt:"Trocada da versão em pé para tirar a carga axial das ombreiras sobre a coluna. Amplitude total — pausa de 1s no alongamento."}
    ],
    info:"Dia mais importante. Leg press + hip thrust estimulam testosterona endógena — potencializam a TRT."},
   {l:"Qui",n:"Ombros",c:"#6a9a6a",
    foc:"Ombros 3D completos + protocolo de core para performance",
-   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Desenvolv.",m:"13min",h:1},{t:"Elev. lateral",m:"9min",h:1},{t:"Face pull",m:"8min",h:1},{t:"Rem. alta",m:"7min",h:1},{t:"Core",m:"8min",h:1}],
+   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Elev. frontal",m:"11min",h:1},{t:"Elev. lateral",m:"9min",h:1},{t:"Face pull",m:"8min",h:1},{t:"Rem. alta",m:"7min",h:1},{t:"Core",m:"8min",h:1}],
    ex:[
-     {n:"Desenvolvimento halteres sentado (encosto 80°)",tg:["p","c"],s:"4",r:"10–12",d:"90s",nt:"Encosto protege lombar. Não leve o cotovelo além do plano do ombro."},
+     {n:"Elevação frontal no cabo (bilateral)",tg:["c"],s:"4",r:"12–15",d:"75s",nt:"Substitui temporariamente o desenvolvimento overhead — retira o vetor de carga axial sobre a cervical (C6-C7). Sobe até a altura dos ombros, sem passar da linha. Deltoide anterior coberto sem pressão acima da cabeça."},
      {n:"Elevação lateral no cabo baixo bilateral",tg:[],s:"3",r:"15",d:"60s",nt:"Dois cabos baixos simultâneos — trajetória guiada, mais seguro que haltere. Cotovelo levemente dobrado, sobe até a altura do ombro."},
      {n:"Face pull com corda",tg:[],s:"4",r:"15",d:"60s",nt:"Rotação externa do ombro. Puxe para a testa, não para o queixo. Cobre deltoide posterior e manguito rotador."},
      {n:"Remada alta no cabo",tg:[],s:"3",r:"12–15",d:"60s",nt:"Cotovelos sobem acima dos ombros, punhos relaxados. Deltoide lateral e trapézio médio."},
      {n:"Dead bug + Pallof press alternados",tg:["f","c"],s:"3",r:"10/lado · 12/lado",d:"45s",nt:"Assoalho pélvico e anti-rotação. Base para controle pélvico e performance sexual."}
    ],
-   info:"Ombros em 3 ângulos via cabo — sem peso livre. Face pull protege o manguito rotador a longo prazo. Core fecha com protocolo de performance."},
+   info:"Versão de proteção: desenvolvimento overhead suspenso enquanto a cervical está ativa. Deltoide treinado em 3 ângulos via cabo (frontal, lateral, posterior) sem carga acima da cabeça. Face pull protege o manguito. Reintrodução de pressão overhead a definir com o especialista."},
   {l:"Sex",n:"Posterior",c:"#5a8a7a",
    foc:"Cadeia posterior + estabilização lombar ativa — 2x por semana no core",
    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Leg 90°",m:"13min",h:1},{t:"Flexora",m:"8min",h:1},{t:"Abdução",m:"7min",h:1},{t:"Core lombar",m:"10min",h:1}],
@@ -212,10 +213,10 @@ var MUSC=[
    info:"Cadeia posterior pura + core lombar específico. Bird dog e prancha lateral completam o protocolo da quinta — frequência de 2x por semana no core, ângulos complementares."},
   {l:"Sáb",n:"Costas",c:"#4a8fa8",
    foc:"Largura, espessura e bíceps — puxadas, remadas e curl",
-   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Puxada",m:"13min",h:1},{t:"Rem. serrote",m:"11min",h:1},{t:"Polia baixa",m:"9min",h:1},{t:"Rosca direta",m:"8min",h:1},{t:"Rosca martelo",m:"7min",h:1}],
+   tl:[{t:"Aquec.",m:"3min",h:0},{t:"Puxada",m:"13min",h:1},{t:"Rem. apoiada",m:"11min",h:1},{t:"Polia baixa",m:"9min",h:1},{t:"Rosca direta",m:"8min",h:1},{t:"Rosca martelo",m:"7min",h:1}],
    ex:[
-     {n:"Puxada frontal pegada aberta",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Cotovelos apontam para o chão na descida. Puxe pela escápula, não pelo braço."},
-     {n:"Remada serrote com haltere",tg:["c"],s:"4",r:"10–12",d:"75s",nt:"Apoio firme no banco — elimina variáveis lombares. Carga progressiva aqui."},
+     {n:"Puxada frontal pegada aberta",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Cotovelos apontam para o chão na descida. Puxe pela escápula, não pelo braço. Pescoço neutro — não projete a cabeça à frente nem puxe atrás da nuca."},
+     {n:"Remada na máquina com apoio peitoral",tg:["c"],s:"4",r:"10–12",d:"75s",nt:"Trocada da serrote unilateral por uma remada bilateral com tronco totalmente apoiado — elimina a assimetria e zera a variável lombar e cervical. Carga progressiva aqui."},
      {n:"Remada polia baixa pegada neutra",tg:[],s:"3",r:"12–15",d:"60s",nt:"Espessura do meio das costas. Cotovelos colados ao corpo na chegada."},
      {n:"Rosca direta barra EZ",tg:["p"],s:"3",r:"10–12",d:"75s",nt:"Sem balanço de tronco — isola bíceps com qualidade."},
      {n:"Rosca martelo simultânea",tg:[],s:"3",r:"12",d:"60s",nt:"Braquiorradial e bíceps — volume de braço completo. Simultânea, não alternada."}
@@ -346,9 +347,10 @@ function buildMusc(){
       +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
       +'<div class="ftr"><div class="ftrtl">Diretrizes</div><div class="ftr-divider"></div>'
       +'Aquecimento: 3–4 min + 1 série leve (50%) no composto principal.<br>'
-      +'Progressão: sobe a carga quando completar todas as reps com técnica limpa por 2 sessões seguidas.<br>'
-      +'Coluna: lordose neutra sempre — especialmente no RDL e remada.<br>'
-      +'Todos os movimentos são bilaterais ou em máquina.</div>';
+      +'Progressão: sobe a carga ao completar todas as reps com técnica limpa por 2 sessões seguidas. Mantenha 1–2 reps na reserva enquanto o quadro estiver em avaliação.<br>'
+      +'Cervical: pescoço neutro e sem pressão acima da cabeça enquanto a cervical estiver ativa.<br>'
+      +'Lombar: posição neutra sempre; sem flexão lombar carregada até esclarecer o D11-D12.<br>'
+      +'Todos os movimentos são bilaterais ou em máquina, com tronco apoiado.</div>';
     panels.appendChild(pnl);
   });
 }
@@ -358,7 +360,7 @@ function buildCard(){
   var panels=document.getElementById('cpanels');
   var header=document.createElement('div');
   header.style.padding='16px 20px 0';
-  header.innerHTML='<div class="ibox" style="margin-top:0"><b>Protocolo:</b> Anexado ao final do treino de Qua, Qui e Sex. Bike ergométrica ou elíptico. 10–12 minutos por sessão.</div>'
+  header.innerHTML='<div class="ibox" style="margin-top:0"><b>Protocolo:</b> Anexado ao final do treino de Qua, Qui e Sex. Bike ergométrica ou elíptico. 10–12 minutos por sessão. Pescoço neutro durante o esforço — sem projetar a cabeça à frente.</div>'
     +'<div class="slbl">Zonas de frequência cardíaca</div>'
     +'<div class="hz-bar">'
     +'<div class="hz-row"><div class="hz-dot" style="background:#6a9a6a"></div><span class="hz-lbl">Zona 2 — base aeróbica</span><span class="hz-bpm">60–70% FCmax</span></div>'
