@@ -294,13 +294,11 @@ canvas{width:100%;height:120px;margin-top:4px}
   </div>
 </div></section>
 
-<section id="s-train">
-  <div class="pad" style="padding-bottom:0">
-    <div class="ibox warn" style="margin-top:0"><b>Versão de proteção</b> · ajustes conservadores de coluna aplicados em 09/06/2026, enquanto o quadro está em avaliação. Direcionamentos definitivos após a consulta.</div>
-  </div>
-  <div class="day-tabs" id="dtabs" style="padding-left:20px;padding-right:20px"></div>
-  <div class="pad" style="padding-top:0"><div id="dpanels"></div></div>
-</section>
+<section id="s-train"><div class="pad">
+  <div class="ibox warn" style="margin-top:0"><b>Versão de proteção</b> · ajustes conservadores de coluna aplicados em 09/06/2026, enquanto o quadro está em avaliação. Direcionamentos definitivos após a consulta.</div>
+  <div class="day-tabs" id="dtabs"></div>
+  <div id="dpanels"></div>
+</div></section>
 
 <section id="s-cardio"><div class="pad">
   <div class="ibox" style="margin-top:0"><b>Protocolo:</b> Bike ergométrica ou esteira inclinada — <b>nunca corrida</b> (menor impacto lombar, menor interferência na hipertrofia). 20–40 min por sessão, Zona 2. Sessões posicionadas para não colar em dia de perna (Terça/Sexta).</div>
@@ -314,23 +312,54 @@ canvas{width:100%;height:120px;margin-top:4px}
 </div></section>
 
 <section id="s-meas"><div class="pad">
-  <div class="stat">
-    <div class="s"><div class="v" id="wNow">—</div><div class="t">Peso kg</div><div class="dv" id="wDelta"></div></div>
-    <div class="s"><div class="v" id="waNow">—</div><div class="t">Cintura cm</div><div class="dv" id="waDelta"></div></div>
+  <div class="slots" style="margin-bottom:14px">
+    <button id="measTabPeso" class="on" onclick="setMeasTab('peso')" style="flex:1;text-align:center">Peso</button>
+    <button id="measTabDobras" onclick="setMeasTab('dobras')" style="flex:1;text-align:center">Dobras (7 pontos)</button>
   </div>
-  <div class="card">
-    <div class="lbl">Tendência de peso</div>
-    <canvas id="wChart"></canvas>
-    <div class="note" style="text-align:center;margin-top:6px">Registre diário em jejum. O que importa é a média, não o número isolado.</div>
-  </div>
-  <div class="card">
-    <div class="lbl">Novo registro</div>
-    <div class="meas-add">
-      <div class="fld"><label>Peso (kg)</label><input id="mW" inputmode="decimal" placeholder="77"></div>
-      <div class="fld"><label>Cintura (cm)</label><input id="mWa" inputmode="decimal" placeholder="—"></div>
+
+  <div id="measPanelPeso">
+    <div class="stat">
+      <div class="s"><div class="v" id="wNow">—</div><div class="t">Peso kg</div><div class="dv" id="wDelta"></div></div>
+      <div class="s"><div class="v" id="waNow">—</div><div class="t">Cintura cm</div><div class="dv" id="waDelta"></div></div>
     </div>
-    <button class="addbtn" onclick="saveMeas()">Salvar medida de hoje</button>
-    <div class="hist" id="measHist" style="margin-top:10px"></div>
+    <div class="card">
+      <div class="lbl">Tendência de peso</div>
+      <canvas id="wChart"></canvas>
+      <div class="note" style="text-align:center;margin-top:6px">Registre diário em jejum. O que importa é a média, não o número isolado.</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Novo registro — diário</div>
+      <div class="meas-add">
+        <div class="fld"><label>Peso (kg)</label><input id="mW" inputmode="decimal" placeholder="77"></div>
+        <div class="fld"><label>Cintura (cm)</label><input id="mWa" inputmode="decimal" placeholder="—"></div>
+      </div>
+      <button class="addbtn" onclick="saveMeas()">Salvar medida de hoje</button>
+      <div class="hist" id="measHist" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <div id="measPanelDobras" style="display:none">
+    <div class="stat">
+      <div class="s"><div class="v" id="dbNow">—</div><div class="t">Soma 7 dobras (mm)</div><div class="dv" id="dbDelta"></div></div>
+    </div>
+    <div class="card">
+      <div class="note" style="margin-bottom:8px">Protocolo Jackson-Pollock, 7 pontos. Registre os milímetros brutos de cada dobra — a soma é o indicador de tendência; não convertemos para %BF aqui (ruído alto sem padronização do avaliador).</div>
+      <div class="meas-add">
+        <div class="fld"><label>Peitoral</label><input id="dbChest" inputmode="decimal" placeholder="mm"></div>
+        <div class="fld"><label>Abdominal</label><input id="dbAbd" inputmode="decimal" placeholder="mm"></div>
+        <div class="fld"><label>Coxa</label><input id="dbThigh" inputmode="decimal" placeholder="mm"></div>
+      </div>
+      <div class="meas-add">
+        <div class="fld"><label>Tríceps</label><input id="dbTri" inputmode="decimal" placeholder="mm"></div>
+        <div class="fld"><label>Subescapular</label><input id="dbSub" inputmode="decimal" placeholder="mm"></div>
+        <div class="fld"><label>Suprailíaca</label><input id="dbSupra" inputmode="decimal" placeholder="mm"></div>
+      </div>
+      <div class="meas-add">
+        <div class="fld" style="max-width:33%"><label>Axilar média</label><input id="dbAx" inputmode="decimal" placeholder="mm"></div>
+      </div>
+      <button class="addbtn" onclick="saveDobras()">Salvar teste de hoje</button>
+      <div class="hist" id="dobrasHist" style="margin-top:10px"></div>
+    </div>
   </div>
 </div></section>
 
@@ -349,6 +378,14 @@ canvas{width:100%;height:120px;margin-top:4px}
       <p>Ajustar calorias pelo resultado (provável 3.700–3.850 se peso estável). Volume 12–16 séries/grupo onde a recuperação permitir. 3ª sessão de cardio (Qui, pós-ombros) e/ou 30–40 min. Adicionar citrulina + beta-alanina.</p>
       <div class="goal">Meta: massa magra a ~0,25–0,5% do peso/mês.</div>
     </div>
+  </div>
+  <div class="card">
+    <div class="lbl">Medidas e acompanhamento</div>
+    <div class="row"><div class="d">Peso</div><div class="m">Diário, em jejum — registrar a <b>média semanal</b>, nunca o número isolado</div></div>
+    <div class="row"><div class="d">Cintura</div><div class="m">Semanal — umbigo, mesma hora/condição — melhor marcador de "virou gordura?"</div></div>
+    <div class="row"><div class="d">Fotos</div><div class="m">Quinzenal — mesma luz/pose/horário</div></div>
+    <div class="row"><div class="d">Cargas</div><div class="m">Toda sessão — progressão de carga = sinal nº 1 de que funciona</div></div>
+    <div class="row"><div class="d">Dobras (7 pts)</div><div class="m">Semanal — realizado em casa; mesmo avaliador/local/hora para manter um padrão único de comparação</div></div>
   </div>
   <div class="card">
     <div class="lbl">Gatilhos de ajuste</div>
@@ -630,7 +667,8 @@ function resetCardioWeek(){var wk=weekKeyOf(new Date());DB.cardioWeek=DB.cardioW
 ============================================================ */
 var SLOTS=[["cafe","Café da Manhã"],["lm","Lanche Manhã"],["almoco","Almoço"],["lt","Lanche Tarde"],["janta","Janta"],["ceia","Ceia"]];
 var QUICK=[
-  {n:"Shake da manhã",k:420,p:35,c:42,f:11,slot:"cafe"},
+  {n:"Shake Pré",k:378,p:29,c:61,f:3,slot:"cafe"},
+  {n:"Shake Pós",k:480,p:33,c:79,f:5,slot:"lm"},
   {n:"Arroz (100g)",k:130,p:3,c:28,f:0,slot:null},
   {n:"Carne moída (100g)",k:215,p:26,c:0,f:12,slot:null},
   {n:"Frango grelhado (100g)",k:165,p:31,c:0,f:4,slot:null}
@@ -812,6 +850,48 @@ function deltaEl(id,arr,key,unit){
   el.className='dv '+(Math.abs(d)<0.05?'flat':(d>0?'up':'down'));
   el.textContent=(d>0?'+':'')+d.toFixed(1)+unit;
 }
+function setMeasTab(t){
+  document.getElementById('measTabPeso').classList.toggle('on',t==='peso');
+  document.getElementById('measTabDobras').classList.toggle('on',t==='dobras');
+  document.getElementById('measPanelPeso').style.display=t==='peso'?'block':'none';
+  document.getElementById('measPanelDobras').style.display=t==='dobras'?'block':'none';
+  if(t==='peso')drawChart();
+}
+var DOBRA_FIELDS=[['dbChest','peito'],['dbAbd','abd'],['dbThigh','coxa'],['dbTri','tri'],['dbSub','sub'],['dbSupra','supra'],['dbAx','ax']];
+function saveDobras(){
+  var vals={};var any=false;
+  DOBRA_FIELDS.forEach(function(f){
+    var v=parseFloat((document.getElementById(f[0]).value||'').replace(',','.'));
+    if(!isNaN(v)){vals[f[1]]=v;any=true}
+  });
+  if(!any)return;
+  DB.dobras=DB.dobras||[];var k=keyOf(new Date());
+  var ex=DB.dobras.find(function(m){return m.d===k});
+  if(ex)Object.assign(ex,vals);else DB.dobras.push(Object.assign({d:k},vals));
+  DB.dobras.sort(function(a,b){return a.d<b.d?-1:1});
+  save();
+  DOBRA_FIELDS.forEach(function(f){document.getElementById(f[0]).value=''});
+  renderDobras();
+}
+function sumDobra(x){return DOBRA_FIELDS.reduce(function(a,f){return a+(x[f[1]]||0)},0)}
+function renderDobras(){
+  var m=DB.dobras||[];
+  if(!m.length){document.getElementById('dbNow').textContent='—';document.getElementById('dbDelta').textContent='';document.getElementById('dobrasHist').innerHTML='<div class="empty2">Nenhum teste registrado ainda.</div>';return}
+  var last=m[m.length-1];
+  document.getElementById('dbNow').textContent=sumDobra(last).toFixed(1);
+  if(m.length>=2){
+    var d=sumDobra(last)-sumDobra(m[0]);
+    var dv=document.getElementById('dbDelta');
+    dv.className='dv '+(Math.abs(d)<0.5?'flat':(d>0?'up':'down'));
+    dv.textContent=(d>0?'+':'')+d.toFixed(1)+' mm desde o 1º registro';
+  } else document.getElementById('dbDelta').textContent='';
+  var h=document.getElementById('dobrasHist');h.innerHTML='';
+  m.slice().reverse().slice(0,8).forEach(function(x){
+    var dt=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+    var row=document.createElement('div');row.className='h';
+    row.innerHTML='<span>'+dt+'</span><b>soma '+sumDobra(x).toFixed(1)+' mm</b>';h.appendChild(row);
+  });
+}
 function drawChart(){
   var cv=document.getElementById('wChart');if(!cv)return;
   var dpr=window.devicePixelRatio||1;var W=cv.clientWidth,H=120;
@@ -840,6 +920,7 @@ renderSlotBar();
 renderChips();
 renderDiet();
 renderMeas();
+renderDobras();
 renderDash();
 </script>
 </body>
