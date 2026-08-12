@@ -271,6 +271,7 @@ canvas{width:100%;height:120px;margin-top:4px}
   <div class="card">
     <div class="lbl">Total do dia</div>
     <div style="font-size:24px;font-weight:600;color:#fff" id="dietKcal">0 <span style="font-size:12px;color:var(--mt);font-weight:400">/ 3.550–3.850 kcal</span></div>
+    <div class="note" style="margin:4px 0 0">Meta operacional ~3.700 kcal (meio da faixa) · carboidrato é a variável de ajuste — proteína e gordura ficam fixas</div>
     <div class="macros">
       <div class="macro p"><div class="mvv" id="dietP">0</div><div class="mt2">Prot g</div><div class="bar"><i id="barP"></i></div></div>
       <div class="macro c"><div class="mvv" id="dietC">0</div><div class="mt2">Carb g</div><div class="bar"><i id="barC"></i></div></div>
@@ -358,6 +359,7 @@ canvas{width:100%;height:120px;margin-top:4px}
         <div class="fld" style="max-width:33%"><label>Axilar média</label><input id="dbAx" inputmode="decimal" placeholder="mm"></div>
       </div>
       <button class="addbtn" onclick="saveDobras()">Salvar teste de hoje</button>
+      <div class="ibox" id="dobrasCompare" style="margin-top:12px"></div>
       <div class="hist" id="dobrasHist" style="margin-top:10px"></div>
     </div>
   </div>
@@ -368,9 +370,10 @@ canvas{width:100%;height:120px;margin-top:4px}
     <div class="lbl">Timeline · 12 semanas</div>
     <div class="stage">
       <div class="st">Estágio 1 · semanas 1–4</div>
-      <h3>Calibração</h3>
-      <p>3.550 kcal com registro rigoroso todos os dias. Treino atual (5 dias, ~10 séries/grupo). Cardio 2×/semana (Qua/Dom), 20–25 min Zona 2. Iniciar creatina + ômega-3 + D3.</p>
-      <div class="goal">Meta: baseline real e resposta à dúvida do ectomorfo.</div>
+      <h3>Superávit inicial</h3>
+      <p>3.550 kcal com registro rigoroso todos os dias. Treino atual (5 dias) mantido. Cardio 2×/semana (Qua/Dom), 20–25 min Zona 2. Iniciar creatina + ômega-3 + D3.</p>
+      <div class="goal">Meta: determinar o gasto energético real e a resposta ao superávit.</div>
+      <p style="margin-top:8px;font-size:11px;color:var(--ac)"><b>Nota:</b> o início da creatina nesta mesma janela pode reter água intracelular e inflar o peso nas primeiras 1–2 semanas sem ser tecido novo — mais um motivo para usar a média semanal, nunca o valor isolado.</p>
     </div>
     <div class="stage">
       <div class="st">Estágio 2 · semanas 5–12</div>
@@ -384,13 +387,13 @@ canvas{width:100%;height:120px;margin-top:4px}
     <div class="row"><div class="d">Peso</div><div class="m">Diário, em jejum — registrar a <b>média semanal</b>, nunca o número isolado</div></div>
     <div class="row"><div class="d">Cintura</div><div class="m">Semanal — umbigo, mesma hora/condição — melhor marcador de "virou gordura?"</div></div>
     <div class="row"><div class="d">Fotos</div><div class="m">Quinzenal — mesma luz/pose/horário</div></div>
-    <div class="row"><div class="d">Cargas</div><div class="m">Toda sessão — progressão de carga = sinal nº 1 de que funciona</div></div>
+    <div class="row"><div class="d">Cargas</div><div class="m">Toda sessão — progressão de carga é um dos sinais mais confiáveis, junto com reps, execução e proximidade da falha</div></div>
     <div class="row"><div class="d">Dobras (7 pts)</div><div class="m">Semanal — realizado em casa; mesmo avaliador/local/hora para manter um padrão único de comparação</div></div>
   </div>
   <div class="card">
     <div class="lbl">Gatilhos de ajuste</div>
     <div class="trig"><div class="sig">Peso estável 3–4 sem apesar de 3.550 kcal registradas</div><div class="act">↑ calorias +150–250</div></div>
-    <div class="trig"><div class="sig">Ganho &gt;0,7%/sem ou cintura subindo</div><div class="act">↓ superávit p/ +5–10%</div></div>
+    <div class="trig"><div class="sig">Ganho de peso acima do esperado por 2 sem seguidas + cintura subindo desproporcional</div><div class="act">↓ superávit p/ +5–10%</div></div>
     <div class="trig"><div class="sig">Carga trava + fadiga/dor lombar</div><div class="act">Deload, revisar exercícios</div></div>
     <div class="trig"><div class="sig">Dor ciática no cardio</div><div class="act">Ajustar postura, não parar</div></div>
     <div class="trig"><div class="sig">Hematócrito ~52–54% ou PA subindo</div><div class="act">Manejo médico</div></div>
@@ -451,7 +454,7 @@ function keyOf(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDa
 function weekKeyOf(d){var on=new Date(d.getFullYear(),0,1);var w=Math.ceil((((d-on)/86400000)+on.getDay()+1)/7);return d.getFullYear()+"W"+w}
 function dietDay(k){DB.diet=DB.diet||{};DB.diet[k]=DB.diet[k]||{};return DB.diet[k]}
 
-var TARGET={kcal:3550,kcalMax:3850,p:150,c:350,f:95};
+var TARGET={kcal:3550,kcalMax:3850,p:155,c:555,f:95};
 
 /* ============================================================
    MUSCULAÇÃO — preservado do app original (versão de proteção)
@@ -857,7 +860,7 @@ function setMeasTab(t){
   document.getElementById('measPanelDobras').style.display=t==='dobras'?'block':'none';
   if(t==='peso')drawChart();
 }
-var DOBRA_FIELDS=[['dbChest','peito'],['dbAbd','abd'],['dbThigh','coxa'],['dbTri','tri'],['dbSub','sub'],['dbSupra','supra'],['dbAx','ax']];
+var DOBRA_FIELDS=[['dbChest','peito','Peitoral'],['dbAbd','abd','Abdominal'],['dbThigh','coxa','Coxa'],['dbTri','tri','Tríceps'],['dbSub','sub','Subescapular'],['dbSupra','supra','Suprailíaca'],['dbAx','ax','Axilar média']];
 function saveDobras(){
   var vals={};var any=false;
   DOBRA_FIELDS.forEach(function(f){
@@ -876,7 +879,7 @@ function saveDobras(){
 function sumDobra(x){return DOBRA_FIELDS.reduce(function(a,f){return a+(x[f[1]]||0)},0)}
 function renderDobras(){
   var m=DB.dobras||[];
-  if(!m.length){document.getElementById('dbNow').textContent='—';document.getElementById('dbDelta').textContent='';document.getElementById('dobrasHist').innerHTML='<div class="empty2">Nenhum teste registrado ainda.</div>';return}
+  if(!m.length){document.getElementById('dbNow').textContent='—';document.getElementById('dbDelta').textContent='';document.getElementById('dobrasCompare').innerHTML='';document.getElementById('dobrasHist').innerHTML='<div class="empty2">Nenhum teste registrado ainda.</div>';return}
   var last=m[m.length-1];
   document.getElementById('dbNow').textContent=sumDobra(last).toFixed(1);
   if(m.length>=2){
@@ -885,11 +888,39 @@ function renderDobras(){
     dv.className='dv '+(Math.abs(d)<0.5?'flat':(d>0?'up':'down'));
     dv.textContent=(d>0?'+':'')+d.toFixed(1)+' mm desde o 1º registro';
   } else document.getElementById('dbDelta').textContent='';
+
+  var cmp=document.getElementById('dobrasCompare');
+  if(m.length>=2){
+    var prev=m[m.length-2];
+    var dtL=new Date(last.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+    var dtP=new Date(prev.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+    var rows='<b>Comparação — '+dtL+' vs '+dtP+'</b><br><br>';
+    DOBRA_FIELDS.forEach(function(f){
+      var cv=last[f[1]],pv=prev[f[1]];
+      if(cv==null&&pv==null)return;
+      var line=f[2]+': ';
+      if(cv==null)line+='sem registro';
+      else if(pv==null)line+=cv+'mm (sem base anterior)';
+      else{
+        var dd=cv-pv;
+        var sign=dd>0?'+':'';var color=Math.abs(dd)<0.5?'var(--mt)':(dd>0?'var(--rd)':'var(--gn)');
+        line+=cv+'mm <span style="color:'+color+'">('+sign+dd.toFixed(1)+'mm)</span>';
+      }
+      rows+=line+'<br>';
+    });
+    cmp.innerHTML=rows;
+  } else {
+    cmp.innerHTML='<b>Primeiro registro salvo.</b><br>A comparação por ponto aparece a partir do 2º teste.';
+  }
+
   var h=document.getElementById('dobrasHist');h.innerHTML='';
   m.slice().reverse().slice(0,8).forEach(function(x){
     var dt=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
-    var row=document.createElement('div');row.className='h';
-    row.innerHTML='<span>'+dt+'</span><b>soma '+sumDobra(x).toFixed(1)+' mm</b>';h.appendChild(row);
+    var detail=DOBRA_FIELDS.filter(function(f){return x[f[1]]!=null}).map(function(f){return f[2].slice(0,4)+' '+x[f[1]]}).join(' · ');
+    var row=document.createElement('div');row.className='h';row.style.flexDirection='column';row.style.alignItems='flex-start';row.style.gap='2px';
+    row.innerHTML='<div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>soma '+sumDobra(x).toFixed(1)+' mm</b></div>'
+      +(detail?'<div style="font-size:10.5px;color:var(--mt)">'+detail+'</div>':'');
+    h.appendChild(row);
   });
 }
 function drawChart(){
