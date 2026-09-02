@@ -1,5 +1,47 @@
 {
-  "diet": {},
+  "diet": {
+    "2026-09-02": {
+      "cafe": [
+        {
+          "n": "Shake (aveia, banana, morango, água de coco, whey, creatina)",
+          "k": 485,
+          "p": 33,
+          "c": 76,
+          "f": 7
+        },
+        {
+          "n": "Pão de forma c/ presunto e queijo (2 fatias)",
+          "k": 165,
+          "p": 11,
+          "c": 13,
+          "f": 8
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (200g)",
+          "k": 256,
+          "p": 5,
+          "c": 56,
+          "f": 1
+        },
+        {
+          "n": "Carne de panela magra (170g)",
+          "k": 323,
+          "p": 46,
+          "c": 2,
+          "f": 14
+        },
+        {
+          "n": "Frango (80g)",
+          "k": 132,
+          "p": 25,
+          "c": 0,
+          "f": 3
+        }
+      ]
+    }
+  },
   "meas": [],
   "dobras": [],
   "cardioWeek": {},
