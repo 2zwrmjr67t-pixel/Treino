@@ -454,6 +454,26 @@ function keyOf(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDa
 function weekKeyOf(d){var on=new Date(d.getFullYear(),0,1);var w=Math.ceil((((d-on)/86400000)+on.getDay()+1)/7);return d.getFullYear()+"W"+w}
 function dietDay(k){DB.diet=DB.diet||{};DB.diet[k]=DB.diet[k]||{};return DB.diet[k]}
 
+/* Fonte de verdade remota (data.json no repo). Roda antes do init.
+   Se falhar (offline, deploy fora do ar), segue com o que já está no localStorage. */
+async function loadRemoteData(){
+  try{
+    var res=await fetch('data.json',{cache:'no-store'});
+    if(!res.ok)return;
+    var remote=await res.json();
+    if(remote.diet)DB.diet=remote.diet;
+    if(remote.meas)DB.meas=remote.meas;
+    if(remote.dobras)DB.dobras=remote.dobras;
+    if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
+    if(remote.cargas){
+      Object.keys(remote.cargas).forEach(function(k){localStorage.setItem(k,remote.cargas[k])});
+    }
+    save();
+  }catch(e){
+    /* offline ou data.json indisponível — segue com o cache local */
+  }
+}
+
 var TARGET={kcal:3550,kcalMax:3850,p:155,c:555,f:95};
 
 /* ============================================================
@@ -944,15 +964,19 @@ function drawChart(){
 /* ============================================================
    INIT
 ============================================================ */
-buildMusc();
-buildCard();
-renderCardioChecks();
-renderSlotBar();
-renderChips();
-renderDiet();
-renderMeas();
-renderDobras();
-renderDash();
+async function initApp(){
+  await loadRemoteData();
+  buildMusc();
+  buildCard();
+  renderCardioChecks();
+  renderSlotBar();
+  renderChips();
+  renderDiet();
+  renderMeas();
+  renderDobras();
+  renderDash();
+}
+initApp();
 </script>
 </body>
 </html>
