@@ -39,6 +39,38 @@
           "c": 0,
           "f": 3
         }
+      ],
+      "lt": [
+        {
+          "n": "Shake (whey, banana, aveia 30g) — un. 1",
+          "k": 326,
+          "p": 29,
+          "c": 46,
+          "f": 4
+        },
+        {
+          "n": "Shake (whey, banana, aveia 30g) — un. 2",
+          "k": 326,
+          "p": 29,
+          "c": 46,
+          "f": 4
+        }
+      ],
+      "janta": [
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        },
+        {
+          "n": "Sobrecoxa de frango s/ pele e osso (220g)",
+          "k": 363,
+          "p": 57,
+          "c": 0,
+          "f": 14
+        }
       ]
     }
   },
