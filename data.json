@@ -38,34 +38,6 @@
           "p": 25,
           "c": 0,
           "f": 3
-        },
-        {
-          "n": "Frango grelhado (2 filés)",
-          "k": 460,
-          "p": 87,
-          "c": 0,
-          "f": 10
-        },
-        {
-          "n": "Espaguete ao molho de tomate",
-          "k": 330,
-          "p": 12,
-          "c": 62,
-          "f": 2
-        },
-        {
-          "n": "Molho de tomate c/ parmesão",
-          "k": 80,
-          "p": 3,
-          "c": 10,
-          "f": 3
-        },
-        {
-          "n": "Salada verde (rúcula/alface, sem molho)",
-          "k": 15,
-          "p": 1,
-          "c": 3,
-          "f": 0
         }
       ],
       "lt": [
@@ -98,15 +70,6 @@
           "p": 57,
           "c": 0,
           "f": 14
-        }
-      ],
-      "ceia": [
-        {
-          "n": "Alfajor (sobremesa)",
-          "k": 220,
-          "p": 3,
-          "c": 30,
-          "f": 10
         }
       ]
     },
@@ -191,13 +154,43 @@
       ]
     },
     "2026-09-03": {
-      "cafe": [
+      "almoco": [
         {
-          "n": "Shake (aveia, banana, água de coco, whey, creatina)",
-          "k": 480,
-          "p": 33,
-          "c": 75,
-          "f": 7
+          "n": "Frango grelhado (2 filés)",
+          "k": 460,
+          "p": 87,
+          "c": 0,
+          "f": 10
+        },
+        {
+          "n": "Espaguete ao molho de tomate",
+          "k": 330,
+          "p": 12,
+          "c": 62,
+          "f": 2
+        },
+        {
+          "n": "Molho de tomate c/ parmesão",
+          "k": 80,
+          "p": 3,
+          "c": 10,
+          "f": 3
+        },
+        {
+          "n": "Salada verde (rúcula/alface, sem molho)",
+          "k": 15,
+          "p": 1,
+          "c": 3,
+          "f": 0
+        }
+      ],
+      "ceia": [
+        {
+          "n": "Alfajor (sobremesa)",
+          "k": 220,
+          "p": 3,
+          "c": 30,
+          "f": 10
         }
       ]
     }
