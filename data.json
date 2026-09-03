@@ -166,5 +166,9 @@
   "meas": [],
   "dobras": [],
   "cardioWeek": {},
-  "cargas": {}
+  "cargas": {},
+  "health": {
+    "daily": {},
+    "weekly": {}
+  }
 }
