@@ -161,6 +161,17 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-03": {
+      "cafe": [
+        {
+          "n": "Shake (aveia, banana, água de coco, whey, creatina)",
+          "k": 480,
+          "p": 33,
+          "c": 75,
+          "f": 7
+        }
+      ]
     }
   },
   "meas": [],
@@ -168,7 +179,13 @@
   "cardioWeek": {},
   "cargas": {},
   "health": {
-    "daily": {},
+    "daily": {
+      "2026-09-03": {
+        "activeCal": 158,
+        "restCal": 593,
+        "exerciseMin": 28
+      }
+    },
     "weekly": {}
   }
 }
