@@ -200,6 +200,38 @@
           "p": 15,
           "c": 15,
           "f": 9
+        },
+        {
+          "n": "Shake pré-treino (água de coco 200ml, banana, whey, aveia, creatina 3g)",
+          "k": 378,
+          "p": 29,
+          "c": 61,
+          "f": 3
+        }
+      ],
+      "lm": [
+        {
+          "n": "Shake pós-treino (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
         }
       ]
     }
