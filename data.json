@@ -192,6 +192,15 @@
           "c": 30,
           "f": 10
         }
+      ],
+      "cafe": [
+        {
+          "n": "Pão de forma (1 fatia) c/ presunto (2 fatias) e queijo (1 fatia)",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
       ]
     }
   },
