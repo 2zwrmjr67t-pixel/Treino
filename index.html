@@ -140,6 +140,19 @@ section.on{display:block;animation:fade .25s ease}
 .wk .lb{display:flex;gap:4px;margin-top:4px}
 .wk .lb span{flex:1;text-align:center;font-size:8px;color:var(--mt)}
 
+.lblsub{text-transform:none;letter-spacing:0;color:var(--mt);font-weight:400;font-size:9px;margin-left:4px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dgrid .d{min-width:0}
+.dgrid .d.full{grid-column:1/-1}
+.dgrid .d .dl{font-size:9px;color:var(--mt);text-transform:uppercase;letter-spacing:.06em}
+.dgrid .d .dvv{font-size:18px;font-weight:500;margin-top:2px;font-variant-numeric:tabular-nums}
+.dgrid .d .dd{font-size:11px;margin-top:1px}
+.wkstrip{display:flex;gap:6px;margin-top:14px}
+.wkstrip .day{flex:1;text-align:center}
+.wkstrip .day .dn{font-size:9px;color:var(--mt);margin-bottom:5px}
+.wkstrip .day .db{height:3px;border-radius:2px;background:var(--br)}
+.wkstrip .day .db.on{background:var(--gn)}
+
 /* Diet */
 .datebar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .datebar button{background:var(--s1);border:1px solid var(--br);color:var(--tx);width:36px;height:36px;border-radius:10px;font-size:17px}
@@ -225,31 +238,14 @@ canvas{width:100%;height:120px;margin-top:4px}
 
 <section id="s-dash" class="on"><div class="pad">
   <div class="card">
-    <div class="lbl">Hoje</div>
-    <div class="ring-row">
-      <div class="ring">
-        <svg width="104" height="104" viewBox="0 0 104 104">
-          <circle cx="52" cy="52" r="45" fill="none" stroke="#1e1c1a" stroke-width="10"/>
-          <circle id="dashRing" cx="52" cy="52" r="45" fill="none" stroke="#c9a05a" stroke-width="10" stroke-linecap="round" stroke-dasharray="282.7" stroke-dashoffset="282.7"/>
-        </svg>
-        <div class="kcal"><b id="dashKcal">0</b><span>de 3.550</span></div>
-      </div>
-      <div class="ring-meta">
-        <div class="big" id="dashMsg">Nenhum registro hoje</div>
-        <div class="small" id="dashSub">Registre suas refeições na aba Dieta</div>
-      </div>
-    </div>
+    <div class="lbl">Semana · dieta <span class="lblsub">vs. semana anterior · banda ±10%</span></div>
+    <div class="dgrid" id="dietWeekGrid"></div>
+    <div class="wkstrip" id="dietWeekStrip"></div>
   </div>
 
   <div class="card">
-    <div class="lbl">Semana</div>
-    <div class="stat">
-      <div class="s"><div class="v" id="wkDays">0/7</div><div class="t">Dias com registro</div></div>
-      <div class="s"><div class="v" id="wkCardio">0/3</div><div class="t">Cardio</div></div>
-      <div class="s"><div class="v" id="wkAvg">—</div><div class="t">Média kcal</div></div>
-    </div>
-    <div class="wk" id="wkBars"></div>
-    <div class="wk lb" id="wkLabels"></div>
+    <div class="lbl">Semana · atividade</div>
+    <div class="dgrid" id="healthWeekGrid"></div>
   </div>
 
   <div class="card">
@@ -465,6 +461,7 @@ async function loadRemoteData(){
     if(remote.meas)DB.meas=remote.meas;
     if(remote.dobras)DB.dobras=remote.dobras;
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
+    if(remote.health)DB.health=remote.health;
     if(remote.cargas){
       Object.keys(remote.cargas).forEach(function(k){localStorage.setItem(k,remote.cargas[k])});
     }
@@ -775,45 +772,73 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 /* ============================================================
    DASHBOARD
 ============================================================ */
-function renderDash(){
-  var today=keyOf(new Date());var t=dayTotals(today);
-  var C=282.7,pct=Math.min(t.k/TARGET.kcal,1);
-  var ring=document.getElementById('dashRing');
-  ring.style.strokeDashoffset=C*(1-pct);
-  ring.setAttribute('stroke',t.k>TARGET.kcalMax?'#c07070':(t.k>=TARGET.kcal?'#6a9a6a':'#c9a05a'));
-  document.getElementById('dashKcal').textContent=t.k;
-  var msg=document.getElementById('dashMsg'),sub=document.getElementById('dashSub');
-  if(t.k===0){msg.textContent='Nenhum registro hoje';sub.textContent='Registre suas refeições na aba Dieta'}
-  else if(t.k<TARGET.kcal){msg.textContent='Faltam '+(TARGET.kcal-t.k)+' kcal';sub.textContent='Para atingir o piso de 3.550'}
-  else if(t.k<=TARGET.kcalMax){msg.textContent='Na faixa-alvo ✓';sub.textContent='Entre 3.550–3.850 kcal'}
-  else{msg.textContent='Acima da faixa';sub.textContent=(t.k-TARGET.kcalMax)+' kcal acima do teto'}
+var DELTA_BAND=10; // % — dentro disso, tratado como estável
 
-  // semana (7 dias terminando hoje)
-  var days=[],labels=['D','S','T','Q','Q','S','S'];
-  var kcals=[];var loggedCount=0;
-  for(var i=6;i>=0;i--){
-    var dt=new Date();dt.setDate(dt.getDate()-i);
-    var kk=dayTotals(keyOf(dt)).k;kcals.push(kk);
-    if(kk>0)loggedCount++;
-    days.push(dt.getDay());
-  }
-  document.getElementById('wkDays').textContent=loggedCount+'/7';
-  var wk=weekKeyOf(new Date());var cw=(DB.cardioWeek&&DB.cardioWeek[wk])?DB.cardioWeek[wk]:{};
-  var cardioDone=Object.keys(cw).filter(function(x){return cw[x]}).length;
-  document.getElementById('wkCardio').textContent=cardioDone+'/3';
-  var loggedVals=kcals.filter(function(x){return x>0});
-  var avg=loggedVals.length?Math.round(loggedVals.reduce(function(a,b){return a+b},0)/loggedVals.length):0;
-  document.getElementById('wkAvg').textContent=avg?avg.toLocaleString('pt-BR'):'—';
-  var mx=Math.max.apply(null,kcals.concat([TARGET.kcalMax]));
-  var bars=document.getElementById('wkBars');bars.innerHTML='';
-  kcals.forEach(function(v){
-    var b=document.createElement('div');b.className='b';
-    var h=v?Math.max((v/mx)*64,3):3;
-    b.innerHTML='<i style="height:'+h+'px;background:'+(v>=TARGET.kcal&&v<=TARGET.kcalMax?'#6a9a6a':(v>0?'#c9a05a':'#232220'))+'"></i>';
-    bars.appendChild(b);
+function mondayOf(d){
+  var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  var day=x.getDay();var diff=(day===0?-6:1-day);
+  x.setDate(x.getDate()+diff);return x;
+}
+function weekDatesFrom(monday){
+  var arr=[];for(var i=0;i<7;i++){var d=new Date(monday);d.setDate(d.getDate()+i);arr.push(d)}return arr;
+}
+function weekAvgMacros(monday){
+  var dates=weekDatesFrom(monday);var sum={k:0,p:0,c:0,f:0};var n=0;
+  dates.forEach(function(d){var t=dayTotals(keyOf(d));if(t.k>0){sum.k+=t.k;sum.p+=t.p;sum.c+=t.c;sum.f+=t.f;n++}});
+  if(!n)return null;
+  return{avgK:sum.k/n,avgP:sum.p/n,avgC:sum.c/n,avgF:sum.f/n,n:n};
+}
+function deltaPct(cur,prev){if(!prev)return null;return((cur-prev)/prev)*100}
+function deltaHtml(cur,prev,color){
+  var pct=deltaPct(cur,prev);
+  if(pct===null)return '<span class="dd" style="color:var(--mt)">— 1ª semana</span>';
+  if(Math.abs(pct)<DELTA_BAND)return '<span class="dd" style="color:var(--mt)">→ estável ('+(pct>0?'+':'')+Math.round(pct)+'%)</span>';
+  var arrow=pct>0?'↑':'↓';
+  return '<span class="dd" style="color:'+color+'">'+arrow+' '+Math.round(Math.abs(pct))+'% vs. sem. passada</span>';
+}
+function metricBox(label,value,unit,deltaHtmlStr,color,full){
+  return '<div class="d'+(full?' full':'')+'"><div class="dl">'+label+'</div>'
+    +'<div class="dvv" style="color:'+color+'">'+value+unit+'</div>'+deltaHtmlStr+'</div>';
+}
+
+function renderDash(){
+  var curMon=mondayOf(new Date());
+  var prevMon=new Date(curMon);prevMon.setDate(prevMon.getDate()-7);
+  var cur=weekAvgMacros(curMon);var prev=weekAvgMacros(prevMon);
+
+  var COL={k:'var(--ac)',p:'var(--pro)',c:'var(--carb)',f:'var(--fat)'};
+  var grid=document.getElementById('dietWeekGrid');
+  grid.innerHTML=
+    metricBox('Kcal médio/dia',cur?Math.round(cur.avgK).toLocaleString('pt-BR'):'—','',cur?deltaHtml(cur.avgK,prev?prev.avgK:null,COL.k):'<span class="dd" style="color:var(--mt)">sem dados</span>',COL.k)
+    +metricBox('Proteína média',cur?Math.round(cur.avgP):'—','g',cur?deltaHtml(cur.avgP,prev?prev.avgP:null,COL.p):'',COL.p)
+    +metricBox('Carbo médio',cur?Math.round(cur.avgC):'—','g',cur?deltaHtml(cur.avgC,prev?prev.avgC:null,COL.c):'',COL.c)
+    +metricBox('Gordura média',cur?Math.round(cur.avgF):'—','g',cur?deltaHtml(cur.avgF,prev?prev.avgF:null,COL.f):'',COL.f);
+
+  // tira de dias da semana atual (Seg–Dom)
+  var dowLabels=['S','T','Q','Q','S','S','D'];
+  var strip=document.getElementById('dietWeekStrip');strip.innerHTML='';
+  weekDatesFrom(curMon).forEach(function(d,i){
+    var logged=dayTotals(keyOf(d)).k>0;
+    var el=document.createElement('div');el.className='day';
+    el.innerHTML='<div class="dn">'+dowLabels[i]+'</div><div class="db'+(logged?' on':'')+'"></div>';
+    strip.appendChild(el);
   });
-  var lb=document.getElementById('wkLabels');lb.innerHTML='';
-  days.forEach(function(d){var s=document.createElement('span');s.textContent=labels[d];lb.appendChild(s)});
+
+  // atividade — dados semanais enviados manualmente (health.weekly), mais recente vs. anterior
+  DB.health=DB.health||{};DB.health.weekly=DB.health.weekly||{};
+  var wkKeys=Object.keys(DB.health.weekly).sort();
+  var hCur=wkKeys.length?DB.health.weekly[wkKeys[wkKeys.length-1]]:null;
+  var hPrev=wkKeys.length>1?DB.health.weekly[wkKeys[wkKeys.length-2]]:null;
+  var hGrid=document.getElementById('healthWeekGrid');
+  if(hCur){
+    var curTotalCal=hCur.activeCal+hCur.restCal;
+    var prevTotalCal=hPrev?(hPrev.activeCal+hPrev.restCal):null;
+    hGrid.innerHTML=
+      metricBox('Min. exercício',Math.round(hCur.exerciseMin),'',deltaHtml(hCur.exerciseMin,hPrev?hPrev.exerciseMin:null,'var(--ac)'),'var(--tx)')
+      +metricBox('Cal. ativas+repouso (méd./dia)',Math.round(curTotalCal/7).toLocaleString('pt-BR'),'',deltaHtml(curTotalCal,prevTotalCal,'var(--ac)'),'var(--tx)',true);
+  } else {
+    hGrid.innerHTML='<div class="d full" style="color:var(--mt);font-size:12.5px">Sem resumo semanal de saúde ainda — envie o resumo de domingo pra preencher.</div>';
+  }
 
   // mês
   var now=new Date();var monthVals=[];
