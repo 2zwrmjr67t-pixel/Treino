@@ -38,6 +38,34 @@
           "p": 25,
           "c": 0,
           "f": 3
+        },
+        {
+          "n": "Frango grelhado (2 filés)",
+          "k": 460,
+          "p": 87,
+          "c": 0,
+          "f": 10
+        },
+        {
+          "n": "Espaguete ao molho de tomate",
+          "k": 330,
+          "p": 12,
+          "c": 62,
+          "f": 2
+        },
+        {
+          "n": "Molho de tomate c/ parmesão",
+          "k": 80,
+          "p": 3,
+          "c": 10,
+          "f": 3
+        },
+        {
+          "n": "Salada verde (rúcula/alface, sem molho)",
+          "k": 15,
+          "p": 1,
+          "c": 3,
+          "f": 0
         }
       ],
       "lt": [
