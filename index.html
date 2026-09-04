@@ -230,8 +230,14 @@ canvas{width:100%;height:120px;margin-top:4px}
 
 <div class="hdr">
   <div class="hdr-eyebrow">Programa de treino</div>
-  <div class="hdr-title" id="hTitle">Protocolo <strong>Guilherme</strong></div>
-  <div class="hdr-sub" id="hSub">Musculação · Nutrição · Cardio · Performance</div>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+    <div style="min-width:0">
+      <div class="hdr-title" id="hTitle">Protocolo <strong>Guilherme</strong></div>
+      <div class="hdr-sub" id="hSub">Musculação · Nutrição · Cardio · Performance</div>
+    </div>
+    <button id="syncBtn" onclick="syncNow()" aria-label="Sincronizar" style="flex:none;width:32px;height:32px;border-radius:9px;background:var(--s1);border:1px solid var(--br);color:var(--mt);font-size:15px;line-height:1;margin-top:1px">↻</button>
+  </div>
+  <div class="hdr-sub" id="syncStatus" style="margin-top:5px;font-size:10px"></div>
 </div>
 
 <div class="scrollwrap">
@@ -246,6 +252,7 @@ canvas{width:100%;height:120px;margin-top:4px}
   <div class="card">
     <div class="lbl">Semana · atividade</div>
     <div class="dgrid" id="healthWeekGrid"></div>
+    <div id="healthWeekWarn"></div>
   </div>
 
   <div class="card">
@@ -338,9 +345,10 @@ canvas{width:100%;height:120px;margin-top:4px}
   <div id="measPanelDobras" style="display:none">
     <div class="stat">
       <div class="s"><div class="v" id="dbNow">—</div><div class="t">Soma 7 dobras (mm)</div><div class="dv" id="dbDelta"></div></div>
+      <div class="s"><div class="v" id="dbBf">—</div><div class="t">%BF estimado</div><div class="dv" id="dbBfDelta"></div></div>
     </div>
     <div class="card">
-      <div class="note" style="margin-bottom:8px">Protocolo Jackson-Pollock, 7 pontos. Registre os milímetros brutos de cada dobra — a soma é o indicador de tendência; não convertemos para %BF aqui (ruído alto sem padronização do avaliador).</div>
+      <div class="note" style="margin-bottom:8px">Protocolo Jackson-Pollock, 7 pontos (fórmula masculina). Registre os milímetros brutos de cada dobra — a soma bruta continua sendo o indicador de tendência principal, o mais confiável. O %BF estimado é calculado a partir da soma e da idade e serve como leitura de contexto: é sensível à padronização do avaliador (mesma pessoa, mesmo local, mesma pressão) — compare sempre dentro do mesmo protocolo de medição.</div>
       <div class="meas-add">
         <div class="fld"><label>Peitoral</label><input id="dbChest" inputmode="decimal" placeholder="mm"></div>
         <div class="fld"><label>Abdominal</label><input id="dbAbd" inputmode="decimal" placeholder="mm"></div>
@@ -455,10 +463,9 @@ function dietDay(k){DB.diet=DB.diet||{};DB.diet[k]=DB.diet[k]||{};return DB.diet
 async function loadRemoteData(){
   try{
     var res=await fetch('data.json',{cache:'no-store'});
-    if(!res.ok)return;
+    if(!res.ok)return false;
     var remote=await res.json();
     if(remote.diet)DB.diet=remote.diet;
-    if(remote.meas)DB.meas=remote.meas;
     if(remote.dobras)DB.dobras=remote.dobras;
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
     if(remote.health)DB.health=remote.health;
@@ -466,9 +473,24 @@ async function loadRemoteData(){
       Object.keys(remote.cargas).forEach(function(k){localStorage.setItem(k,remote.cargas[k])});
     }
     save();
+    return true;
   }catch(e){
     /* offline ou data.json indisponível — segue com o cache local */
+    return false;
   }
+}
+
+/* Botão Sincronizar — re-busca data.json e re-renderiza as abas com dados, sem reload */
+async function syncNow(){
+  var btn=document.getElementById('syncBtn');var st=document.getElementById('syncStatus');
+  btn.disabled=true;btn.style.opacity='.5';
+  var ok=await loadRemoteData();
+  renderDash();renderDiet();renderMeas();renderDobras();renderCardioChecks();
+  if(document.getElementById('s-meas').classList.contains('on'))drawChart();
+  var now=new Date();var hm=pad(now.getHours())+':'+pad(now.getMinutes());
+  if(ok){st.textContent='Sincronizado às '+hm;st.style.color='var(--mt)'}
+  else{st.textContent='Falha ao sincronizar (offline?) · '+hm;st.style.color='var(--rd)'}
+  btn.disabled=false;btn.style.opacity='1';
 }
 
 var TARGET={kcal:3550,kcalMax:3850,p:155,c:555,f:95};
@@ -824,21 +846,7 @@ function renderDash(){
     strip.appendChild(el);
   });
 
-  // atividade — dados semanais enviados manualmente (health.weekly), mais recente vs. anterior
-  DB.health=DB.health||{};DB.health.weekly=DB.health.weekly||{};
-  var wkKeys=Object.keys(DB.health.weekly).sort();
-  var hCur=wkKeys.length?DB.health.weekly[wkKeys[wkKeys.length-1]]:null;
-  var hPrev=wkKeys.length>1?DB.health.weekly[wkKeys[wkKeys.length-2]]:null;
-  var hGrid=document.getElementById('healthWeekGrid');
-  if(hCur){
-    var curTotalCal=hCur.activeCal+hCur.restCal;
-    var prevTotalCal=hPrev?(hPrev.activeCal+hPrev.restCal):null;
-    hGrid.innerHTML=
-      metricBox('Min. exercício',Math.round(hCur.exerciseMin),'',deltaHtml(hCur.exerciseMin,hPrev?hPrev.exerciseMin:null,'var(--ac)'),'var(--tx)')
-      +metricBox('Cal. ativas+repouso (méd./dia)',Math.round(curTotalCal/7).toLocaleString('pt-BR'),'',deltaHtml(curTotalCal,prevTotalCal,'var(--ac)'),'var(--tx)',true);
-  } else {
-    hGrid.innerHTML='<div class="d full" style="color:var(--mt);font-size:12.5px">Sem resumo semanal de saúde ainda — envie o resumo de domingo pra preencher.</div>';
-  }
+  renderHealthWeek();
 
   // mês
   var now=new Date();var monthVals=[];
@@ -849,18 +857,84 @@ function renderDash(){
     }
   });
   document.getElementById('moKcal').textContent=monthVals.length?Math.round(monthVals.reduce(function(a,b){return a+b},0)/monthVals.length).toLocaleString('pt-BR'):'—';
-  var meas=(DB.meas||[]).filter(function(m){return m.w!=null});
-  var lastW=meas.length?meas[meas.length-1]:null;
-  document.getElementById('moPeso').textContent=lastW?lastW.w.toFixed(1):'—';
-  var monthMeas=meas.filter(function(m){var dd=new Date(m.d+'T12:00:00');return dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear()});
+  var wDates=healthSorted('peso');
+  var lastW=wDates.length?wDates[wDates.length-1]:null;
+  document.getElementById('moPeso').textContent=lastW?lastW.v.toFixed(1):'—';
+  var monthW=wDates.filter(function(e){var dd=new Date(e.d+'T12:00:00');return dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear()});
   var dvEl=document.getElementById('moPesoDelta');
-  if(monthMeas.length>=2){
-    var d=monthMeas[monthMeas.length-1].w-monthMeas[0].w;
+  if(monthW.length>=2){
+    var d=monthW[monthW.length-1].v-monthW[0].v;
     dvEl.className='dv '+(Math.abs(d)<0.1?'flat':(d>0?'up':'down'));
     dvEl.textContent=(d>0?'+':'')+d.toFixed(1)+' kg no mês';
   } else dvEl.textContent='';
   var note=document.getElementById('moNote');
   note.textContent=monthVals.length?monthVals.length+' dia(s) registrados neste mês.':'Sem dados suficientes ainda neste mês.';
+}
+
+/* ------------------------------------------------------------
+   Semana · atividade — agregado on-the-fly a partir de DB.health
+   (sem resumo semanal manual — Claude escreve os dias direto no chat)
+------------------------------------------------------------ */
+function lastNDates(n,end){
+  end=end||new Date();var arr=[];
+  for(var i=n-1;i>=0;i--){var d=new Date(end);d.setDate(d.getDate()-i);arr.push(keyOf(d))}
+  return arr;
+}
+function healthAvg(dates,field){
+  var vals=dates.map(function(k){return(DB.health&&DB.health[k]&&DB.health[k][field]!=null)?DB.health[k][field]:null}).filter(function(v){return v!=null});
+  if(!vals.length)return null;
+  return vals.reduce(function(a,b){return a+b},0)/vals.length;
+}
+function healthLatest(dates,field){
+  for(var i=dates.length-1;i>=0;i--){
+    var k=dates[i];
+    if(DB.health&&DB.health[k]&&DB.health[k][field]!=null)return DB.health[k][field];
+  }
+  return null;
+}
+function hrvLowWarning(){
+  var today=new Date();
+  var last3=lastNDates(3,today);
+  var vals3=last3.map(function(k){return(DB.health&&DB.health[k])?DB.health[k].hrv:null});
+  if(vals3.some(function(v){return v==null}))return false;
+  var before=new Date(today);before.setDate(before.getDate()-3);
+  var prev14=lastNDates(14,before);
+  var avg14=healthAvg(prev14,'hrv');
+  if(avg14==null)return false;
+  return vals3.every(function(v){return v<avg14});
+}
+function renderHealthWeek(){
+  DB.health=DB.health||{};
+  var hGrid=document.getElementById('healthWeekGrid');
+  var warnEl=document.getElementById('healthWeekWarn');
+  if(!Object.keys(DB.health).length){
+    hGrid.innerHTML='<div class="d full" style="color:var(--mt);font-size:12.5px">Sem dados de saúde ainda — descreva no chat (ou cole do app Saúde) pra o Claude registrar.</div>';
+    warnEl.innerHTML='';
+    return;
+  }
+  var last7=lastNDates(7);
+  var beforeLast7=new Date();beforeLast7.setDate(beforeLast7.getDate()-7);
+  var prev7=lastNDates(7,beforeLast7);
+
+  var passosAvg=healthAvg(last7,'passos');
+  var fcLatest=healthLatest(last7,'fcRepouso');
+  var fcPrevAvg=healthAvg(prev7,'fcRepouso');
+  var hrvLatest=healthLatest(last7,'hrv');
+  var hrvPrevAvg=healthAvg(prev7,'hrv');
+  var sonoAvg=healthAvg(last7,'sonoMin');
+  var vo2Latest=healthLatest(lastNDates(60),'vo2max');
+
+  hGrid.innerHTML=
+    metricBox('Passos méd./dia',passosAvg!=null?Math.round(passosAvg).toLocaleString('pt-BR'):'—','','',
+      'var(--tx)')
+    +metricBox('FC repouso',fcLatest!=null?Math.round(fcLatest):'—',' bpm',fcLatest!=null?deltaHtml(fcLatest,fcPrevAvg,'var(--ac)'):'','var(--tx)')
+    +metricBox('HRV',hrvLatest!=null?Math.round(hrvLatest):'—',' ms',hrvLatest!=null?deltaHtml(hrvLatest,hrvPrevAvg,'var(--ac)'):'','var(--tx)')
+    +metricBox('Sono méd./dia',sonoAvg!=null?(sonoAvg/60).toFixed(1).replace('.',','):'—','h','','var(--tx)')
+    +metricBox('VO2max',vo2Latest!=null?vo2Latest.toFixed(1).replace('.',','):'—','','','var(--tx)',true);
+
+  warnEl.innerHTML=hrvLowWarning()
+    ?'<div class="ibox warn" style="margin-top:10px"><b>Atenção:</b> HRV abaixo da média nos últimos 3 dias seguidos — gatilho de deload/recuperação (ver aba Plano).</div>'
+    :'';
 }
 
 /* ============================================================
@@ -870,31 +944,40 @@ function saveMeas(){
   var w=parseFloat((document.getElementById('mW').value||'').replace(',','.'));
   var wa=parseFloat((document.getElementById('mWa').value||'').replace(',','.'));
   if(isNaN(w)&&isNaN(wa))return;
-  DB.meas=DB.meas||[];var k=keyOf(new Date());
-  var ex=DB.meas.find(function(m){return m.d===k});
-  if(ex){if(!isNaN(w))ex.w=w;if(!isNaN(wa))ex.wa=wa}
-  else DB.meas.push({d:k,w:isNaN(w)?null:w,wa:isNaN(wa)?null:wa});
-  DB.meas.sort(function(a,b){return a.d<b.d?-1:1});
+  DB.health=DB.health||{};var k=keyOf(new Date());
+  var entry=DB.health[k]=DB.health[k]||{};
+  if(!isNaN(w))entry.peso=w;
+  if(!isNaN(wa))entry.cintura=wa;
+  if(!entry.fonte)entry.fonte='manual';
   save();document.getElementById('mW').value='';document.getElementById('mWa').value='';
   renderMeas();drawChart();
 }
+/* Lista ordenada {d,v} das datas de DB.health que têm o campo informado */
+function healthSorted(field){
+  return Object.keys(DB.health||{})
+    .filter(function(k){return DB.health[k][field]!=null})
+    .sort()
+    .map(function(k){return{d:k,v:DB.health[k][field]}});
+}
 function renderMeas(){
-  var m=DB.meas||[];
-  var ws=m.filter(function(x){return x.w!=null});var was=m.filter(function(x){return x.wa!=null});
-  document.getElementById('wNow').textContent=ws.length?ws[ws.length-1].w.toFixed(1):'—';
-  document.getElementById('waNow').textContent=was.length?was[was.length-1].wa.toFixed(0):'—';
-  deltaEl('wDelta',ws,'w',' kg');deltaEl('waDelta',was,'wa',' cm');
+  var ws=healthSorted('peso');var was=healthSorted('cintura');
+  document.getElementById('wNow').textContent=ws.length?ws[ws.length-1].v.toFixed(1):'—';
+  document.getElementById('waNow').textContent=was.length?was[was.length-1].v.toFixed(0):'—';
+  deltaEl('wDelta',ws,' kg');deltaEl('waDelta',was,' cm');
+  var dates=Object.keys(DB.health||{}).filter(function(k){return DB.health[k].peso!=null||DB.health[k].cintura!=null}).sort();
   var h=document.getElementById('measHist');h.innerHTML='';
-  m.slice().reverse().slice(0,8).forEach(function(x){
-    var parts=[];if(x.w!=null)parts.push(x.w.toFixed(1)+' kg');if(x.wa!=null)parts.push(x.wa.toFixed(0)+' cm');
-    var dt=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
+  dates.slice().reverse().slice(0,8).forEach(function(k){
+    var x=DB.health[k];var parts=[];
+    if(x.peso!=null)parts.push(x.peso.toFixed(1)+' kg');
+    if(x.cintura!=null)parts.push(x.cintura.toFixed(0)+' cm');
+    var dt=new Date(k+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
     var row=document.createElement('div');row.className='h';
     row.innerHTML='<span>'+dt+'</span><b>'+parts.join(' · ')+'</b>';h.appendChild(row);
   });
 }
-function deltaEl(id,arr,key,unit){
+function deltaEl(id,arr,unit){
   var el=document.getElementById(id);if(arr.length<2){el.textContent='';return}
-  var d=arr[arr.length-1][key]-arr[0][key];
+  var d=arr[arr.length-1].v-arr[0].v;
   el.className='dv '+(Math.abs(d)<0.05?'flat':(d>0?'up':'down'));
   el.textContent=(d>0?'+':'')+d.toFixed(1)+unit;
 }
@@ -922,17 +1005,40 @@ function saveDobras(){
   renderDobras();
 }
 function sumDobra(x){return DOBRA_FIELDS.reduce(function(a,f){return a+(x[f[1]]||0)},0)}
+/* Jackson-Pollock 7 dobras, fórmula masculina. Idade calculada a partir do nascimento (12/06/1989) e da data do registro. */
+var BIRTHDATE=new Date(1989,5,12);
+function ageAt(dateStr){
+  var d=new Date(dateStr+'T12:00:00');
+  var age=d.getFullYear()-BIRTHDATE.getFullYear();
+  var m=d.getMonth()-BIRTHDATE.getMonth();
+  if(m<0||(m===0&&d.getDate()<BIRTHDATE.getDate()))age--;
+  return age;
+}
+function pctBF(x){
+  var soma=sumDobra(x);if(!soma)return null;
+  var idade=ageAt(x.d);
+  var bd=1.112-0.00043499*soma+0.00000055*soma*soma-0.00028826*idade;
+  return(495/bd)-450;
+}
 function renderDobras(){
   var m=DB.dobras||[];
-  if(!m.length){document.getElementById('dbNow').textContent='—';document.getElementById('dbDelta').textContent='';document.getElementById('dobrasCompare').innerHTML='';document.getElementById('dobrasHist').innerHTML='<div class="empty2">Nenhum teste registrado ainda.</div>';return}
+  if(!m.length){document.getElementById('dbNow').textContent='—';document.getElementById('dbDelta').textContent='';document.getElementById('dbBf').textContent='—';document.getElementById('dbBfDelta').textContent='';document.getElementById('dobrasCompare').innerHTML='';document.getElementById('dobrasHist').innerHTML='<div class="empty2">Nenhum teste registrado ainda.</div>';return}
   var last=m[m.length-1];
   document.getElementById('dbNow').textContent=sumDobra(last).toFixed(1);
+  var bfLast=pctBF(last);
+  document.getElementById('dbBf').textContent=bfLast!=null?bfLast.toFixed(1).replace('.',',')+'%':'—';
   if(m.length>=2){
     var d=sumDobra(last)-sumDobra(m[0]);
     var dv=document.getElementById('dbDelta');
     dv.className='dv '+(Math.abs(d)<0.5?'flat':(d>0?'up':'down'));
     dv.textContent=(d>0?'+':'')+d.toFixed(1)+' mm desde o 1º registro';
-  } else document.getElementById('dbDelta').textContent='';
+    var bfFirst=pctBF(m[0]);var dbfEl=document.getElementById('dbBfDelta');
+    if(bfLast!=null&&bfFirst!=null){
+      var dbf=bfLast-bfFirst;
+      dbfEl.className='dv '+(Math.abs(dbf)<0.1?'flat':(dbf>0?'up':'down'));
+      dbfEl.textContent=(dbf>0?'+':'')+dbf.toFixed(1).replace('.',',')+'% desde o 1º registro';
+    } else dbfEl.textContent='';
+  } else {document.getElementById('dbDelta').textContent='';document.getElementById('dbBfDelta').textContent=''}
 
   var cmp=document.getElementById('dobrasCompare');
   if(m.length>=2){
@@ -961,10 +1067,11 @@ function renderDobras(){
   var h=document.getElementById('dobrasHist');h.innerHTML='';
   m.slice().reverse().slice(0,8).forEach(function(x){
     var dt=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'});
-    var detail=DOBRA_FIELDS.filter(function(f){return x[f[1]]!=null}).map(function(f){return f[2].slice(0,4)+' '+x[f[1]]}).join(' · ');
+    var bf=pctBF(x);
+    var detail=DOBRA_FIELDS.map(function(f,idx){return x[f[1]]!=null?(idx+1)+' '+x[f[1]]:null}).filter(Boolean).join(' · ');
     var row=document.createElement('div');row.className='h';row.style.flexDirection='column';row.style.alignItems='flex-start';row.style.gap='2px';
-    row.innerHTML='<div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>soma '+sumDobra(x).toFixed(1)+' mm</b></div>'
-      +(detail?'<div style="font-size:10.5px;color:var(--mt)">'+detail+'</div>':'');
+    row.innerHTML='<div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>'+(bf!=null?bf.toFixed(1).replace('.',',')+'%':'—')+'</b></div>'
+      +'<div style="font-size:10.5px;color:var(--mt)">soma '+sumDobra(x).toFixed(1)+' mm'+(detail?' · '+detail:'')+'</div>';
     h.appendChild(row);
   });
 }
@@ -972,7 +1079,7 @@ function drawChart(){
   var cv=document.getElementById('wChart');if(!cv)return;
   var dpr=window.devicePixelRatio||1;var W=cv.clientWidth,H=120;
   cv.width=W*dpr;cv.height=H*dpr;var x=cv.getContext('2d');x.scale(dpr,dpr);x.clearRect(0,0,W,H);
-  var pts=(DB.meas||[]).filter(function(m){return m.w!=null}).map(function(m){return m.w});
+  var pts=healthSorted('peso').map(function(e){return e.v});
   if(pts.length<2){x.fillStyle='#6b6760';x.font='12px -apple-system';x.textAlign='center';x.fillText('Registre 2+ pesos para ver a tendência',W/2,H/2);return}
   var mn=Math.min.apply(null,pts),mx=Math.max.apply(null,pts);var pad=Math.max((mx-mn)*0.25,0.4);mn-=pad;mx+=pad;
   var px=8,py=12,pw=W-16,ph=H-26;
