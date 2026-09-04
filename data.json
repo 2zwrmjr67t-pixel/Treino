@@ -243,6 +243,54 @@
           "f": 27
         }
       ]
+    },
+    "2026-09-04": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma (1 fatia) c/ presunto (2 fatias) e queijo (1 fatia)",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Bife de alcatra grelhado na chapa (170g)",
+          "k": 340,
+          "p": 54,
+          "c": 0,
+          "f": 14
+        },
+        {
+          "n": "Ovo frito (quase sem gordura, manteiga)",
+          "k": 90,
+          "p": 6,
+          "c": 0,
+          "f": 7
+        },
+        {
+          "n": "Polenta (230g)",
+          "k": 160,
+          "p": 3,
+          "c": 35,
+          "f": 1
+        },
+        {
+          "n": "Alfajor (sobremesa)",
+          "k": 220,
+          "p": 3,
+          "c": 30,
+          "f": 10
+        }
+      ]
     }
   },
   "meas": [],
@@ -277,6 +325,12 @@
       "p": 266,
       "c": 452,
       "f": 79
+    },
+    "2026-09-04": {
+      "k": 1490,
+      "p": 114,
+      "c": 159,
+      "f": 46
     }
   }
 }
