@@ -328,6 +328,56 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-05": {
+      "cafe": [
+        {
+          "n": "Shake pré-treino (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        }
+      ],
+      "lm": [
+        {
+          "n": "Pão de forma (1 fatia) c/ presunto (2 fatias) e queijo (1 fatia)",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        },
+        {
+          "n": "Shake pós-treino (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Carne moída (220g)",
+          "k": 550,
+          "p": 57,
+          "c": 0,
+          "f": 37
+        },
+        {
+          "n": "Purê de abóbora moranga (220g)",
+          "k": 142,
+          "p": 2,
+          "c": 22,
+          "f": 3
+        },
+        {
+          "n": "Bolo (chocolate, brigadeiro branco, morango, ~150g)",
+          "k": 480,
+          "p": 6,
+          "c": 58,
+          "f": 22
+        }
+      ]
     }
   },
   "dobras": [
@@ -517,6 +567,12 @@
       "p": 166,
       "c": 262,
       "f": 99
+    },
+    "2026-09-05": {
+      "k": 2332,
+      "p": 146,
+      "c": 253,
+      "f": 81
     }
   }
 }
