@@ -401,6 +401,70 @@
           "f": 13
         }
       ]
+    },
+    "2026-09-06": {
+      "cafe": [
+        {
+          "n": "Cuca de goiabada e flor de sal (~125g)",
+          "k": 450,
+          "p": 7,
+          "c": 55,
+          "f": 22
+        },
+        {
+          "n": "Cuca de banana com doce de leite (~100g)",
+          "k": 350,
+          "p": 5,
+          "c": 48,
+          "f": 15
+        },
+        {
+          "n": "Pão brioche (2 un., puro)",
+          "k": 480,
+          "p": 12,
+          "c": 53,
+          "f": 23
+        },
+        {
+          "n": "Pão brioche c/ 2 presunto + queijo",
+          "k": 380,
+          "p": 20,
+          "c": 33,
+          "f": 18
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Entranha + costela magra grelhadas (~300g)",
+          "k": 690,
+          "p": 84,
+          "c": 0,
+          "f": 39
+        },
+        {
+          "n": "Pão brioche (2 un., puro)",
+          "k": 480,
+          "p": 12,
+          "c": 53,
+          "f": 23
+        },
+        {
+          "n": "Vinho (~700ml)",
+          "k": 600,
+          "p": 0,
+          "c": 15,
+          "f": 0
+        }
+      ],
+      "janta": [
+        {
+          "n": "X-coração (lanche c/ coraçãozinho de frango grelhado)",
+          "k": 760,
+          "p": 50,
+          "c": 41,
+          "f": 44
+        }
+      ]
     }
   },
   "dobras": [
@@ -596,6 +660,12 @@
       "p": 214,
       "c": 337,
       "f": 128
+    },
+    "2026-09-06": {
+      "k": 4190,
+      "p": 190,
+      "c": 298,
+      "f": 184
     }
   }
 }
