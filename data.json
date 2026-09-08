@@ -545,6 +545,72 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-08": {
+      "cafe": [
+        {
+          "n": "Shake pré-treino (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 378,
+          "p": 29,
+          "c": 61,
+          "f": 3
+        }
+      ],
+      "lm": [
+        {
+          "n": "Shake pós-treino (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 480,
+          "p": 33,
+          "c": 79,
+          "f": 5
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (~145g, prato a peso)",
+          "k": 186,
+          "p": 4,
+          "c": 41,
+          "f": 1
+        },
+        {
+          "n": "Moela de frango grelhada (~215g)",
+          "k": 387,
+          "p": 60,
+          "c": 2,
+          "f": 15
+        },
+        {
+          "n": "Tiras de carne c/ cebola (~145g)",
+          "k": 319,
+          "p": 39,
+          "c": 3,
+          "f": 17
+        },
+        {
+          "n": "Salada (rúcula, pepino, cenoura, ~95g)",
+          "k": 24,
+          "p": 1,
+          "c": 5,
+          "f": 0
+        }
+      ]
     }
   },
   "dobras": [
@@ -752,6 +818,12 @@
       "p": 140,
       "c": 334,
       "f": 162
+    },
+    "2026-09-08": {
+      "k": 2734,
+      "p": 232,
+      "c": 349,
+      "f": 51
     }
   }
 }
