@@ -611,6 +611,84 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-09": {
+      "cafe": [
+        {
+          "n": "Shake pré-treino (água de coco 200ml, whey, 2 scoops aveia, creatina 3g, sem banana)",
+          "k": 375,
+          "p": 32,
+          "c": 52,
+          "f": 5
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, sem banana) — un. 1",
+          "k": 375,
+          "p": 32,
+          "c": 52,
+          "f": 5
+        },
+        {
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, sem banana) — un. 2",
+          "k": 375,
+          "p": 32,
+          "c": 52,
+          "f": 5
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (~130g, prato a peso)",
+          "k": 166,
+          "p": 4,
+          "c": 37,
+          "f": 1
+        },
+        {
+          "n": "Lentilha guisada (~90g)",
+          "k": 99,
+          "p": 6,
+          "c": 16,
+          "f": 1
+        },
+        {
+          "n": "Bife grelhado (2 un., ~220g)",
+          "k": 440,
+          "p": 70,
+          "c": 0,
+          "f": 18
+        },
+        {
+          "n": "Beterraba cozida (~60g)",
+          "k": 24,
+          "p": 1,
+          "c": 5,
+          "f": 0
+        },
+        {
+          "n": "Cenoura cozida (~50g)",
+          "k": 18,
+          "p": 1,
+          "c": 4,
+          "f": 0
+        },
+        {
+          "n": "Pepino (~30g)",
+          "k": 5,
+          "p": 0,
+          "c": 1,
+          "f": 0
+        },
+        {
+          "n": "Melancia (~24g)",
+          "k": 7,
+          "p": 0,
+          "c": 2,
+          "f": 0
+        }
+      ]
     }
   },
   "dobras": [
@@ -824,6 +902,12 @@
       "p": 219,
       "c": 349,
       "f": 60
+    },
+    "2026-09-09": {
+      "k": 1884,
+      "p": 178,
+      "c": 221,
+      "f": 35
     }
   }
 }
