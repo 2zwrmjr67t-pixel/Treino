@@ -902,17 +902,6 @@ function healthLatest(dates,field){
   }
   return null;
 }
-function hrvLowWarning(){
-  var today=new Date();
-  var last3=lastNDates(3,today);
-  var vals3=last3.map(function(k){return(DB.health&&DB.health[k])?DB.health[k].hrv:null});
-  if(vals3.some(function(v){return v==null}))return false;
-  var before=new Date(today);before.setDate(before.getDate()-3);
-  var prev14=lastNDates(14,before);
-  var avg14=healthAvg(prev14,'hrv');
-  if(avg14==null)return false;
-  return vals3.every(function(v){return v<avg14});
-}
 function renderHealthWeek(){
   DB.health=DB.health||{};
   DB.healthWeekly=DB.healthWeekly||{};
@@ -926,18 +915,10 @@ function renderHealthWeek(){
     return;
   }
   var last7=lastNDates(7);
-  var beforeLast7=new Date();beforeLast7.setDate(beforeLast7.getDate()-7);
-  var prev7=lastNDates(7,beforeLast7);
 
   /* Passos: prefere o total semanal agregado (healthWeekly) da semana atual — evita o
      bug de outlier de escrever a soma da semana como se fosse o valor de um único dia. */
   var passosAvg=(wk&&wk.passos!=null)?wk.passos/7:healthAvg(last7,'passos');
-  var fcLatest=healthLatest(last7,'fcRepouso');
-  var fcPrevAvg=healthAvg(prev7,'fcRepouso');
-  var hrvLatest=healthLatest(last7,'hrv');
-  var hrvPrevAvg=healthAvg(prev7,'hrv');
-  var sonoAvg=healthAvg(last7,'sonoMin');
-  var vo2Latest=healthLatest(lastNDates(60),'vo2max');
   /* Sem equivalente diário confiável — só vêm do resumo semanal agregado (healthWeekly) */
   var calAtivasAvg=(wk&&wk.calAtivas!=null)?wk.calAtivas/7:null;
   var calRepousoAvg=(wk&&wk.calRepouso!=null)?wk.calRepouso/7:null;
@@ -946,17 +927,11 @@ function renderHealthWeek(){
   hGrid.innerHTML=
     metricBox('Passos méd./dia',passosAvg!=null?Math.round(passosAvg).toLocaleString('pt-BR'):'—','','',
       'var(--tx)')
-    +metricBox('FC repouso',fcLatest!=null?Math.round(fcLatest):'—',' bpm',fcLatest!=null?deltaHtml(fcLatest,fcPrevAvg,'var(--ac)'):'','var(--tx)')
-    +metricBox('HRV',hrvLatest!=null?Math.round(hrvLatest):'—',' ms',hrvLatest!=null?deltaHtml(hrvLatest,hrvPrevAvg,'var(--ac)'):'','var(--tx)')
-    +metricBox('Sono méd./dia',sonoAvg!=null?(sonoAvg/60).toFixed(1).replace('.',','):'—','h','','var(--tx)')
-    +metricBox('VO2max',vo2Latest!=null?vo2Latest.toFixed(1).replace('.',','):'—','','','var(--tx)',true)
     +metricBox('Cal. ativas méd./dia',calAtivasAvg!=null?Math.round(calAtivasAvg).toLocaleString('pt-BR'):'—',' kcal','','var(--tx)')
     +metricBox('Cal. repouso méd./dia',calRepousoAvg!=null?Math.round(calRepousoAvg).toLocaleString('pt-BR'):'—',' kcal','','var(--tx)')
     +metricBox('Exercício méd./dia',exercicioAvg!=null?Math.round(exercicioAvg):'—',' min','','var(--tx)');
 
-  warnEl.innerHTML=hrvLowWarning()
-    ?'<div class="ibox warn" style="margin-top:10px"><b>Atenção:</b> HRV abaixo da média nos últimos 3 dias seguidos — gatilho de deload/recuperação (ver aba Plano).</div>'
-    :'';
+  warnEl.innerHTML='';
 }
 
 /* ============================================================
