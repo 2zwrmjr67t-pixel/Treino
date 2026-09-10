@@ -808,39 +808,32 @@
           "f": 1
         },
         {
-          "n": "Couve/repolho cozido temperado (~40g)",
-          "k": 14,
-          "p": 1,
-          "c": 2,
+          "n": "Alface (~20g)",
+          "k": 3,
+          "p": 0,
+          "c": 1,
           "f": 0
         },
         {
-          "n": "Batata frita (~50g)",
-          "k": 125,
-          "p": 2,
-          "c": 16,
-          "f": 6
-        },
-        {
-          "n": "Linguiça grelhada (~60g)",
-          "k": 180,
-          "p": 8,
-          "c": 1,
-          "f": 16
-        },
-        {
-          "n": "Carne bovina grelhada em blocos (~140g)",
-          "k": 308,
-          "p": 45,
+          "n": "Dois bifes grelhados (~220g)",
+          "k": 484,
+          "p": 70,
           "c": 0,
-          "f": 14
+          "f": 22
         },
         {
-          "n": "Carne em molho (~90g)",
-          "k": 225,
-          "p": 25,
-          "c": 3,
-          "f": 13
+          "n": "Filé de frango grelhado (~90g)",
+          "k": 149,
+          "p": 28,
+          "c": 0,
+          "f": 4
+        },
+        {
+          "n": "Batata assada (2 un., ~50g)",
+          "k": 45,
+          "p": 1,
+          "c": 11,
+          "f": 0
         }
       ]
     }
@@ -1108,10 +1101,10 @@
       "f": 86
     },
     "2026-09-10": {
-      "k": 1879,
-      "p": 160,
-      "c": 162,
-      "f": 67
+      "k": 1708,
+      "p": 178,
+      "c": 152,
+      "f": 44
     }
   }
 }
