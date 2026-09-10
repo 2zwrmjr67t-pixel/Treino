@@ -826,8 +826,55 @@
   "cardioWeek": {},
   "cargas": {},
   "health": {
+    "2025-12-16": {
+      "peso": 80.1,
+      "fonte": "health"
+    },
+    "2026-01-14": {
+      "peso": 80.05,
+      "fonte": "health"
+    },
+    "2026-01-21": {
+      "peso": 79.95,
+      "fonte": "health"
+    },
+    "2026-02-17": {
+      "peso": 80.7,
+      "fonte": "health"
+    },
+    "2026-03-12": {
+      "peso": 78.7,
+      "fonte": "health"
+    },
+    "2026-03-19": {
+      "peso": 78.5,
+      "fonte": "health"
+    },
+    "2026-03-25": {
+      "peso": 78.5,
+      "fonte": "health"
+    },
+    "2026-03-29": {
+      "peso": 78.55,
+      "fonte": "health"
+    },
+    "2026-04-01": {
+      "peso": 79,
+      "fonte": "health"
+    },
+    "2026-04-03": {
+      "peso": 79.45,
+      "fonte": "health"
+    },
+    "2026-04-10": {
+      "peso": 79.45,
+      "fonte": "health"
+    },
+    "2026-08-15": {
+      "peso": 76.3,
+      "fonte": "health"
+    },
     "2026-08-19": {
-      "peso": 77.8,
       "cintura": 84.5,
       "passos": 8200,
       "fcRepouso": 57,
@@ -837,7 +884,6 @@
       "fonte": "health"
     },
     "2026-08-20": {
-      "peso": 77.9,
       "passos": 7600,
       "fcRepouso": 58,
       "hrv": 61,
@@ -845,7 +891,6 @@
       "fonte": "health"
     },
     "2026-08-21": {
-      "peso": 78.0,
       "passos": 9100,
       "fcRepouso": 56,
       "hrv": 65,
@@ -853,7 +898,6 @@
       "fonte": "health"
     },
     "2026-08-22": {
-      "peso": 78.0,
       "passos": 6800,
       "fcRepouso": 59,
       "hrv": 58,
@@ -861,19 +905,13 @@
       "fonte": "health"
     },
     "2026-08-23": {
-      "peso": 78.1,
       "passos": 10200,
       "fcRepouso": 57,
       "hrv": 62,
       "sonoMin": 420,
       "fonte": "health"
     },
-    "2026-08-24": {
-      "peso": 78.3,
-      "fonte": "manual"
-    },
     "2026-08-25": {
-      "peso": 78.2,
       "passos": 8900,
       "fcRepouso": 58,
       "hrv": 60,
@@ -881,7 +919,6 @@
       "fonte": "health"
     },
     "2026-08-26": {
-      "peso": 78.4,
       "cintura": 85.0,
       "passos": 7300,
       "fcRepouso": 57,
@@ -890,7 +927,6 @@
       "fonte": "health"
     },
     "2026-08-27": {
-      "peso": 78.3,
       "passos": 9700,
       "fcRepouso": 56,
       "hrv": 61,
@@ -905,7 +941,6 @@
       "fonte": "health"
     },
     "2026-08-29": {
-      "peso": 78.5,
       "passos": 6200,
       "fcRepouso": 59,
       "hrv": 57,
@@ -913,7 +948,6 @@
       "fonte": "health"
     },
     "2026-08-30": {
-      "peso": 78.4,
       "passos": 11000,
       "fcRepouso": 55,
       "hrv": 66,
@@ -921,7 +955,6 @@
       "fonte": "health"
     },
     "2026-08-31": {
-      "peso": 78.6,
       "passos": 7800,
       "fcRepouso": 57,
       "hrv": 62,
@@ -929,7 +962,6 @@
       "fonte": "health"
     },
     "2026-09-01": {
-      "peso": 78.5,
       "cintura": 84.8,
       "passos": 8600,
       "fcRepouso": 58,
@@ -939,7 +971,6 @@
       "fonte": "health"
     },
     "2026-09-02": {
-      "peso": 78.6,
       "passos": 6900,
       "fcRepouso": 62,
       "hrv": 48,
@@ -947,7 +978,6 @@
       "fonte": "health"
     },
     "2026-09-03": {
-      "peso": 78.7,
       "passos": 5200,
       "fcRepouso": 64,
       "hrv": 45,
@@ -955,7 +985,6 @@
       "fonte": "health"
     },
     "2026-09-04": {
-      "peso": 78.6,
       "cintura": 85.2,
       "passos": 4100,
       "fcRepouso": 63,
