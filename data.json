@@ -914,6 +914,21 @@
       "hrv": 50,
       "sonoMin": 335,
       "fonte": "health"
+    },
+    "2026-09-10": {
+      "peso": 77.8,
+      "fonte": "health"
+    }
+  },
+  "healthWeekly": {
+    "2026-W37": {
+      "start": "2026-09-04",
+      "end": "2026-09-10",
+      "calAtivas": 4009.31,
+      "calRepouso": 14056.15,
+      "exercicioMin": 235,
+      "passos": 92504,
+      "fonte": "manual"
     }
   },
   "totais": {
