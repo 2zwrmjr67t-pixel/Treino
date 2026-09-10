@@ -638,26 +638,26 @@
     "2026-09-09": {
       "cafe": [
         {
-          "n": "Shake pré-treino (água de coco 200ml, whey, 2 scoops aveia, creatina 3g, sem banana)",
-          "k": 375,
-          "p": 32,
-          "c": 52,
+          "n": "Shake pré-treino (água de coco 200ml, whey, 2 scoops aveia, creatina 3g, com banana)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
           "f": 5
         }
       ],
       "lt": [
         {
-          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, sem banana) — un. 1",
-          "k": 375,
-          "p": 32,
-          "c": 52,
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, com banana) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
           "f": 5
         },
         {
-          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, sem banana) — un. 2",
-          "k": 375,
-          "p": 32,
-          "c": 52,
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, com banana) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
           "f": 5
         },
         {
@@ -778,10 +778,10 @@
     "2026-09-10": {
       "cafe": [
         {
-          "n": "Shake (água de coco 200ml, whey, 1 scoop aveia, creatina 3g, sem banana)",
-          "k": 273,
-          "p": 28,
-          "c": 34,
+          "n": "Shake (água de coco 200ml, whey, 1 scoop aveia, creatina 3g, com banana)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
           "f": 3
         },
         {
@@ -792,10 +792,10 @@
           "f": 9
         },
         {
-          "n": "Shake (água de coco 200ml, whey, 2 scoops aveia, sem banana)",
-          "k": 375,
-          "p": 32,
-          "c": 52,
+          "n": "Shake (água de coco 200ml, whey, 2 scoops aveia, com banana)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
           "f": 5
         }
       ],
@@ -834,6 +834,22 @@
           "p": 1,
           "c": 11,
           "f": 0
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, banana) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake tarde (água de coco 200ml, whey, 2 scoops aveia, banana) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
         }
       ]
     }
@@ -1095,16 +1111,16 @@
       "f": 110
     },
     "2026-09-09": {
-      "k": 3394,
-      "p": 271,
-      "c": 395,
+      "k": 3664,
+      "p": 274,
+      "c": 464,
       "f": 86
     },
     "2026-09-10": {
-      "k": 1708,
-      "p": 178,
-      "c": 152,
-      "f": 44
+      "k": 2818,
+      "p": 246,
+      "c": 348,
+      "f": 54
     }
   }
 }
