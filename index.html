@@ -469,6 +469,7 @@ async function loadRemoteData(){
     if(remote.dobras)DB.dobras=remote.dobras;
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
     if(remote.health)DB.health=remote.health;
+    if(remote.healthWeekly)DB.healthWeekly=remote.healthWeekly;
     if(remote.cargas){
       Object.keys(remote.cargas).forEach(function(k){localStorage.setItem(k,remote.cargas[k])});
     }
@@ -880,6 +881,15 @@ function lastNDates(n,end){
   for(var i=n-1;i>=0;i--){var d=new Date(end);d.setDate(d.getDate()-i);arr.push(keyOf(d))}
   return arr;
 }
+/* Chave de semana ISO 8601 ("YYYY-Www") — semana começa na segunda, semana 1 contém a 1ª quinta do ano */
+function getISOWeekKey(date){
+  var d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
+  var dayNum=d.getUTCDay()||7;
+  d.setUTCDate(d.getUTCDate()+4-dayNum);
+  var yearStart=new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  var weekNo=Math.ceil((((d-yearStart)/86400000)+1)/7);
+  return d.getUTCFullYear()+'-W'+String(weekNo).padStart(2,'0');
+}
 function healthAvg(dates,field){
   var vals=dates.map(function(k){return(DB.health&&DB.health[k]&&DB.health[k][field]!=null)?DB.health[k][field]:null}).filter(function(v){return v!=null});
   if(!vals.length)return null;
@@ -905,9 +915,12 @@ function hrvLowWarning(){
 }
 function renderHealthWeek(){
   DB.health=DB.health||{};
+  DB.healthWeekly=DB.healthWeekly||{};
   var hGrid=document.getElementById('healthWeekGrid');
   var warnEl=document.getElementById('healthWeekWarn');
-  if(!Object.keys(DB.health).length){
+  var currentWeekKey=getISOWeekKey(new Date());
+  var wk=DB.healthWeekly[currentWeekKey];
+  if(!Object.keys(DB.health).length&&!wk){
     hGrid.innerHTML='<div class="d full" style="color:var(--mt);font-size:12.5px">Sem dados de saúde ainda — descreva no chat (ou cole do app Saúde) pra o Claude registrar.</div>';
     warnEl.innerHTML='';
     return;
@@ -916,16 +929,19 @@ function renderHealthWeek(){
   var beforeLast7=new Date();beforeLast7.setDate(beforeLast7.getDate()-7);
   var prev7=lastNDates(7,beforeLast7);
 
-  var passosAvg=healthAvg(last7,'passos');
+  /* Passos: prefere o total semanal agregado (healthWeekly) da semana atual — evita o
+     bug de outlier de escrever a soma da semana como se fosse o valor de um único dia. */
+  var passosAvg=(wk&&wk.passos!=null)?wk.passos/7:healthAvg(last7,'passos');
   var fcLatest=healthLatest(last7,'fcRepouso');
   var fcPrevAvg=healthAvg(prev7,'fcRepouso');
   var hrvLatest=healthLatest(last7,'hrv');
   var hrvPrevAvg=healthAvg(prev7,'hrv');
   var sonoAvg=healthAvg(last7,'sonoMin');
   var vo2Latest=healthLatest(lastNDates(60),'vo2max');
-  var calAtivasAvg=healthAvg(last7,'calAtivas');
-  var calRepousoAvg=healthAvg(last7,'calRepouso');
-  var exercicioAvg=healthAvg(last7,'exercicioMin');
+  /* Sem equivalente diário confiável — só vêm do resumo semanal agregado (healthWeekly) */
+  var calAtivasAvg=(wk&&wk.calAtivas!=null)?wk.calAtivas/7:null;
+  var calRepousoAvg=(wk&&wk.calRepouso!=null)?wk.calRepouso/7:null;
+  var exercicioAvg=(wk&&wk.exercicioMin!=null)?wk.exercicioMin/7:null;
 
   hGrid.innerHTML=
     metricBox('Passos méd./dia',passosAvg!=null?Math.round(passosAvg).toLocaleString('pt-BR'):'—','','',
