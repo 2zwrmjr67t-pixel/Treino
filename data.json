@@ -930,6 +930,59 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-13": {
+      "cafe": [
+        {
+          "n": "Frango em tiras temperado (~80g)",
+          "k": 132,
+          "p": 25,
+          "c": 0,
+          "f": 3
+        },
+        {
+          "n": "Ovo mexido c/ presunto (~100g)",
+          "k": 160,
+          "p": 11,
+          "c": 2,
+          "f": 12
+        },
+        {
+          "n": "Suco de laranja (~200ml)",
+          "k": 90,
+          "p": 1,
+          "c": 21,
+          "f": 0
+        },
+        {
+          "n": "Café com leite (~150ml)",
+          "k": 70,
+          "p": 3,
+          "c": 5,
+          "f": 3
+        },
+        {
+          "n": "Sanduíche (pão multigrãos, queijo, presunto, tomate, alface)",
+          "k": 230,
+          "p": 14,
+          "c": 25,
+          "f": 9
+        },
+        {
+          "n": "Salada de frutas (~100g)",
+          "k": 55,
+          "p": 1,
+          "c": 14,
+          "f": 0
+        },
+        {
+          "n": "Broa de fubá c/ goiabada e queijo (2 pedaços, ~120g)",
+          "k": 380,
+          "p": 7,
+          "c": 52,
+          "f": 16
+        }
+      ]
     }
   },
   "dobras": [
@@ -1205,6 +1258,12 @@
       "p": 160,
       "c": 213,
       "f": 38
+    },
+    "2026-09-13": {
+      "k": 1117,
+      "p": 62,
+      "c": 119,
+      "f": 43
     }
   }
 }
