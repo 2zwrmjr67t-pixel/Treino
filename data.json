@@ -983,6 +983,31 @@
           "f": 16
         }
       ]
+    },
+    "2026-09-14": {
+      "cafe": [
+        {
+          "n": "Shake pré-treino (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Shake pós-treino (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ]
     }
   },
   "dobras": [
@@ -1179,6 +1204,10 @@
     "2026-09-10": {
       "peso": 77.8,
       "fonte": "health"
+    },
+    "2026-09-14": {
+      "peso": 77.8,
+      "fonte": "manual"
     }
   },
   "healthWeekly": {
@@ -1189,6 +1218,15 @@
       "calRepouso": 14056.15,
       "exercicioMin": 235,
       "passos": 92504,
+      "fonte": "manual"
+    },
+    "2026-W38": {
+      "start": "2026-09-07",
+      "end": "2026-09-13",
+      "calAtivas": 3684.19,
+      "calRepouso": 13950.15,
+      "exercicioMin": 260,
+      "passos": 89199,
       "fonte": "manual"
     }
   },
@@ -1264,6 +1302,12 @@
       "p": 62,
       "c": 119,
       "f": 43
+    },
+    "2026-09-14": {
+      "k": 1028,
+      "p": 77,
+      "c": 147,
+      "f": 17
     }
   }
 }
