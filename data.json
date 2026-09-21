@@ -1302,21 +1302,21 @@
   },
   "healthWeekly": {
     "2026-W37": {
-      "start": "2026-09-04",
-      "end": "2026-09-10",
-      "calAtivas": 4009.31,
-      "calRepouso": 14056.15,
-      "exercicioMin": 235,
-      "passos": 92504,
-      "fonte": "manual"
-    },
-    "2026-W38": {
       "start": "2026-09-07",
       "end": "2026-09-13",
       "calAtivas": 3684.19,
       "calRepouso": 13950.15,
       "exercicioMin": 260,
       "passos": 89199,
+      "fonte": "manual"
+    },
+    "2026-W38": {
+      "start": "2026-09-14",
+      "end": "2026-09-20",
+      "calAtivas": 3854.87,
+      "calRepouso": 15021.96,
+      "exercicioMin": 216,
+      "passos": 95864,
       "fonte": "manual"
     }
   },
