@@ -1098,6 +1098,95 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-21": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de sanduíche c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        },
+        {
+          "n": "Frango grelhado (100g)",
+          "k": 165,
+          "p": 31,
+          "c": 0,
+          "f": 4
+        },
+        {
+          "n": "Carne bovina grelhada (100g)",
+          "k": 220,
+          "p": 32,
+          "c": 0,
+          "f": 10
+        }
+      ],
+      "janta": [
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        },
+        {
+          "n": "Carne bovina grelhada (220g)",
+          "k": 484,
+          "p": 70,
+          "c": 0,
+          "f": 22
+        }
+      ],
+      "ceia": [
+        {
+          "n": "Biscoito crocante",
+          "k": 90,
+          "p": 2,
+          "c": 15,
+          "f": 2
+        },
+        {
+          "n": "Doce de leite (1 colher de sopa)",
+          "k": 65,
+          "p": 1,
+          "c": 11,
+          "f": 1
+        }
+      ]
     }
   },
   "dobras": [
@@ -1398,6 +1487,12 @@
       "p": 276,
       "c": 458,
       "f": 91
+    },
+    "2026-09-21": {
+      "k": 3183,
+      "p": 262,
+      "c": 390,
+      "f": 65
     }
   }
 }
