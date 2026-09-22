@@ -1239,6 +1239,29 @@
           "c": 3,
           "f": 11
         }
+      ],
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Pão de sanduíche c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
       ]
     }
   },
@@ -1548,10 +1571,10 @@
       "f": 65
     },
     "2026-09-22": {
-      "k": 875,
-      "p": 91,
-      "c": 69,
-      "f": 27
+      "k": 1903,
+      "p": 168,
+      "c": 216,
+      "f": 44
     }
   }
 }
