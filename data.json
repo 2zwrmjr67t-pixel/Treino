@@ -1262,6 +1262,63 @@
           "c": 75,
           "f": 5
         }
+      ],
+      "janta": [
+        {
+          "n": "Carne moída (230g)",
+          "k": 575,
+          "p": 60,
+          "c": 0,
+          "f": 39
+        },
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        },
+        {
+          "n": "Alface (~40g)",
+          "k": 6,
+          "p": 0,
+          "c": 1,
+          "f": 0
+        },
+        {
+          "n": "Bisnaguinha",
+          "k": 90,
+          "p": 3,
+          "c": 16,
+          "f": 1
+        },
+        {
+          "n": "Geleia de frutas vermelhas Berry Mix (1 colher, ~20g)",
+          "k": 50,
+          "p": 0,
+          "c": 12,
+          "f": 0
+        }
+      ]
+    },
+    "2026-09-23": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
       ]
     }
   },
@@ -1571,10 +1628,16 @@
       "f": 65
     },
     "2026-09-22": {
-      "k": 1903,
-      "p": 168,
-      "c": 216,
-      "f": 44
+      "k": 2906,
+      "p": 237,
+      "c": 307,
+      "f": 85
+    },
+    "2026-09-23": {
+      "k": 930,
+      "p": 66,
+      "c": 150,
+      "f": 10
     }
   }
 }
