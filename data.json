@@ -1356,6 +1356,70 @@
           "c": 1,
           "f": 0
         }
+      ],
+      "janta": [
+        {
+          "n": "Frango grelhado (220g)",
+          "k": 363,
+          "p": 68,
+          "c": 0,
+          "f": 9
+        },
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        },
+        {
+          "n": "Alface (~40g)",
+          "k": 6,
+          "p": 0,
+          "c": 1,
+          "f": 0
+        }
+      ]
+    },
+    "2026-09-24": {
+      "cafe": [
+        {
+          "n": "Shake pré-treino (água de coco 200ml, banana, whey, 1 scoop aveia)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake tarde (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake tarde (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake pós-treino (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
       ]
     }
   },
@@ -1671,10 +1735,16 @@
       "f": 85
     },
     "2026-09-23": {
-      "k": 1819,
-      "p": 150,
-      "c": 227,
-      "f": 39
+      "k": 2470,
+      "p": 224,
+      "c": 290,
+      "f": 49
+    },
+    "2026-09-24": {
+      "k": 1958,
+      "p": 143,
+      "c": 297,
+      "f": 27
     }
   }
 }
