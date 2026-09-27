@@ -1474,6 +1474,172 @@
           "f": 18
         }
       ]
+    },
+    "2026-09-25": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia, creatina 3g)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Frango grelhado (220g)",
+          "k": 363,
+          "p": 68,
+          "c": 0,
+          "f": 9
+        },
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        }
+      ],
+      "janta": [
+        {
+          "n": "Meia pizza napolitana de ragu (~150g)",
+          "k": 420,
+          "p": 18,
+          "c": 45,
+          "f": 18
+        },
+        {
+          "n": "Pedacinho de crostata/pizza extra (~40g)",
+          "k": 110,
+          "p": 4,
+          "c": 14,
+          "f": 4
+        }
+      ]
+    },
+    "2026-09-26": {
+      "cafe": [
+        {
+          "n": "Torrada c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "lm": [
+        {
+          "n": "Sushi variado (16 peças)",
+          "k": 640,
+          "p": 32,
+          "c": 96,
+          "f": 16
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, 2 scoops whey, 2 scoops aveia)",
+          "k": 585,
+          "p": 57,
+          "c": 78,
+          "f": 7
+        },
+        {
+          "n": "Pera",
+          "k": 100,
+          "p": 1,
+          "c": 27,
+          "f": 0
+        }
+      ],
+      "janta": [
+        {
+          "n": "Massa caseira (~200g)",
+          "k": 300,
+          "p": 12,
+          "c": 56,
+          "f": 4
+        },
+        {
+          "n": "Ragu caseiro (~200g)",
+          "k": 360,
+          "p": 30,
+          "c": 16,
+          "f": 20
+        },
+        {
+          "n": "Burrata (~50g)",
+          "k": 165,
+          "p": 9,
+          "c": 2,
+          "f": 14
+        }
+      ]
+    },
+    "2026-09-27": {
+      "cafe": [
+        {
+          "n": "Torrada c/ 1 presunto + 1 queijo",
+          "k": 225,
+          "p": 14,
+          "c": 25,
+          "f": 9
+        },
+        {
+          "n": "Cuca caseira (~375g)",
+          "k": 1331,
+          "p": 23,
+          "c": 191,
+          "f": 68
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Ragu caseiro (220g)",
+          "k": 396,
+          "p": 33,
+          "c": 18,
+          "f": 22
+        },
+        {
+          "n": "Polenta (220g)",
+          "k": 154,
+          "p": 3,
+          "c": 33,
+          "f": 1
+        }
+      ],
+      "lt": [
+        {
+          "n": "Pera",
+          "k": 100,
+          "p": 1,
+          "c": 27,
+          "f": 0
+        },
+        {
+          "n": "Cuca caseira de banana com doce de leite (~300g)",
+          "k": 1050,
+          "p": 15,
+          "c": 144,
+          "f": 45
+        }
+      ]
     }
   },
   "dobras": [
@@ -1798,6 +1964,24 @@
       "p": 270,
       "c": 410,
       "f": 69
+    },
+    "2026-09-25": {
+      "k": 2203,
+      "p": 173,
+      "c": 268,
+      "f": 49
+    },
+    "2026-09-26": {
+      "k": 2350,
+      "p": 156,
+      "c": 290,
+      "f": 70
+    },
+    "2026-09-27": {
+      "k": 3256,
+      "p": 89,
+      "c": 438,
+      "f": 145
     }
   }
 }
