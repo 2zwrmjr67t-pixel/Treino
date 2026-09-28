@@ -1663,6 +1663,75 @@
           "f": 0
         }
       ]
+    },
+    "2026-09-28": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Iscas de carne bovina grelhadas (~200g, estimado pela foto)",
+          "k": 400,
+          "p": 60,
+          "c": 0,
+          "f": 16
+        },
+        {
+          "n": "Arroz branco (~200g)",
+          "k": 256,
+          "p": 5,
+          "c": 56,
+          "f": 1
+        },
+        {
+          "n": "Ovo frito (1 un.)",
+          "k": 90,
+          "p": 6,
+          "c": 0,
+          "f": 7
+        },
+        {
+          "n": "Legumes assados (cenoura, abobrinha, cebola; ~70g)",
+          "k": 60,
+          "p": 1,
+          "c": 8,
+          "f": 3
+        },
+        {
+          "n": "Beterraba (~40g)",
+          "k": 16,
+          "p": 1,
+          "c": 4,
+          "f": 0
+        },
+        {
+          "n": "Folhas verdes (~10g)",
+          "k": 2,
+          "p": 0,
+          "c": 0,
+          "f": 0
+        }
+      ]
     }
   },
   "dobras": [
@@ -2018,6 +2087,12 @@
       "p": 161,
       "c": 472,
       "f": 155
+    },
+    "2026-09-28": {
+      "k": 1852,
+      "p": 150,
+      "c": 215,
+      "f": 44
     }
   }
 }
