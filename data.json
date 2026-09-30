@@ -1855,6 +1855,72 @@
           "c": 10,
           "f": 6
         }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
+      ]
+    },
+    "2026-09-30": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (~150g, prato a peso)",
+          "k": 192,
+          "p": 4,
+          "c": 42,
+          "f": 1
+        },
+        {
+          "n": "Lentilha guisada (~120g)",
+          "k": 132,
+          "p": 8,
+          "c": 22,
+          "f": 1
+        },
+        {
+          "n": "Peito de peru/frango fatiado (~200g)",
+          "k": 330,
+          "p": 62,
+          "c": 0,
+          "f": 8
+        },
+        {
+          "n": "Salada (rúcula, cenoura, beterraba, tomate; ~80g)",
+          "k": 25,
+          "p": 1,
+          "c": 5,
+          "f": 0
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
       ]
     }
   },
@@ -2219,10 +2285,16 @@
       "f": 64
     },
     "2026-09-29": {
-      "k": 3127,
-      "p": 191,
-      "c": 336,
-      "f": 117
+      "k": 3592,
+      "p": 224,
+      "c": 411,
+      "f": 122
+    },
+    "2026-09-30": {
+      "k": 1972,
+      "p": 170,
+      "c": 276,
+      "f": 23
     }
   }
 }
