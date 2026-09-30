@@ -1764,6 +1764,98 @@
           "f": 1
         }
       ]
+    },
+    "2026-09-29": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (~150g, prato a peso)",
+          "k": 192,
+          "p": 4,
+          "c": 42,
+          "f": 1
+        },
+        {
+          "n": "Ervilha torta (~30g)",
+          "k": 12,
+          "p": 1,
+          "c": 2,
+          "f": 0
+        },
+        {
+          "n": "Beterraba (~30g)",
+          "k": 12,
+          "p": 0,
+          "c": 3,
+          "f": 0
+        },
+        {
+          "n": "Bife empanado frito (2 un., ~200g)",
+          "k": 560,
+          "p": 50,
+          "c": 24,
+          "f": 34
+        },
+        {
+          "n": "Polenta frita (~50g)",
+          "k": 150,
+          "p": 2,
+          "c": 18,
+          "f": 7
+        },
+        {
+          "n": "Bolinho/croquete frito (~82g)",
+          "k": 189,
+          "p": 7,
+          "c": 16,
+          "f": 11
+        }
+      ],
+      "janta": [
+        {
+          "n": "Arroz branco (200g)",
+          "k": 256,
+          "p": 5,
+          "c": 44,
+          "f": 1
+        },
+        {
+          "n": "Bife à parmegiana (~200g)",
+          "k": 640,
+          "p": 44,
+          "c": 30,
+          "f": 40
+        },
+        {
+          "n": "Chips de batata (~40g)",
+          "k": 88,
+          "p": 1,
+          "c": 10,
+          "f": 6
+        }
+      ]
     }
   },
   "dobras": [
@@ -2125,6 +2217,12 @@
       "p": 290,
       "c": 427,
       "f": 64
+    },
+    "2026-09-29": {
+      "k": 3127,
+      "p": 191,
+      "c": 336,
+      "f": 117
     }
   }
 }
