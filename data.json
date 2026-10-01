@@ -1945,6 +1945,70 @@
           "f": 0
         }
       ]
+    },
+    "2026-10-01": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Carne grelhada (2 pedaços, ~160g)",
+          "k": 352,
+          "p": 51,
+          "c": 0,
+          "f": 16
+        },
+        {
+          "n": "Arroz branco (~160g, prato a peso)",
+          "k": 205,
+          "p": 4,
+          "c": 45,
+          "f": 1
+        },
+        {
+          "n": "Purê de batata (~70g)",
+          "k": 77,
+          "p": 1,
+          "c": 14,
+          "f": 2
+        },
+        {
+          "n": "Salada (rúcula, beterraba, cenoura; ~60g)",
+          "k": 15,
+          "p": 1,
+          "c": 3,
+          "f": 0
+        },
+        {
+          "n": "Item empanado frito (~74g)",
+          "k": 170,
+          "p": 7,
+          "c": 13,
+          "f": 10
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
+      ]
     }
   },
   "dobras": [
@@ -2318,6 +2382,12 @@
       "p": 238,
       "c": 347,
       "f": 32
+    },
+    "2026-10-01": {
+      "k": 2112,
+      "p": 159,
+      "c": 282,
+      "f": 42
     }
   }
 }
