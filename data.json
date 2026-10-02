@@ -1924,6 +1924,13 @@
       ],
       "janta": [
         {
+          "n": "Estrogonofe de carne (200g)",
+          "k": 360,
+          "p": 30,
+          "c": 12,
+          "f": 22
+        },
+        {
           "n": "Arroz branco (200g)",
           "k": 256,
           "p": 5,
@@ -1931,66 +1938,73 @@
           "f": 1
         },
         {
-          "n": "Frango grelhado (200g)",
-          "k": 330,
-          "p": 62,
-          "c": 0,
-          "f": 8
-        },
-        {
-          "n": "Pera",
-          "k": 100,
-          "p": 1,
-          "c": 27,
-          "f": 0
+          "n": "Alfajor Punta Ballena",
+          "k": 240,
+          "p": 3,
+          "c": 30,
+          "f": 12
         }
       ]
     },
     "2026-10-01": {
       "cafe": [
         {
-          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g) — un. 1",
           "k": 363,
           "p": 29,
           "c": 57,
           "f": 3
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g) — un. 2",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Pão de sanduíche c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
         }
       ],
       "almoco": [
         {
-          "n": "Carne grelhada (2 pedaços, ~160g)",
-          "k": 352,
-          "p": 51,
-          "c": 0,
-          "f": 16
+          "n": "Feijoada (feijão + carnes, ~150g)",
+          "k": 270,
+          "p": 15,
+          "c": 23,
+          "f": 15
         },
         {
-          "n": "Arroz branco (~160g, prato a peso)",
-          "k": 205,
+          "n": "Arroz branco (~140g, prato a peso)",
+          "k": 179,
           "p": 4,
-          "c": 45,
+          "c": 39,
           "f": 1
         },
         {
-          "n": "Purê de batata (~70g)",
-          "k": 77,
-          "p": 1,
-          "c": 14,
-          "f": 2
+          "n": "Batata frita (3 gomos, ~90g)",
+          "k": 225,
+          "p": 3,
+          "c": 29,
+          "f": 11
         },
         {
-          "n": "Salada (rúcula, beterraba, cenoura; ~60g)",
-          "k": 15,
-          "p": 1,
-          "c": 3,
-          "f": 0
-        },
-        {
-          "n": "Item empanado frito (~74g)",
-          "k": 170,
-          "p": 7,
-          "c": 13,
+          "n": "Bife grelhado c/ molho (~100g)",
+          "k": 220,
+          "p": 32,
+          "c": 2,
           "f": 10
+        },
+        {
+          "n": "Salada (vagem, tomate, folhas; ~40g)",
+          "k": 10,
+          "p": 1,
+          "c": 2,
+          "f": 0
         }
       ],
       "lt": [
@@ -2007,6 +2021,43 @@
           "p": 33,
           "c": 75,
           "f": 5
+        }
+      ],
+      "janta": [
+        {
+          "n": "Hambúrguer caseiro (150g)",
+          "k": 375,
+          "p": 39,
+          "c": 0,
+          "f": 26
+        },
+        {
+          "n": "Queijo prato (2 fatias)",
+          "k": 140,
+          "p": 8,
+          "c": 1,
+          "f": 12
+        },
+        {
+          "n": "Alface",
+          "k": 5,
+          "p": 0,
+          "c": 1,
+          "f": 0
+        },
+        {
+          "n": "Pão de água (~80g)",
+          "k": 220,
+          "p": 7,
+          "c": 43,
+          "f": 2
+        },
+        {
+          "n": "Batata assada no forno (~60g)",
+          "k": 50,
+          "p": 1,
+          "c": 11,
+          "f": 0
         }
       ]
     }
@@ -2378,16 +2429,16 @@
       "f": 122
     },
     "2026-09-30": {
-      "k": 2658,
-      "p": 238,
-      "c": 347,
-      "f": 32
+      "k": 2828,
+      "p": 208,
+      "c": 362,
+      "f": 58
     },
     "2026-10-01": {
-      "k": 2112,
-      "p": 159,
-      "c": 282,
-      "f": 42
+      "k": 3550,
+      "p": 249,
+      "c": 430,
+      "f": 102
     }
   }
 }
