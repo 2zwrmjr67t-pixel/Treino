@@ -2060,6 +2060,107 @@
           "f": 5
         }
       ]
+    },
+    "2026-09-29": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Iscas de carne bovina grelhadas (~200g, estimado pela foto)",
+          "k": 400,
+          "p": 60,
+          "c": 0,
+          "f": 16
+        },
+        {
+          "n": "Arroz branco (~200g)",
+          "k": 256,
+          "p": 5,
+          "c": 56,
+          "f": 1
+        },
+        {
+          "n": "Ovo frito (1 un.)",
+          "k": 90,
+          "p": 6,
+          "c": 0,
+          "f": 7
+        },
+        {
+          "n": "Legumes assados (cenoura, abobrinha, cebola; ~70g)",
+          "k": 60,
+          "p": 1,
+          "c": 8,
+          "f": 3
+        },
+        {
+          "n": "Beterraba (~40g)",
+          "k": 16,
+          "p": 1,
+          "c": 4,
+          "f": 0
+        },
+        {
+          "n": "Folhas verdes (~10g)",
+          "k": 2,
+          "p": 0,
+          "c": 0,
+          "f": 0
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 1",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia) — un. 2",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        }
+      ],
+      "janta": [
+        {
+          "n": "Frango grelhado (220g)",
+          "k": 363,
+          "p": 68,
+          "c": 0,
+          "f": 9
+        },
+        {
+          "n": "Arroz branco (220g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 1
+        }
+      ]
     }
   },
   "dobras": [
@@ -2439,6 +2540,12 @@
       "p": 224,
       "c": 411,
       "f": 122
+    },
+    "2026-09-29": {
+      "k": 3427,
+      "p": 290,
+      "c": 427,
+      "f": 64
     }
   }
 }
