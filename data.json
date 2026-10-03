@@ -2183,6 +2183,17 @@
       "sub": 12,
       "supra": 10,
       "ax": 8
+    },
+    {
+      "d": "2026-10-03",
+      "peito": 3,
+      "abd": 4,
+      "coxa": 4,
+      "tri": 2,
+      "sub": 11,
+      "supra": 3,
+      "ax": 2,
+      "obs": "Valores-piso: pinça não destacou a dobra em peito/ax/tri/supra/coxa; subescapular (11mm) foi o único ponto pinçado com confiança. %BF calculado (JP7+Siri) tende a subestimar o real."
     }
   ],
   "cardioWeek": {},
@@ -2364,6 +2375,10 @@
     },
     "2026-09-28": {
       "peso": 77.6,
+      "fonte": "manual"
+    },
+    "2026-10-03": {
+      "peso": 77.7,
       "fonte": "manual"
     }
   },
