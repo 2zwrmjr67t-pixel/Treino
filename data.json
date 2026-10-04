@@ -2380,6 +2380,10 @@
     "2026-10-03": {
       "peso": 77.7,
       "fonte": "manual"
+    },
+    "2026-10-04": {
+      "peso": 77.65,
+      "fonte": "manual"
     }
   },
   "healthWeekly": {
@@ -2408,6 +2412,15 @@
       "calRepouso": 15181.65,
       "exercicioMin": 230,
       "passos": 88221,
+      "fonte": "manual"
+    },
+    "2026-W40": {
+      "start": "2026-09-28",
+      "end": "2026-10-04",
+      "calAtivas": 4201.02,
+      "calRepouso": 15075.52,
+      "exercicioMin": 341,
+      "passos": 96087,
       "fonte": "manual"
     }
   },
