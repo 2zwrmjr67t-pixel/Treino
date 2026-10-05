@@ -2161,6 +2161,233 @@
           "f": 1
         }
       ]
+    },
+    "2026-10-03": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pão de forma c/ 2 presunto + 1 queijo",
+          "k": 200,
+          "p": 15,
+          "c": 15,
+          "f": 9
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Carne moída (200g)",
+          "k": 500,
+          "p": 52,
+          "c": 0,
+          "f": 34
+        },
+        {
+          "n": "Arroz branco (200g)",
+          "k": 256,
+          "p": 5,
+          "c": 44,
+          "f": 1
+        },
+        {
+          "n": "Pãozinho brioche caseiro (plain)",
+          "k": 140,
+          "p": 4,
+          "c": 16,
+          "f": 6
+        },
+        {
+          "n": "Pãozinho brioche caseiro c/ doce de leite",
+          "k": 205,
+          "p": 5,
+          "c": 27,
+          "f": 7
+        },
+        {
+          "n": "Pãozinho brioche caseiro c/ presunto + queijo",
+          "k": 235,
+          "p": 13,
+          "c": 17,
+          "f": 13
+        }
+      ],
+      "janta": [
+        {
+          "n": "Massa caseira (~200g)",
+          "k": 300,
+          "p": 12,
+          "c": 56,
+          "f": 4
+        },
+        {
+          "n": "Burrata (~45g, 'terço')",
+          "k": 149,
+          "p": 8,
+          "c": 1,
+          "f": 13
+        },
+        {
+          "n": "Molho de tomate simples (~100g)",
+          "k": 50,
+          "p": 2,
+          "c": 8,
+          "f": 2
+        },
+        {
+          "n": "Pera (2 un.)",
+          "k": 200,
+          "p": 2,
+          "c": 54,
+          "f": 0
+        }
+      ]
+    },
+    "2026-10-04": {
+      "cafe": [
+        {
+          "n": "Pãozinho brioche caseiro c/ doce de leite",
+          "k": 205,
+          "p": 5,
+          "c": 27,
+          "f": 7
+        },
+        {
+          "n": "Pãozinho brioche caseiro c/ nata",
+          "k": 210,
+          "p": 5,
+          "c": 18,
+          "f": 13
+        },
+        {
+          "n": "Pãozinho brioche caseiro c/ presunto + queijo",
+          "k": 235,
+          "p": 13,
+          "c": 17,
+          "f": 13
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Vazio assado, sem gordura (200g)",
+          "k": 360,
+          "p": 60,
+          "c": 0,
+          "f": 12
+        },
+        {
+          "n": "Costela assada, parte magra, gordura removida (200g)",
+          "k": 380,
+          "p": 58,
+          "c": 0,
+          "f": 14
+        }
+      ],
+      "janta": [
+        {
+          "n": "Pão de água (1,5 un., ~120g)",
+          "k": 330,
+          "p": 11,
+          "c": 65,
+          "f": 3
+        },
+        {
+          "n": "Salsicha (4 un.)",
+          "k": 580,
+          "p": 20,
+          "c": 8,
+          "f": 52
+        }
+      ]
+    },
+    "2026-10-05": {
+      "cafe": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 1 scoop aveia, creatina 3g)",
+          "k": 363,
+          "p": 29,
+          "c": 57,
+          "f": 3
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco (~150g, prato a peso)",
+          "k": 192,
+          "p": 4,
+          "c": 42,
+          "f": 1
+        },
+        {
+          "n": "Lentilha guisada (~90g)",
+          "k": 99,
+          "p": 6,
+          "c": 16,
+          "f": 1
+        },
+        {
+          "n": "Bife grelhado (2 un., ~130g)",
+          "k": 286,
+          "p": 42,
+          "c": 0,
+          "f": 13
+        },
+        {
+          "n": "Frango grelhado (~100g)",
+          "k": 165,
+          "p": 31,
+          "c": 0,
+          "f": 4
+        },
+        {
+          "n": "Vegetais (beterraba, pepino, cenoura, aspargo; ~110g)",
+          "k": 35,
+          "p": 2,
+          "c": 7,
+          "f": 0
+        }
+      ],
+      "lt": [
+        {
+          "n": "Shake (água de coco 200ml, banana, whey, 2 scoops aveia)",
+          "k": 465,
+          "p": 33,
+          "c": 75,
+          "f": 5
+        },
+        {
+          "n": "Pãozinho brioche caseiro (plain)",
+          "k": 140,
+          "p": 4,
+          "c": 16,
+          "f": 6
+        },
+        {
+          "n": "Pãozinho brioche caseiro c/ nata",
+          "k": 210,
+          "p": 5,
+          "c": 18,
+          "f": 13
+        }
+      ]
     }
   },
   "dobras": [
@@ -2574,6 +2801,24 @@
       "p": 290,
       "c": 427,
       "f": 64
+    },
+    "2026-10-03": {
+      "k": 3063,
+      "p": 180,
+      "c": 370,
+      "f": 97
+    },
+    "2026-10-04": {
+      "k": 2300,
+      "p": 172,
+      "c": 135,
+      "f": 114
+    },
+    "2026-10-05": {
+      "k": 2420,
+      "p": 189,
+      "c": 306,
+      "f": 51
     }
   }
 }
