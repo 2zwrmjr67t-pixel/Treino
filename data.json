@@ -2399,7 +2399,9 @@
       "tri": 10,
       "sub": 13,
       "supra": 11,
-      "ax": 9
+      "ax": 9,
+      "nv": true,
+      "obs": "Sem origem confirmada: o usuário informa que a única medição realizada foi a de 03/10/2026. Não verificado — não usar em comparações nem como baseline."
     },
     {
       "d": "2026-09-01",
@@ -2409,7 +2411,9 @@
       "tri": 9,
       "sub": 12,
       "supra": 10,
-      "ax": 8
+      "ax": 8,
+      "nv": true,
+      "obs": "Sem origem confirmada: o usuário informa que a única medição realizada foi a de 03/10/2026. Não verificado — não usar em comparações nem como baseline."
     },
     {
       "d": "2026-10-03",
