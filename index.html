@@ -225,14 +225,9 @@ canvas{width:100%;height:120px;margin-top:4px}
 .chk.done .cn{color:var(--mt)}
 .reset2{background:none;border:1px solid var(--br);color:var(--mt);font-size:10.5px;padding:7px 10px;border-radius:9px;width:100%;margin-top:4px}
 .demo-btn{background:none;border:1px solid var(--br2);color:var(--ac);font-size:11px;padding:6px 11px;border-radius:8px;margin:0 0 8px;cursor:pointer;font-family:inherit}
-.demo{display:none;background:var(--s1);border:1px solid var(--br);border-radius:10px;padding:8px 8px 10px;margin:0 0 10px}
-.dm-svg{width:100%;height:auto;display:block}
-.dm-ctl{display:flex;gap:6px;margin:6px 0;flex-wrap:wrap}
-.dm-st,.dm-pl{background:var(--s2);border:1px solid var(--br2);color:var(--tx);font-size:10.5px;padding:5px 9px;border-radius:7px;cursor:pointer;font-family:inherit}
-.dm-st.on{border-color:var(--ac);color:var(--ac)}
-.dm-pl{margin-left:auto;color:var(--ac)}
-.dm-tx{font-size:11.5px;line-height:1.5;color:var(--tx)}
-.dm-ft{font-size:9px;color:var(--mt);margin-top:6px;line-height:1.4}
+#d3ov{position:fixed;inset:0;z-index:200;background:#141311;display:none}
+#d3ov iframe{width:100%;height:100%;border:0;display:block}
+#d3ov button{position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));width:34px;height:34px;border-radius:50%;border:1px solid #2e2c29;background:rgba(22,21,19,.86);color:#e8e2d8;font-size:14px;z-index:2}
 </style>
 </head>
 <body>
@@ -614,7 +609,7 @@ function buildMusc(){
         +'<div class="ests"><div class="est"><span class="esl">Séries</span><span class="esv">'+e.s+'</span></div>'
         +'<div class="est"><span class="esl">Reps</span><span class="esv sm">'+e.r+'</span></div>'
         +'<div class="est"><span class="esl">Descanso</span><span class="esv">'+e.d+'</span></div></div>'
-        +'<div class="enote">'+e.nt+'</div>'+(e.dm?'<button class="demo-btn" id="dmb_'+i+'_'+ei+'" onclick="toggleDemo('+i+','+ei+')">▶ Ver execução</button><div class="demo" id="demo_'+i+'_'+ei+'"></div>':'')+'</div>'
+        +'<div class="enote">'+e.nt+'</div>'+(D3[e.dm]?'<button class="demo-btn" onclick="open3D(\''+e.dm+'\')">◆ Ver execução em 3D</button>':'')+'</div>'
         +'<button class="chk-btn" id="chk_'+i+'_'+ei+'" onclick="toggleCheck('+i+','+ei+')" aria-label="Concluído"><svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg></button></div>'
         +'<div class="reg"><div class="reg-last" id="lbl_'+i+'_'+ei+'">'+lblHtml+'</div>'
         +'<div class="reg-right"><input class="reg-inp" type="number" id="inp_'+i+'_'+ei+'" placeholder="kg" min="0" max="300" step="1" inputmode="decimal"/>'
@@ -1100,193 +1095,12 @@ function drawChart(){
   var li=pts.length-1;x.beginPath();x.arc(X(li),Y(pts[li]),3.5,0,7);x.fillStyle='#6a9a6a';x.fill();
 }
 
-/* ============================================================
-   DEMOS 2D — esquemas de execução em SVG (esqueleto por cinemática direta).
-   Esquemático: ensina o padrão do movimento e os pontos de proteção da
-   coluna; não substitui avaliação/orientação profissional.
-============================================================ */
-var DM_C={bone:'#e8e2d8',hl:'#c9a05a',ok:'#6a9a6a',bad:'#c07070',mt:'#9a948a',eq:'#3a3835',eq2:'#55524c',bg:'#161513'};
-function dmU(a,b){var x=b[0]-a[0],y=b[1]-a[1],l=Math.sqrt(x*x+y*y)||1;return[x/l,y/l]}
-function dmP(p,v,d){return[p[0]+v[0]*d,p[1]+v[1]*d]}
-function dmL(a,b,w,c,o){return '<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round"'+(o!=null?' stroke-opacity="'+o+'"':'')+'/>'}
-function dmC(p,r,f,c,w,o){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r+'" fill="'+(f||'none')+'"'+(o!=null?' fill-opacity="'+o+'"':'')+' stroke="'+(c||'none')+'" stroke-width="'+(w||0)+'"/>'}
-function dmR(x,y,w,h,f,r){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+(r||3)+'" fill="'+f+'"/>'}
 
-var DEMOS={
- ext:{tgt:'quadríceps',gy:178,root:'hip',vb:[0,20,320,170],
-  segs:[['torso','hip','neck',56],['hd','neck','head',15],['thigh','hip','knee',46],['shin','knee','ankle',44],['foot','ankle','toe',13],['cl','neck','sh',10],['ua','sh','el',30],['fa','el','wr',26]],
-  poses:[
-   {root:[112,124],ang:{torso:-98,hd:-96,thigh:2,shin:90,foot:10,cl:80,ua:96,fa:28}},
-   {root:[112,124],ang:{torso:-98,hd:-96,thigh:2,shin:46,foot:-34,cl:80,ua:96,fa:28}},
-   {root:[112,124],ang:{torso:-98,hd:-96,thigh:2,shin:6,foot:-74,cl:80,ua:96,fa:28}}],
-  sp:['torso'],
-  hl:[{s:'thigh',a:.12,b:.92,w:15,o:.55,n:-3}],
-  eq:function(P){var s='',u=dmU(P.hip,P.neck),n=[u[1],-u[0]];
-   s+=dmL(dmP(dmP(P.hip,n,9),u,-6),dmP(dmP(P.neck,n,9),u,4),9,DM_C.eq);
-   s+=dmL([P.hip[0]-20,P.hip[1]+11],[P.hip[0]+44,P.hip[1]+11],8,DM_C.eq);
-   s+=dmL([P.hip[0]+14,P.hip[1]+15],[P.hip[0]+14,178],6,DM_C.eq);
-   var su=dmU(P.knee,P.ankle),sn=[-su[1],su[0]],pad=dmP(P.knee,su,38);
-   s+=dmL([P.knee[0]-2,P.knee[1]+9],pad,4,DM_C.eq2);
-   s+=dmL(dmP(dmP(pad,sn,-6),su,0),dmP(pad,sn,-15),8,DM_C.eq2);
-   return s},
-  steps:[
-   {t:'Início: costas coladas no encosto, joelho a ~90°. Eixo da máquina alinhado ao joelho; segure as alças laterais.',lb:[[14,40,'costas apoiadas','ok']]},
-   {t:'Suba em ~1s, expirando: contraia o quadríceps sem tirar o quadril do assento.',lb:[]},
-   {t:'Topo: pausa de 1s com o joelho quase estendido, sem travar. Desça controlando em ~3s.',lb:[[14,40,'quadril no assento','ok'],[306,56,'não travar o joelho','bad','end']]}]},
-
- ht:{tgt:'glúteo máximo',gy:178,root:'ankle',vb:[0,70,320,120],
-  segs:[['shin','ankle','knee',44],['thigh','knee','hip',46],['torso','hip','neck',58],['hd','neck','head',15],['foot','ankle','toe',13],['cl','neck','sh',8],['ua','sh','el',28],['fa','el','wr',24]],
-  poses:[
-   {root:[210,174],ang:{shin:-107,thigh:145,torso:205,hd:184,foot:0,cl:40,ua:30,fa:12}},
-   {root:[210,174],ang:{shin:-98.5,thigh:165,torso:188.5,hd:182,foot:0,cl:30,ua:18,fa:4}},
-   {root:[210,174],ang:{shin:-90,thigh:185,torso:172,hd:180,foot:0,cl:20,ua:6,fa:-4}}],
-  sp:['torso'],
-  hl:[{p:'hip',dx:-2,dy:6,r:13,o:.55}],
-  eq:function(P){var s='';
-   s+=dmR(62,141,52,37,DM_C.eq,4);
-   var b=[P.hip[0]+2,P.hip[1]-11];
-   s+=dmC(b,13,'none',DM_C.eq2,4)+dmC(b,3,DM_C.eq2);
-   return s},
-  steps:[
-   {t:'Início: escápulas apoiadas na borda do banco, pés firmes na largura do quadril, quadril baixo sem soltar a tensão. Queixo levemente recolhido.',lb:[[14,86,'queixo recolhido, olhar à frente','ok']]},
-   {t:'Suba empurrando o chão com os calcanhares, expirando. A cabeça acompanha o tronco.',lb:[]},
-   {t:'Topo: pausa de 1s com o glúteo contraído, tronco e coxa alinhados. Costelas para baixo: trave com o glúteo, não com a lombar.',lb:[[14,86,'costelas para baixo','ok'],[306,86,'não arquear a lombar','bad','end']]}]},
-
- shr:{tgt:'trapézio superior',gy:182,root:'hip',vb:[0,10,320,180],
-  segs:[['torso','hip','neck',58],['hd','neck','head',15],['thigh','hip','knee',46],['shin','knee','ankle',44],['foot','ankle','toe',13],['cl','neck','sh',12],['ua','sh','el',30],['fa','el','wr',28]],
-  poses:[
-   {root:[140,94],ang:{torso:-50,hd:-50,thigh:98,shin:92,foot:0,cl:50,ua:90,fa:90}},
-   {root:[140,94],ang:{torso:-50,hd:-50,thigh:98,shin:92,foot:0,cl:12,ua:90,fa:90}},
-   {root:[140,94],ang:{torso:-50,hd:-50,thigh:98,shin:92,foot:0,cl:-26,ua:90,fa:90}}],
-  sp:['torso','hd'],
-  hl:[{s:'cl',a:0,b:1,w:15,o:.6},{s:'torso',a:.55,b:1,w:11,o:.35,n:-5},{s:'hd',a:0,b:.45,w:9,o:.4,n:-3}],
-  eq:function(P){var s='',u=dmU(P.hip,P.neck),n=[-u[1],u[0]];
-   var top=dmP(dmP(P.neck,n,11),u,-9),bot=dmP(dmP(P.hip,n,11),u,-4);
-   s+=dmL(bot,top,9,DM_C.eq);
-   var l1=dmP(bot,u,8),l2=dmP(top,u,-10);
-   s+=dmL([l1[0]+3,l1[1]+4],[l1[0]+3,182],5,DM_C.eq)+dmL([l2[0]+2,l2[1]+4],[l2[0]+14,182],5,DM_C.eq);
-   s+=dmL([l1[0]+3,150],[l2[0]+10,150],4,DM_C.eq);
-   s+=dmC([P.wr[0],P.wr[1]+6],8,DM_C.eq,DM_C.eq2,2.5);
-   return s},
-  steps:[
-   {t:'Banco a 45°, peito apoiado, olhar para o chão. Halteres soltos, braços retos, ombros relaxados para baixo.',lb:[[14,28,'pescoço neutro: olhe para o chão','ok']]},
-   {t:'Eleve os ombros em direção às orelhas, sem dobrar os cotovelos.',lb:[[14,28,'ombros → orelhas','mt']]},
-   {t:'Topo: segure 2s e desça em ~3s. Sem projetar a cabeça nem girar o pescoço. Se irradiar para o braço, pare.',lb:[[14,28,'segure 2s','ok'],[306,28,'sem projetar a cabeça','bad','end']]}]},
-
- lat:{tgt:'deltoide lateral',gy:178,root:'neck',vb:[0,0,320,190],
-  segs:[['torso','neck','hip',56],['hd','neck','head',15],['clR','neck','shR',20],['clL','neck','shL',20],['uR','shR','elR',30],['fR','elR','wrR',27],['uL','shL','elL',30],['fL','elL','wrL',27],['lgR','hip','ftR',80],['lgL','hip','ftL',80]],
-  mir:[['clR','clL'],['uR','uL'],['fR','fL'],['lgR','lgL']],
-  poses:[
-   {root:[160,40],ang:{torso:90,hd:-90,clR:9,uR:80,fR:83,lgR:84}},
-   {root:[160,40],ang:{torso:90,hd:-90,clR:9,uR:44,fR:40,lgR:84}},
-   {root:[160,40],ang:{torso:90,hd:-90,clR:9,uR:9,fR:2,lgR:84}}],
-  hl:[{p:'shR',dx:3,dy:2,r:10,o:.6},{p:'shL',dx:-3,dy:2,r:10,o:.6}],
-  eq:function(P){var s='';
-   s+=dmL([258,178],[258,150],5,DM_C.eq)+dmL([62,178],[62,150],5,DM_C.eq);
-   s+=dmC([258,166],5,DM_C.eq,DM_C.eq2,2)+dmC([62,166],5,DM_C.eq,DM_C.eq2,2);
-   s+=dmL(P.wrR,[258,166],1.5,DM_C.mt)+dmL(P.wrL,[62,166],1.5,DM_C.mt);
-   s+=dmC(P.wrR,3.5,DM_C.eq2)+dmC(P.wrL,3.5,DM_C.eq2);
-   return s},
-  steps:[
-   {t:'Em pé, tronco firme e joelhos destravados, com os cabos baixos dos dois lados. Cotovelos levemente dobrados.',lb:[[14,18,'tronco firme, sem balanço','ok']]},
-   {t:'Eleve em arco lateral, com o punho na linha do cotovelo ou abaixo dele.',lb:[]},
-   {t:'Pare na altura do ombro, sem encolher o trapézio. Desça em ~3s sem soltar a tensão do cabo.',lb:[[14,18,'pare na linha do ombro','ok'],[306,18,'ombros baixos','bad','end']]}]},
-
- row:{tgt:'costas / trapézio médio',gy:178,root:'hip',vb:[0,30,320,160],
-  segs:[['torso','hip','neck',56],['hd','neck','head',15],['thigh','hip','knee',46],['shin','knee','ankle',44],['foot','ankle','toe',13],['cl','neck','sh',10],['ua','sh','el',30],['fa','el','wr',28]],
-  poses:[
-   {root:[118,128],ang:{torso:-82,hd:-84,thigh:0,shin:90,foot:0,cl:40,ua:6,fa:4}},
-   {root:[118,128],ang:{torso:-82,hd:-84,thigh:0,shin:90,foot:0,cl:85,ua:40,fa:-4}},
-   {root:[118,128],ang:{torso:-82,hd:-84,thigh:0,shin:90,foot:0,cl:125,ua:165,fa:2}}],
-  sp:['torso','hd'],
-  hl:[{s:'torso',a:.45,b:.95,w:13,o:.5,n:-5}],
-  eq:function(P){var s='',u=dmU(P.hip,P.neck),n=[-u[1],u[0]];
-   s+=dmL(dmP(dmP(P.hip,n,12),u,24),dmP(dmP(P.neck,n,12),u,-8),9,DM_C.eq);
-   s+=dmL([P.hip[0]-20,P.hip[1]+11],[P.hip[0]+30,P.hip[1]+11],8,DM_C.eq);
-   s+=dmL([P.hip[0]+4,P.hip[1]+15],[P.hip[0]+4,178],6,DM_C.eq);
-   s+=dmL(P.wr,[256,150],2.5,DM_C.eq)+dmC([256,150],4,DM_C.eq2)+dmL([256,150],[256,178],5,DM_C.eq);
-   s+=dmC(P.wr,4,DM_C.eq2);
-   return s},
-  steps:[
-   {t:'Peito firme no apoio, braços estendidos à frente, ombros soltos para a frente.',lb:[[14,46,'peito no apoio, tronco imóvel','ok']]},
-   {t:'Comece pela escápula: aproxime as escápulas antes de dobrar os cotovelos.',lb:[]},
-   {t:'Final: cotovelos atrás do tronco, escápulas aproximadas. Sem arquear a lombar nem projetar a cabeça. Volte em ~3s.',lb:[[14,46,'escápulas juntas','ok'],[306,62,'sem projetar a cabeça','bad','end']]}]}
-};
-
-function demoPose(D,k){
-  var i=Math.min(D.poses.length-2,Math.max(0,Math.floor(k))),f=Math.min(1,Math.max(0,k-i));
-  var A=D.poses[i],B=D.poses[i+1],ang={};
-  for(var nm in A.ang){ang[nm]=A.ang[nm]+(B.ang[nm]-A.ang[nm])*f}
-  (D.mir||[]).forEach(function(m){ang[m[1]]=180-ang[m[0]]});
-  var P={};P[D.root]=[A.root[0]+(B.root[0]-A.root[0])*f,A.root[1]+(B.root[1]-A.root[1])*f];
-  var ch=true;
-  while(ch){ch=false;D.segs.forEach(function(sg){
-    var an=ang[sg[0]];if(an==null)return;var r=an*Math.PI/180,dv=[Math.cos(r),Math.sin(r)];
-    if(P[sg[1]]&&!P[sg[2]]){P[sg[2]]=dmP(P[sg[1]],dv,sg[3]);ch=true}
-    else if(P[sg[2]]&&!P[sg[1]]){P[sg[1]]=dmP(P[sg[2]],dv,-sg[3]);ch=true}
-  })}
-  return P;
-}
-function demoSeg(D,n){return D.segs.filter(function(q){return q[0]===n})[0]}
-function demoSvg(D,k){
-  var P=demoPose(D,k),s='',si=Math.round(k),vb=D.vb||[0,0,320,200];
-  s+=dmL([8,D.gy],[312,D.gy],2,'#2a2927');
-  s+=D.eq(P);
-  (D.hl||[]).forEach(function(h){
-    if(h.s){var sg=demoSeg(D,h.s),a=P[sg[1]],u=dmU(a,P[sg[2]]),nv=[-u[1],u[0]],off=h.n||0;
-      s+=dmL(dmP(dmP(a,u,(h.a||0)*sg[3]),nv,off),dmP(dmP(a,u,(h.b==null?1:h.b)*sg[3]),nv,off),h.w||14,DM_C.hl,h.o||.5);
-    }else{var q=P[h.p];s+=dmC([q[0]+(h.dx||0),q[1]+(h.dy||0)],h.r||12,DM_C.hl,'none',0,h.o||.5)}
-  });
-  D.segs.forEach(function(sg){if(sg[0]!=='hd')s+=dmL(P[sg[1]],P[sg[2]],3.4,DM_C.bone)});
-  (D.sp||[]).forEach(function(n){var sg=demoSeg(D,n);s+=dmL(P[sg[1]],P[sg[2]],3.4,DM_C.ok)});
-  if(!(D.sp||[]).some(function(n){return n==='hd'}))s+=dmL(P.neck,P.head,3.4,DM_C.bone);
-  s+=dmC(P.head,9,DM_C.bg,(D.sp||[]).indexOf('hd')>=0?DM_C.ok:DM_C.bone,3);
-  s+='<text x="'+(vb[0]+vb[2]-8)+'" y="'+(vb[1]+vb[3]-6)+'" fill="'+DM_C.hl+'" font-size="9.5" text-anchor="end" font-family="-apple-system,sans-serif">● alvo: '+D.tgt+'</text>';
-  var st=D.steps[si]||{};
-  (st.lb||[]).forEach(function(l){s+='<text x="'+l[0]+'" y="'+l[1]+'" fill="'+DM_C[l[3]||'mt']+'" font-size="9.5" font-family="-apple-system,sans-serif"'+(l[4]?' text-anchor="'+l[4]+'"':'')+'>'+l[2]+'</text>'});
-  return s;
-}
-var DM_ST=null;
-function demoStop(){if(DM_ST){DM_ST.playing=false;if(DM_ST.raf)cancelAnimationFrame(DM_ST.raf);DM_ST.raf=null;if(DM_ST.pl)DM_ST.pl.textContent='▶ Animar'}}
-function demoDraw(st){
-  st.svg.innerHTML=demoSvg(st.D,st.k);
-  var si=Math.round(st.k);st.tx.textContent=(si+1)+'. '+st.D.steps[si].t;
-  st.ctl.querySelectorAll('.dm-st').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-j')===si)});
-}
-function demoPlay(st){
-  st.playing=true;st.last=null;st.pl.textContent='❚❚ Pausar';
-  function fr(ts){
-    if(!st.playing)return;
-    if(st.last===null)st.last=ts;var dt=Math.min(64,ts-st.last);st.last=ts;
-    if(st.hold>0)st.hold-=dt;
-    else{st.k+=st.dir>0?dt/900:-dt/1400;
-      if(st.k>=2){st.k=2;st.dir=-1;st.hold=700}
-      if(st.k<=0){st.k=0;st.dir=1;st.hold=500}}
-    demoDraw(st);st.raf=requestAnimationFrame(fr);
-  }
-  st.raf=requestAnimationFrame(fr);
-}
-function toggleDemo(i,ei){
-  var el=document.getElementById('demo_'+i+'_'+ei);if(!el)return;
-  var wasOn=el.style.display==='block';
-  demoStop();
-  document.querySelectorAll('.demo').forEach(function(x){x.style.display='none';x.innerHTML=''});
-  document.querySelectorAll('.demo-btn').forEach(function(x){x.textContent='▶ Ver execução'});
-  if(wasOn)return;
-  var D=DEMOS[MUSC[i].ex[ei].dm];if(!D)return;
-  var vb=D.vb||[0,0,320,200];
-  el.style.display='block';
-  document.getElementById('dmb_'+i+'_'+ei).textContent='✕ Fechar execução';
-  var h='<svg class="dm-svg" viewBox="'+vb.join(' ')+'" xmlns="http://www.w3.org/2000/svg"></svg><div class="dm-ctl">';
-  ['Início','Meio','Final'].forEach(function(n,j){h+='<button class="dm-st" data-j="'+j+'">'+(j+1)+' · '+n+'</button>'});
-  h+='<button class="dm-pl">▶ Animar</button></div><div class="dm-tx"></div><div class="dm-ft">Esquema ilustrativo do padrão de movimento: não substitui a orientação de um profissional.</div>';
-  el.innerHTML=h;
-  var st={D:D,k:0,dir:1,hold:0,last:null,playing:false,raf:null,svg:el.querySelector('svg'),tx:el.querySelector('.dm-tx'),ctl:el.querySelector('.dm-ctl'),pl:el.querySelector('.dm-pl')};
-  DM_ST=st;
-  st.ctl.querySelectorAll('.dm-st').forEach(function(b){b.onclick=function(){demoStop();st.k=+b.getAttribute('data-j');st.dir=st.k>=2?-1:1;st.hold=0;demoDraw(st)}});
-  st.pl.onclick=function(){if(st.playing)demoStop();else demoPlay(st)};
-  demoDraw(st);
-}
+/* Demos 3D de execução (demo3d.html, carregado só quando aberto) */
+var D3={shr:'demo3d.html'};
+function open3D(k){var o=document.getElementById('d3ov');if(!o){o=document.createElement('div');o.id='d3ov';o.innerHTML='<button onclick="close3D()" aria-label="Fechar">✕</button><iframe title="Execução 3D"></iframe>';document.body.appendChild(o)}
+  o.querySelector('iframe').src=D3[k];o.style.display='block'}
+function close3D(){var o=document.getElementById('d3ov');if(o){o.style.display='none';o.querySelector('iframe').src='about:blank'}}
 
 /* ============================================================
    INIT
