@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#141311">
-<title>Shrug inclinado · execução 3D</title>
+<title>Execução 3D</title>
 <style>
 :root{--bg:#141311;--s1:rgba(22,21,19,.86);--br:#2e2c29;--tx:#e8e2d8;--mt:#8a847a;--ac:#c9a05a;--gn:#7fb27f;--rd:#c98080}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -16,6 +16,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font-family:
 h1{font-family:Georgia,'Iowan Old Style',serif;font-weight:500;font-size:21px;line-height:1.15;margin:0}
 .sub{font-size:11px;color:var(--mt);margin-top:4px}
 .legend{font-size:10px;color:var(--mt);margin-top:9px;display:flex;gap:12px;flex-wrap:wrap}
+.alt{display:none;gap:6px;margin-top:9px;pointer-events:auto}
+.alt a{font-size:10.5px;color:var(--tx);text-decoration:none;border:1px solid var(--br);background:var(--s1);padding:4px 9px;border-radius:7px}
+.alt a.on{border-color:var(--ac);color:var(--ac)}
 .legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:0}
 #back{pointer-events:auto;display:none;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--br);background:var(--s1);color:var(--tx);font-size:15px;flex:none}
 .views{display:flex;gap:5px;align-items:center;margin:0 0 11px;padding-bottom:10px;border-bottom:1px solid var(--br)}
@@ -53,10 +56,11 @@ h1{font-family:Georgia,'Iowan Old Style',serif;font-weight:500;font-size:21px;li
 <canvas id="c"></canvas>
 <div class="top">
   <div>
-    <p class="eyebrow">Quinta · Ombros · execução</p>
-    <h1>Shrug inclinado<br>apoiado no peito</h1>
-    <div class="sub">3 × 12–15 · halteres moderados · banco a 45°</div>
-    <div class="legend"><span><i style="background:var(--ac)"></i>alvo: trapézio</span><span><i style="background:var(--gn)"></i>coluna e pescoço neutros</span></div>
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 id="title"></h1>
+    <div class="sub" id="sub"></div>
+    <div class="legend" id="legend"></div>
+    <div class="alt" id="alt"></div>
   </div>
   <button id="back" aria-label="Voltar">←</button>
 </div>
@@ -67,12 +71,7 @@ h1{font-family:Georgia,'Iowan Old Style',serif;font-weight:500;font-size:21px;li
   <div id="phases"></div>
   <div id="cap"></div>
   <div class="row">
-    <div class="cues">
-      <span class="cue ok">pescoço neutro</span>
-      <span class="cue ok">cotovelos retos</span>
-      <span class="cue" id="cue-up">ombros → orelhas</span>
-      <span class="cue warn" id="cue-head">sem projetar a cabeça</span>
-    </div>
+    <div class="cues" id="cues"></div>
     <div class="ctl"><button id="slow">1×</button><button id="play">❚❚</button></div>
   </div>
   <div class="meter">contração<span class="mb"><b id="meter"></b></span><span id="pct">0%</span></div>
