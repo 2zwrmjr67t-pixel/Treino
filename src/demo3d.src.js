@@ -16,7 +16,7 @@ renderer.toneMappingExposure = 1.05;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x141311);
+scene.background = new THREE.Color(0x151514);
 scene.fog = new THREE.Fog(0x141311, 5, 11);
 
 const camera = new THREE.PerspectiveCamera(34, 1, 0.05, 50);
@@ -44,16 +44,25 @@ scene.add(rim);
 
 /* ---------- materiais ---------- */
 const M = {
-  skin: new THREE.MeshStandardMaterial({ color: 0xd8cebf, roughness: 0.6 }),
-  joint: new THREE.MeshStandardMaterial({ color: 0xc2b7a6, roughness: 0.6 }),
-  pad: new THREE.MeshStandardMaterial({ color: 0x4d2830, roughness: 0.75 }),
+  skin: new THREE.MeshStandardMaterial({ color: 0xc9cbcd, roughness: 0.48, metalness: 0.0 }),
+  pad: new THREE.MeshStandardMaterial({ color: 0x3b2a2c, roughness: 0.75 }),
   frame: new THREE.MeshStandardMaterial({ color: 0x2c2a27, roughness: 0.45, metalness: 0.55 }),
   steel: new THREE.MeshStandardMaterial({ color: 0x9a968f, roughness: 0.3, metalness: 0.85 }),
   plate: new THREE.MeshStandardMaterial({ color: 0x232120, roughness: 0.55, metalness: 0.35 }),
-  trap: new THREE.MeshStandardMaterial({ color: 0xc9a05a, emissive: 0xc9a05a, emissiveIntensity: 0.15, roughness: 0.45 }),
-  trap2: new THREE.MeshStandardMaterial({ color: 0xa8854a, emissive: 0xa8854a, emissiveIntensity: 0.05, roughness: 0.5, transparent: true, opacity: 0.75 }),
+  trap: new THREE.MeshStandardMaterial({ color: 0xd9472b, emissive: 0xff4a1f, emissiveIntensity: 0.2, roughness: 0.42 }),
+  trap2: new THREE.MeshStandardMaterial({ color: 0xb8705c, emissive: 0xd0603a, emissiveIntensity: 0.04, roughness: 0.5, transparent: true, opacity: 0.6 }),
+  glow: new THREE.MeshBasicMaterial({ color: 0xff6a35, transparent: true, opacity: 0.15, side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false }),
   spine: new THREE.MeshBasicMaterial({ color: 0x7fb27f, transparent: true, opacity: 0.7 }),
   floor: new THREE.MeshStandardMaterial({ color: 0x1d1b19, roughness: 1 })
+};
+/* contorno luminoso (fresnel) no manequim, como nas referências de estúdio */
+M.skin.onBeforeCompile = sh => {
+  sh.fragmentShader = sh.fragmentShader.replace('#include <emissivemap_fragment>',
+    '#include <emissivemap_fragment>\n  float frs = pow(1.0 - clamp(abs(dot(normalize(vViewPosition), normal)), 0.0, 1.0), 3.0);\n  totalEmissiveRadiance += vec3(0.62, 0.7, 0.9) * frs * 0.42;');
+};
+M.trap.onBeforeCompile = sh => {
+  sh.fragmentShader = sh.fragmentShader.replace('#include <emissivemap_fragment>',
+    '#include <emissivemap_fragment>\n  float frt = pow(1.0 - clamp(abs(dot(normalize(vViewPosition), normal)), 0.0, 1.0), 2.0);\n  totalEmissiveRadiance += vec3(1.0, 0.55, 0.25) * frt * 0.6;');
 };
 
 function shade(m) { m.castShadow = true; m.receiveShadow = true; return m; }
@@ -61,20 +70,6 @@ function sphere(r, mat) { return shade(new THREE.Mesh(new THREE.SphereGeometry(r
 function ellipsoid(sx, sy, sz, mat) { const m = sphere(1, mat); m.scale.set(sx, sy, sz); return m; }
 function capsule(r, len, mat) { return shade(new THREE.Mesh(new THREE.CapsuleGeometry(r, Math.max(0.001, len - 2 * r), 10, 20), mat)); }
 function cyl(r, len, mat) { return shade(new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, 24), mat)); }
-/* membro: articulação na origem, segmento ao longo de -y local; rotação em z (plano sagital) */
-function limb(parent, len, r, rz, r2) {
-  const j = new THREE.Group(); j.rotation.z = rz || 0; parent.add(j);
-  const geo = new THREE.CapsuleGeometry(r, Math.max(0.001, len - 2 * r), 10, 20);
-  if (r2) { // afunilamento leve
-    const p = geo.attributes.position;
-    for (let i = 0; i < p.count; i++) { const t = (p.getY(i) + len / 2) / len; const k = r2 / r + (1 - r2 / r) * t; p.setX(i, p.getX(i) * k); p.setZ(i, p.getZ(i) * k); }
-    geo.computeVertexNormals();
-  }
-  const m = shade(new THREE.Mesh(geo, M.skin)); m.position.y = -len / 2; j.add(m);
-  const end = new THREE.Group(); end.position.y = -len; j.add(end);
-  end.add(sphere(Math.min(r, r2 || r) * 1.02, M.joint));
-  return { j, end };
-}
 function beam(a, b, r, mat) { // cilindro entre dois pontos (mundo)
   const d = new THREE.Vector3().subVectors(b, a); const m = cyl(r, d.length(), mat);
   m.position.copy(a).add(b).multiplyScalar(0.5);
@@ -88,49 +83,93 @@ floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
 const ring = new THREE.Mesh(new THREE.RingGeometry(1.25, 1.262, 96), new THREE.MeshBasicMaterial({ color: 0x3a3632 }));
 ring.rotation.x = -Math.PI / 2; ring.position.set(0.25, 0.002, 0); scene.add(ring);
 
-/* ---------- corpo ---------- */
+/* ---------- corpo (manequim anatômico procedural) ---------- */
+function smoothProfile(pts, n) {
+  const out = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n; let k = 0;
+    while (k < pts.length - 2 && t > pts[k + 1][0]) k++;
+    const [t0, r0] = pts[k], [t1, r1] = pts[k + 1];
+    const f = Math.min(1, Math.max(0, (t - t0) / (t1 - t0))), s = f * f * (3 - 2 * f);
+    out.push([t, r0 + (r1 - r0) * s]);
+  }
+  return out;
+}
+/* membro com perfil muscular (torno): articulação na origem, segmento em -y local */
+function mLimb(parent, len, prof, rz, sx = 1, sz = 1) {
+  const j = new THREE.Group(); j.rotation.z = rz || 0; parent.add(j);
+  const pts = smoothProfile(prof, 48).map(([t, r]) => new THREE.Vector2(r, -t * len)).reverse();
+  const g = new THREE.LatheGeometry(pts, 40);
+  const m = shade(new THREE.Mesh(g, M.skin)); m.scale.set(sx, 1, sz); j.add(m);
+  const r0 = prof[0][1], r1 = prof[prof.length - 1][1];
+  const c0 = sphere(r0, M.skin); c0.scale.set(sx, 1, sz); j.add(c0);
+  const end = new THREE.Group(); end.position.y = -len; j.add(end);
+  const c1 = sphere(r1, M.skin); c1.scale.set(sx, 1, sz); end.add(c1);
+  return { j, end };
+}
+function blob(parent, sx, sy, sz, x, y, z, rx = 0, ry = 0, rz = 0, mat = M.skin) {
+  const m = ellipsoid(sx, sy, sz, mat); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); parent.add(m); return m;
+}
+
 const body = new THREE.Group(); scene.add(body);
 const pelvis = new THREE.Group(); pelvis.position.set(0, 0.985, 0); body.add(pelvis);
-pelvis.add(ellipsoid(0.11, 0.095, 0.155, M.skin));
+blob(pelvis, 0.112, 0.095, 0.155, -0.01, -0.005, 0);
+[1, -1].forEach(s => blob(pelvis, 0.06, 0.078, 0.07, -0.058, -0.03, 0.066 * s, 0, 0, 0.3)); // glúteos
 
 const torso = new THREE.Group(); torso.rotation.z = -45 * D2R; pelvis.add(torso);
-const abd = ellipsoid(0.095, 0.16, 0.14, M.skin); abd.position.set(0.0, 0.16, 0); torso.add(abd);
-const chest = ellipsoid(0.112, 0.17, 0.185, M.skin); chest.position.set(0.012, 0.385, 0); torso.add(chest);
-const lats = ellipsoid(0.085, 0.14, 0.165, M.skin); lats.position.set(-0.025, 0.3, 0); torso.add(lats);
-const neck = cyl(0.048, 0.14, M.skin); neck.position.set(-0.005, 0.6, 0); torso.add(neck);
-const head = new THREE.Group(); head.position.set(0, 0.73, 0); torso.add(head);
-head.add(ellipsoid(0.092, 0.112, 0.085, M.skin));
-const nose = sphere(0.02, M.joint); nose.position.set(0.09, 0.0, 0); head.add(nose);
-const brow = ellipsoid(0.02, 0.012, 0.06, M.joint); brow.position.set(0.082, 0.03, 0); head.add(brow);
+/* núcleo: cintura → caixa torácica */
+blob(torso, 0.088, 0.15, 0.13, -0.005, 0.15, 0);
+blob(torso, 0.114, 0.195, 0.168, 0.0, 0.37, 0);
+/* abdômen (6 blocos discretos) e oblíquos */
+[0.1, 0.17, 0.24].forEach((y, i) => [1, -1].forEach(s => blob(torso, 0.022, 0.03, 0.03, 0.078 - i * 0.004 + 0.008, y, 0.033 * s)));
+[1, -1].forEach(s => blob(torso, 0.055, 0.11, 0.032, 0.012, 0.17, 0.1 * s, 0, 0, 0.1));
+/* peitoral */
+[1, -1].forEach(s => blob(torso, 0.045, 0.085, 0.092, 0.075, 0.43, 0.082 * s, 0.25 * s, 0, 0.12));
+/* dorsal (asas), eretores, escápulas */
+[1, -1].forEach(s => blob(torso, 0.042, 0.16, 0.07, -0.04, 0.32, 0.115 * s, -0.22 * s, 0, 0));
+[1, -1].forEach(s => blob(torso, 0.024, 0.19, 0.03, -0.078, 0.2, 0.034 * s));
+[1, -1].forEach(s => blob(torso, 0.02, 0.07, 0.058, -0.098, 0.42, 0.09 * s, 0.15 * s, 0, 0));
+/* pescoço e cabeça (sem feições, como manequim de referência) */
+const neckG = new THREE.CylinderGeometry(0.043, 0.054, 0.15, 28); const neckM = shade(new THREE.Mesh(neckG, M.skin));
+neckM.position.set(-0.008, 0.6, 0); torso.add(neckM);
+const head = new THREE.Group(); head.position.set(0, 0.735, 0); torso.add(head);
+blob(head, 0.085, 0.102, 0.078, -0.008, 0.012, 0);
+blob(head, 0.06, 0.06, 0.06, 0.035, -0.045, 0, 0, 0, -0.3);       // mandíbula / face
+blob(head, 0.025, 0.03, 0.04, 0.08, -0.005, 0);                    // plano facial
+[1, -1].forEach(s => blob(head, 0.012, 0.022, 0.01, -0.005, 0.0, 0.078 * s));
 
 /* linha neutra da coluna (pelve → topo da cabeça) */
 const spineLine = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.9, 8), M.spine);
-spineLine.position.set(-0.15, 0.42, 0); torso.add(spineLine);
-[0, 0.84].forEach(y => { const d = new THREE.Mesh(new THREE.SphereGeometry(0.014, 12, 8), M.spine); d.position.set(-0.15, y, 0); torso.add(d); });
+spineLine.position.set(-0.155, 0.42, 0); torso.add(spineLine);
+[0, 0.84].forEach(y => { const d = new THREE.Mesh(new THREE.SphereGeometry(0.014, 12, 8), M.spine); d.position.set(-0.155, y, 0); torso.add(d); });
 
 /* ombros, braços e halteres */
 const SH_Y0 = 0.47, SH_DY = 0.075;
 const shoulders = [];
-const handWorld = [];
 [1, -1].forEach(s => {
-  const sh = new THREE.Group(); sh.position.set(0.0, SH_Y0, 0.205 * s); torso.add(sh);
-  const delt = ellipsoid(0.07, 0.075, 0.068, M.skin); delt.position.set(0.0, 0.0, 0.01 * s); sh.add(delt);
-  const upper = limb(sh, 0.29, 0.05, 45 * D2R, 0.04);
-  const fore = limb(upper.end, 0.26, 0.04, 0, 0.03);
-  const hand = ellipsoid(0.035, 0.045, 0.03, M.joint); hand.position.y = -0.03; fore.end.add(hand);
-  const db = new THREE.Group(); db.position.y = -0.045; fore.end.add(db);
+  const sh = new THREE.Group(); sh.position.set(0.0, SH_Y0, 0.2 * s); torso.add(sh);
+  blob(sh, 0.068, 0.085, 0.07, 0.0, -0.022, 0.018 * s);               // deltoide
+  const upper = mLimb(sh, 0.29, [[0, 0.046], [0.12, 0.05], [0.45, 0.047], [0.8, 0.038], [1, 0.034]], 45 * D2R);
+  blob(upper.j, 0.032, 0.085, 0.036, 0.024, -0.15, 0);                  // bíceps
+  blob(upper.j, 0.036, 0.1, 0.038, -0.024, -0.12, 0);                   // tríceps
+  const fore = mLimb(upper.end, 0.26, [[0, 0.036], [0.18, 0.043], [0.5, 0.033], [0.85, 0.024], [1, 0.022]], 0);
+  blob(fore.j, 0.03, 0.07, 0.03, 0.015, -0.06, 0.01 * s);               // braquiorradial
+  const hand = shade(new THREE.Mesh(new RoundedBoxGeometry(0.05, 0.085, 0.036, 3, 0.016), M.skin)); hand.position.y = -0.045; fore.end.add(hand);
+  const db = new THREE.Group(); db.position.y = -0.06; fore.end.add(db);
   const handle = cyl(0.016, 0.17, M.steel); handle.rotation.z = Math.PI / 2; db.add(handle);
   [-1, 1].forEach(k => {
     const p = cyl(0.068, 0.045, M.plate); p.rotation.z = Math.PI / 2; p.position.x = 0.1 * k; db.add(p);
     const c = cyl(0.02, 0.05, M.steel); c.rotation.z = Math.PI / 2; c.position.x = 0.1 * k; db.add(c);
   });
   shoulders.push({ s, sh });
-  handWorld.push(fore.end);
 });
 
-/* trapézio: superior (2 feixes pescoço → acrômio) + médio */
-const trapU = [1, -1].map(s => { const m = sphere(1, M.trap); m.castShadow = false; torso.add(m); return { s, m }; });
-const trapM = ellipsoid(0.022, 0.11, 0.075, M.trap2); trapM.position.set(-0.098, 0.44, 0); trapM.castShadow = false; torso.add(trapM);
+/* trapézio: superior (2 feixes pescoço → acrômio, alvo) + médio */
+function glowShell(parent, k) {
+  const g = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20), M.glow); g.scale.setScalar(k); parent.add(g); return g;
+}
+const trapU = [1, -1].map(s => { const m = sphere(1, M.trap); m.castShadow = false; torso.add(m); glowShell(m, 1.22); return { s, m }; });
+const trapM = blob(torso, 0.012, 0.115, 0.06, -0.112, 0.43, 0, 0, 0, 0, M.trap2); trapM.castShadow = false;
 const BACK = new THREE.Vector3(-1, 0.25, 0).normalize();
 function placeBetween(mesh, a, b, thick, width) {
   const d = new THREE.Vector3().subVectors(b, a); const len = d.length(); d.normalize();
@@ -143,12 +182,18 @@ function placeBetween(mesh, a, b, thick, width) {
 
 /* pernas */
 [1, -1].forEach(s => {
-  const hip = new THREE.Group(); hip.position.set(0, -0.04, 0.095 * s); pelvis.add(hip);
-  const thigh = limb(hip, 0.45, 0.072, -10 * D2R, 0.05);
-  const shin = limb(thigh.end, 0.45, 0.052, 15 * D2R, 0.036);
-  const foot = new THREE.Mesh(new RoundedBoxGeometry(0.22, 0.06, 0.09, 3, 0.025), M.joint); shade(foot);
+  const hip = new THREE.Group(); hip.position.set(0, -0.04, 0.092 * s); pelvis.add(hip);
+  const thigh = mLimb(hip, 0.45, [[0, 0.074], [0.2, 0.078], [0.55, 0.066], [0.85, 0.052], [1, 0.046]], -10 * D2R);
+  blob(thigh.j, 0.032, 0.16, 0.042, 0.04, -0.2, 0);                      // reto femoral
+  blob(thigh.j, 0.028, 0.075, 0.034, 0.03, -0.35, -0.026 * s, 0, 0, 0);   // vasto medial (gota)
+  blob(thigh.j, 0.03, 0.13, 0.03, 0.016, -0.24, 0.042 * s);              // vasto lateral
+  blob(thigh.j, 0.03, 0.15, 0.042, -0.038, -0.22, 0);                     // isquiotibiais
+  const shin = mLimb(thigh.end, 0.45, [[0, 0.046], [0.25, 0.05], [0.6, 0.034], [0.88, 0.025], [1, 0.027]], 15 * D2R);
+  blob(shin.j, 0.03, 0.1, 0.038, -0.026, -0.14, 0.01 * s);               // gastrocnêmio
+  blob(shin.j, 0.018, 0.12, 0.02, 0.03, -0.17, 0.012 * s);               // tibial anterior
+  const foot = new THREE.Mesh(new RoundedBoxGeometry(0.22, 0.055, 0.085, 4, 0.026), M.skin); shade(foot);
   const fg = new THREE.Group(); fg.rotation.z = -5 * D2R; shin.end.add(fg);
-  foot.position.set(0.06, -0.012, 0); fg.add(foot);
+  foot.position.set(0.06, -0.014, 0); fg.add(foot);
 });
 
 /* ---------- banco inclinado 45° ---------- */
@@ -193,13 +238,14 @@ function applyPose(e, t) {
   const y = SH_Y0 + SH_DY * e;
   shoulders.forEach(o => { o.sh.position.y = y; o.sh.position.x = -0.012 * e; });
   trapU.forEach(o => {
-    const a = new THREE.Vector3(-0.035, 0.6, 0.02 * o.s);
-    const b = new THREE.Vector3(-0.03, y + 0.035, 0.17 * o.s);
-    placeBetween(o.m, a, b, 0.032 + 0.012 * e, 0.042 + 0.01 * e);
+    const a = new THREE.Vector3(-0.045, 0.645, 0.012 * o.s);
+    const b = new THREE.Vector3(-0.035, y + 0.03, 0.175 * o.s);
+    placeBetween(o.m, a, b, 0.026 + 0.012 * e, 0.058 + 0.008 * e);
   });
   const pulse = e > 0.99 ? 0.12 * (0.5 + 0.5 * Math.sin(t * 7)) : 0;
-  M.trap.emissiveIntensity = 0.12 + 0.75 * e + pulse;
-  M.trap2.emissiveIntensity = 0.04 + 0.2 * e;
+  M.trap.emissiveIntensity = 0.18 + 0.7 * e + pulse;
+  M.trap2.emissiveIntensity = 0.03 + 0.15 * e;
+  M.glow.opacity = 0.08 + 0.22 * e + pulse * 0.6;
 }
 
 /* ---------- câmera ---------- */
