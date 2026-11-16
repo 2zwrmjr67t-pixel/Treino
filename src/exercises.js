@@ -365,42 +365,45 @@ export const EX = {
 
   /* ===================== SEGUNDA — PEITO ===================== */
   supinc: {
-    day: 'Segunda · Peito', title: 'Supino inclinado com halteres', sub: '4 × 8–10 · banco a 30°',
+    day: 'Segunda · Peito', title: 'Supino inclinado articulado', sub: '4 × 8–10 · máquina de anilhas',
     mus: [['pec'], ['delt', 'tri']],
     base: { root: [0.25, 0.555, 0], up: [-0.866, 0.5, 0], fwd: [0.5, 0.866, 0], leg: [0.74, 0.06, 0.18], kp: [1, 1, 0] },
-    keys: [{ arm: { t: [0.16, 0.4, 0.42] }, ep: { t: [-0.7, -0.2, 0.7] } }, { arm: { t: [0.55, 0.45, 0.15] }, ep: { t: [-0.5, 0, 1] } }],
-    ph: std({ up: 1, hold: 1, down: 3, t: [
-      'Banco a 30°, escápulas encaixadas, cabeça apoiada. Halteres na linha do peito, antebraços verticais.',
-      'Empurre em ~1s, aproximando os halteres no alto.',
-      'Pausa curta no topo, sem travar os cotovelos.',
+    lever: { pv: [-0.75, 1.53, 0.5] },
+    keys: [{ arm: { t: [0.16, 0.4, 0.4] }, ep: { t: [-0.7, -0.2, 0.7] } }, { arm: { t: [0.55, 0.45, 0.2] }, ep: { t: [-0.5, 0, 1] } }],
+    ph: std({ up: 1, hold: 1, down: 3, n1: 'Empurra', t: [
+      'Banco ajustado com as pegadas na linha da parte alta do peito. Escápulas encaixadas, cabeça apoiada.',
+      'Empurre em ~1s seguindo o arco da máquina: as mãos sobem e se aproximam. Deixe a pegada girar junto.',
+      'Pausa curta no topo, sem travar os cotovelos e sem tirar as escápulas do encosto.',
       'Desça em 3s até a linha do peito, cotovelos a ~45–60° do tronco.'] }),
-    cues: [['cabeça apoiada no banco', 'ok'], ['escápulas encaixadas', 'ok'], ['desça controlando', 'hot', [3]]],
+    cues: [['cabeça apoiada, queixo neutro', 'ok'], ['escápulas encaixadas', 'ok'], ['punho acompanha a pegada', 'hot', [1, 3]]],
     eq(k) {
       const { M, axis, V } = k; const F = k.frame(0);
       k.boxF(F, 't', [-0.155, 0.32, 0], [0.07, 0.82, 0.3]);
       k.box([0.32, 0.43, 0], [0.38, 0.07, 0.32], M.pad, null, 0.03);
       const a = k.ptF(F, 't', [-0.2, 0.45, 0]); k.beam(a, V(a.x, 0.03, 0), 0.03);
-      k.beam([0.32, 0.03, 0], [0.32, 0.4, 0], 0.03); k.rails(-0.6, 0.6);
-      [0, 1].forEach(i => k.dumbbell(i, axis.latT));
+      k.beam([0.32, 0.03, 0], [0.32, 0.4, 0], 0.03); k.rails(-0.9, 0.6, 0.55);
+      [-1, 1].forEach(s => k.beam([-0.75, 0.03, 0.55 * s], [-0.75, 1.53, 0.55 * s], 0.035));
+      [0, 1].forEach(i => k.lever(i, { axis: [0, 0, 1], len: 0.15, ext: 0.3, plate: 0.2 }));
     }
   },
   supmaq: {
-    view: 'fr',
-    day: 'Segunda · Peito', title: 'Supino reto na máquina', sub: '3 × 10–12 · pegada neutra',
+    day: 'Segunda · Peito', title: 'Supino reto articulado deitado', sub: '3 × 10–12 · máquina de anilhas',
     mus: [['pec'], ['tri', 'delt']],
-    base: { root: [0, 0.6, 0], up: [-0.1, 1, 0], leg: [0.47, 0.06, 0.13], kp: [0.6, 1, 0] },
-    keys: [{ arm: { t: [0.13, 0.42, 0.3] }, ep: { t: [-0.7, -0.4, 0.6] } }, { arm: { t: [0.56, 0.42, 0.22] }, ep: { t: [-0.5, -0.6, 0.6] } }],
+    base: { root: [0.3, 0.56, 0], up: [-1, 0, 0], fwd: [0, 1, 0], leg: [0.8, 0.06, 0.24], kp: [1, 1, 0] },
+    lever: { pv: [-0.85, 0.97, 0.5] },
+    keys: [{ arm: { t: [0.14, 0.38, 0.4] }, ep: { t: [-0.6, -0.1, 0.8] } }, { arm: { t: [0.56, 0.4, 0.2] }, ep: { t: [-0.4, 0, 1] } }],
     ph: std({ up: 1, hold: 1, down: 3, n1: 'Empurra', n2: 'Topo', n3: 'Retorno', t: [
-      'Costas e cabeça apoiadas, pegadores na linha do meio do peito.',
-      'Empurre em ~1s, expirando, sem tirar as escápulas do encosto.',
-      'Pausa curta sem travar os cotovelos.',
-      'Volte em 3s até as mãos ficarem ao lado do peito.'] }),
-    cues: [['costas apoiadas', 'ok'], ['punho alinhado ao cotovelo', 'ok'], ['não trave os cotovelos', 'warn', [2]]],
+      'Deitado, pegadas na linha do meio do peito. Escápulas afundadas no banco, pés no chão, arco lombar leve.',
+      'Empurre em ~1s seguindo o arco: as mãos sobem e convergem. A primeira repetição sai do ponto mais difícil.',
+      'Pausa curta sem travar os cotovelos. Cabeça apoiada no banco.',
+      'Volte em 3s até as mãos ficarem ao lado do peito, sem perder o encaixe das escápulas.'] }),
+    cues: [['cabeça no banco', 'ok'], ['escápulas afundadas', 'ok'], ['não trave os cotovelos', 'warn', [2]]],
     eq(k) {
-      const { R, axis } = k; seat(k, { backLen: 0.78 }); const F = k.frame(0);
-      const pv = [1, -1].map(s => k.ptF(F, 't', [-0.05, 0.98, 0.33 * s]));
-      [0, 1].forEach(i => { k.handle(i, axis.y, 0.13); k.link(() => R.grip[i].clone().setY(R.grip[i].y + 0.06), () => pv[i], 0.022); });
-      pv.forEach(p => k.beam(p, [p.x - 0.1, 0.03, p.z], 0.026));
+      const { M } = k;
+      k.box([-0.05, 0.43, 0], [1.0, 0.07, 0.3], M.pad, null, 0.03);
+      [-0.45, 0.35].forEach(x => k.beam([x, 0.03, 0], [x, 0.4, 0], 0.03)); k.rails(-1.0, 0.5, 0.55);
+      [-1, 1].forEach(s => k.beam([-0.85, 0.03, 0.55 * s], [-0.85, 0.97, 0.55 * s], 0.035));
+      [0, 1].forEach(i => k.lever(i, { axis: [0, 0, 1], len: 0.15, ext: 0.3, plate: 0.2 }));
     }
   },
   cross: {
@@ -461,13 +464,14 @@ export const EX = {
 
   /* ===================== SÁBADO — COSTAS ===================== */
   pulldown: {
-    day: 'Sábado · Costas', title: 'Puxada frontal aberta', sub: '4 × 8–10 · sempre à frente',
+    day: 'Sábado · Costas', title: 'Puxada articulada aberta', sub: '4 × 8–10 · máquina de anilhas',
     mus: [['lat'], ['bic', 'trapm', 'scap']],
     base: { root: [0, 0.56, 0], up: [-0.2, 1, 0], leg: [0.47, 0.06, 0.12], kp: [0.6, 1, 0] },
+    lever: { pv: [0.75, 1.4, 0.32] },
     keys: [{ arm: [0.06, 1.52, 0.43], ep: [-0.3, -0.2, 1] }, { arm: [0.1, 1.33, 0.42], ep: [-0.5, -0.6, 0.8] }, { arm: [0.1, 1.12, 0.37], ep: [-0.7, -1, 0.5], shR: 0.6 }],
     ph: std({ path: [0, 1, 2], up: 1, hold: 1, down: 3, n1: 'Puxada', n2: 'Contração', n3: 'Retorno', t: [
-      'Coxas travadas no apoio, pegada aberta, braços estendidos. Leve inclinação para trás.',
-      'Puxe a barra em direção à parte alta do peito, levando os cotovelos para baixo.',
+      'Coxas travadas no apoio, pegada aberta, braços estendidos. Leve inclinação para trás (10–15°).',
+      'Puxe as pegadas em direção à parte alta do peito, cotovelos para baixo. Os braços são independentes: os dois lados chegam juntos.',
       'Pausa de 1s com o peito alto e as escápulas para baixo e para trás.',
       'Volte em 3s até estender os braços, sem soltar a carga.'] }),
     cues: [['peito alto, sem balanço', 'ok'], ['puxe até a parte alta do peito', 'hot', [1, 2]], ['nunca atrás da nuca', 'warn', [2]]],
@@ -475,17 +479,17 @@ export const EX = {
       const { M } = k; seat(k, { back: false, x0: -0.25, x1: 0.32, top: 0.46 });
       k.box([0.3, 0.71, 0], [0.12, 0.07, 0.42], M.pad, null, 0.03);
       [-1, 1].forEach(s => k.beam([0.3, 0.71, 0.18 * s], [0.12, 0.42, 0.1 * s], 0.02));
-      k.beam([-0.5, 0.03, 0], [-0.5, 2.4, 0], 0.035); k.beam([-0.5, 2.4, 0], [0.12, 2.4, 0], 0.03);
-      k.pulley([0.1, 2.36, 0]); k.box([-0.62, 0.22, 0], [0.2, 0.36, 0.26], M.plate, null, 0.01);
-      k.bar(1.25, 0, false);
-      k.cable(() => k.gripMid(), [0.1, 2.36, 0]);
+      [-1, 1].forEach(s => k.beam([0.75, 0.03, 0.4 * s], [0.75, 1.4, 0.4 * s], 0.035));
+      k.beam([0.75, 0.03, -0.4], [0.75, 0.03, 0.4], 0.03);
+      [0, 1].forEach(i => k.lever(i, { axis: [0, -0.2, 1], len: 0.16, ext: 0.32, plate: 0.2 }));
     }
   },
   row: {
-    day: 'Sábado · Costas', title: 'Remada na máquina com apoio peitoral', sub: '4 × 10–12 · pegada neutra',
+    day: 'Sábado · Costas', title: 'Remada articulada com apoio peitoral', sub: '4 × 10–12 · máquina de anilhas',
     mus: [['lat', 'trapm', 'scap'], ['bic', 'delt']],
     base: { root: [0, 0.56, 0], up: [0.17, 1, 0], leg: [0.47, 0.06, 0.13], kp: [0.6, 1, 0] },
-    keys: [{ arm: [0.62, 1.05, 0.2], ep: [-0.6, -1, 0.4] }, { arm: [0.15, 0.98, 0.23], ep: [-1, -0.2, 0.25], shR: 1 }],
+    lever: { pv: [0.6, 2.0, 0.27] },
+    keys: [{ arm: [0.62, 1.05, 0.2], ep: [-0.6, -1, 0.4] }, { arm: [0.12, 0.92, 0.23], ep: [-1, -0.2, 0.25], shR: 1 }],
     ph: std({ up: 1, hold: 1, down: 3, n1: 'Puxada', n2: 'Contração', n3: 'Retorno', t: [
       'Peito firme no apoio, braços estendidos à frente, ombros soltos para a frente.',
       'Comece pela escápula: aproxime as escápulas antes de dobrar os cotovelos.',
@@ -493,11 +497,11 @@ export const EX = {
       'Volte em 3s até estender os braços.'] }),
     cues: [['peito no apoio', 'ok'], ['escápulas primeiro', 'hot', [1]], ['sem projetar a cabeça', 'warn', [2]]],
     eq(k) {
-      const { R, axis, V } = k; seat(k, { back: false, x0: -0.25, x1: 0.3, top: 0.46 }); const F = k.frame(0);
+      const { V } = k; seat(k, { back: false, x0: -0.25, x1: 0.3, top: 0.46 }); const F = k.frame(0);
       k.boxF(F, 't', [0.165, 0.36, 0], [0.07, 0.42, 0.3]);
       const c = k.ptF(F, 't', [0.21, 0.3, 0]); k.beam(c, V(c.x + 0.05, 0.03, 0), 0.03);
-      [0, 1].forEach(i => { k.handle(i, axis.y, 0.13); k.link(() => R.grip[i].clone().setY(R.grip[i].y + 0.06), () => V(0.66, 1.55, 0.25 * (i ? -1 : 1)), 0.022); });
-      [-1, 1].forEach(s => k.beam([0.66, 1.55, 0.25 * s], [0.8, 0.03, 0.25 * s], 0.028));
+      [-1, 1].forEach(s => { k.beam([0.85, 0.03, 0.36 * s], [0.85, 2.0, 0.36 * s], 0.035); k.beam([0.85, 2.0, 0.36 * s], [0.6, 2.0, 0.36 * s], 0.03); });
+      [0, 1].forEach(i => k.lever(i, { axis: [0, 1, 0], len: 0.13, ext: 0.3, plate: 0.2 }));
     }
   },
   rowlow: {

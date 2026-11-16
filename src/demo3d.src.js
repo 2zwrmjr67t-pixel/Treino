@@ -58,7 +58,8 @@ const M = {
   rope: new THREE.MeshStandardMaterial({ color: 0x2b2b2e, roughness: 0.9 }),
   matf: new THREE.MeshStandardMaterial({ color: 0x2a2624, roughness: 0.95 }),
   spine: new THREE.MeshBasicMaterial({ color: 0x7fb27f, transparent: true, opacity: 0.7 }),
-  floor: new THREE.MeshStandardMaterial({ color: 0x1d1b19, roughness: 1 })
+  floor: new THREE.MeshStandardMaterial({ color: 0x1d1b19, roughness: 1 }),
+  lever: new THREE.MeshStandardMaterial({ color: 0xb8952e, roughness: 0.5, metalness: 0.3 })
 };
 
 /* ================= primitivas ================= */
@@ -216,6 +217,11 @@ function resolveKey(k) {
   };
 }
 const KF = C.keys.map(resolveKey);
+/* braço articulado (opcional): C.lever = { pv: [x,y,z] pivô do lado direito (z espelhado) } */
+const LEV = C.lever ? SIDES.map((s, i) => {
+  const pv = V(...mir(C.lever.pv, s)), h0 = KF[0].hand[i];
+  return { pv, r: h0.distanceTo(pv), d0: V().subVectors(h0, pv).normalize() };
+}) : null;
 function lerpPose(A, B, f) {
   const L = (a, b) => a.clone().lerp(b, f), n = (a, b) => a + (b - a) * f;
   return { root: L(A.root, B.root), up: L(A.up, B.up), fwd: L(A.fwd, B.fwd), tf: n(A.tf, B.tf), neck: n(A.neck, B.neck), shE: n(A.shE, B.shE), shR: n(A.shR, B.shR),
@@ -237,7 +243,7 @@ function ik(S, T, a, b, pole) {
   p.normalize();
   return { M: S.clone().addScaledVector(dir, a * cosA).addScaledVector(p, a * sinA), E: S.clone().addScaledVector(dir, L), p };
 }
-const R = { sh: [V(), V()], el: [V(), V()], wr: [V(), V()], grip: [V(), V()], fore: [V(), V()], hip: [V(), V()], kn: [V(), V()], an: [V(), V()], toe: [V(), V()], shinX: [V(), V()], shinY: [V(), V()], F: null };
+const R = { sh: [V(), V()], el: [V(), V()], wr: [V(), V()], grip: [V(), V()], fore: [V(), V()], lq: [new THREE.Quaternion(), new THREE.Quaternion()], hip: [V(), V()], kn: [V(), V()], an: [V(), V()], toe: [V(), V()], shinX: [V(), V()], shinY: [V(), V()], F: null };
 const SH_Y0 = 0.47, SH_DY = 0.075;
 function applyPose(P) {
   const F = frameOf(P.root.toArray(), P.up.toArray(), P.fwd.toArray(), P.tf); R.F = F;
@@ -254,7 +260,12 @@ function applyPose(P) {
     const s = L.s;
     torsoG.updateMatrixWorld();
     const S = V(-0.035 * P.shR, shY, 0.2 * s).applyQuaternion(F.qt).add(F.o); R.sh[i].copy(S);
-    const a = ik(S, P.hand[i], LEN.ua, LEN.fa, P.ep[i]);
+    let HT = P.hand[i];
+    if (LEV) { // máquina articulada: a mão percorre o arco do braço da máquina em torno do pivô
+      const lv = LEV[i], d = V().subVectors(HT, lv.pv).normalize();
+      HT = lv.pv.clone().addScaledVector(d, lv.r); R.lq[i].setFromUnitVectors(lv.d0, d);
+    }
+    const a = ik(S, HT, LEN.ua, LEN.fa, P.ep[i]);
     setBone(L.ua, S, a.M, a.p.clone().negate()); setBone(L.fa, a.M, a.E, a.p.clone().negate());
     R.el[i].copy(a.M); R.wr[i].copy(a.E);
     R.fore[i].subVectors(a.E, a.M).normalize(); R.grip[i].copy(a.E).addScaledVector(R.fore[i], 0.05);
@@ -306,6 +317,21 @@ const kit = {
     return g;
   },
   handle(i, axisFn, len = 0.14) { const m = cyl(0.016, len, M.steel); scene.add(m); dyn.push(() => { m.position.copy(R.grip[i]); m.quaternion.setFromUnitVectors(UP, axisFn(i)); }); return m; },
+  /* braço articulado: alavanca pivô→pegada, prolongamento com anilha e pegada que gira junto com o braço */
+  lever(i, o = {}) {
+    const { axis = [0, 0, 1], len = 0.16, ext = 0.35, plate = 0.2, r = 0.03, tip = null } = o;
+    const pv = LEV[i].pv, s = SIDES[i], ax0 = V(...mir(axis, s)).normalize();
+    const T = () => (tip ? tip(i) : R.grip[i]);
+    kit.link(() => pv, T, r, M.lever || M.frame);
+    const horn = () => pv.clone().addScaledVector(V().subVectors(pv, T()).normalize(), ext);
+    kit.link(() => pv, horn, r * 0.9, M.lever || M.frame);
+    if (plate) {
+      const p = cyl(plate, 0.05, M.plate); scene.add(p);
+      dyn.push(() => { p.position.copy(horn()); p.quaternion.setFromUnitVectors(UP, V(0, 0, s)); });
+    }
+    const hub = cyl(0.05, 0.08, M.steel); hub.position.copy(pv); hub.quaternion.setFromUnitVectors(UP, V(0, 0, 1)); scene.add(hub);
+    return kit.handle(i, () => ax0.clone().applyQuaternion(R.lq[i]), len);
+  },
   gripMid: () => R.grip[0].clone().add(R.grip[1]).multiplyScalar(0.5),
   axis: {
     hammer: i => { const v = V().crossVectors(R.fore[i], V(0, 0, 1)); if (v.lengthSq() < 0.04) v.crossVectors(R.fore[i], V(1, 0, 0)); return v.normalize(); },
