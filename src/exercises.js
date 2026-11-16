@@ -425,7 +425,7 @@ export const EX = {
     }
   },
   tricorda: {
-    day: 'Segunda · Peito', title: 'Tríceps na corda', sub: '3 × 12 · cotovelos fixos',
+    day: 'Segunda · Peito', title: 'Tríceps na corda', sub: '3 × 12–15 · foco na contração',
     mus: [['tri'], []],
     base: { up: [0.1, 1, 0], ep: [-1, -0.1, 0.25] },
     keys: [{ arm: [0.21, 1.3, 0.07] }, { arm: [0.13, 0.9, 0.15] }],
@@ -443,24 +443,29 @@ export const EX = {
       k.cable(J, [0.58, 2.05, 0]);
     }
   },
-  tritesta: {
-    day: 'Segunda · Peito', title: 'Tríceps testa com barra EZ', sub: '3 × 10–12 · cabeça apoiada',
+  triv: {
+    day: 'Segunda · Peito', title: 'Tríceps pushdown com barra V', sub: '3 × 8–10 · carga mais alta',
     mus: [['tri'], []],
-    base: { root: [0.25, 0.575, 0], up: [-1, 0, 0], fwd: [0, 1, 0], leg: [0.74, 0.06, 0.16], kp: [1, 1, 0], ep: [0.3, 1, 0] },
-    keys: [{ arm: [-0.28, 1.11, 0.15] }, { arm: [-0.5, 0.73, 0.14] }],
-    ph: [
-      { n: 'Início', d: 0.8, p: [0], k: 'r', t: 'Deitado no banco, cabeça apoiada, barra acima dos ombros com braços estendidos.' },
-      { n: 'Descida · 3s', d: 3, p: [0, 1], k: 'u', t: 'Flexione só os cotovelos, levando a barra para trás da testa em 3s.' },
-      { n: 'Embaixo', d: 0.6, p: [1], k: 'h', t: 'Cotovelos apontando para cima, sem abrir. Cabeça permanece no banco.' },
-      { n: 'Extensão · 1s', d: 1, p: [1, 0], k: 'd', t: 'Estenda em ~1s até os braços ficarem retos acima dos ombros.' }],
-    cues: [['cabeça apoiada no banco', 'ok'], ['cotovelos fixos', 'ok'], ['desça controlando', 'hot', [1]]],
+    base: { up: [0.12, 1, 0], ep: [-1, -0.1, 0.2] },
+    keys: [{ arm: [0.22, 1.3, 0.1] }, { arm: [0.14, 0.9, 0.11] }],
+    ph: std({ up: 1, hold: 1, down: 3, n1: 'Extensão', n2: 'Embaixo', n3: 'Retorno', t: [
+      'Polia alta, barra V na pegada angulada, cotovelos colados ao corpo. Tronco levemente à frente, coluna e pescoço neutros.',
+      'Estenda os cotovelos em ~1s. Só o antebraço se move; o punho segue o ângulo da barra.',
+      'Extensão total embaixo, segure 1s.',
+      'Volte em 3s até os antebraços passarem um pouco da horizontal, sem os cotovelos irem à frente.'] }),
+    cues: [['cotovelos colados', 'ok'], ['extensão total embaixo', 'hot', [2]], ['pescoço neutro', 'ok']],
     eq(k) {
-      const { M } = k;
-      k.box([-0.05, 0.43, 0], [1.2, 0.07, 0.32], M.pad, null, 0.03);
-      [-0.45, 0.35].forEach(x => k.beam([x, 0.03, 0], [x, 0.4, 0], 0.03)); k.rails(-0.6, 0.5);
-      k.bar(1.2, 0.1, true);
+      const { R, V, M } = k;
+      k.stack(0.68, 0, 2.15, 0.3); k.pulley([0.58, 2.05, 0]);
+      const hub = () => k.gripMid().add(V(0.02, 0.09, 0));
+      [0, 1].forEach(i => {
+        k.link(hub, () => R.grip[i], 0.014, M.steel);
+        k.link(() => R.grip[i], () => R.grip[i].clone().add(V(-0.02, -0.03, 0.07 * (i ? -1 : 1))), 0.014, M.steel);
+      });
+      k.cable(hub, [0.58, 2.05, 0]);
     }
   },
+
 
   /* ===================== SÁBADO — COSTAS ===================== */
   pulldown: {
