@@ -115,26 +115,27 @@ export const EX = {
     }
   },
   kick: {
-    day: 'Terça · Pernas', title: 'Kickback de glúteo no cabo', sub: '3 × 12–15 por lado · costelas para baixo',
+    day: 'Terça · Pernas', title: 'Kickback de glúteo na máquina', sub: '3 × 12–15 por lado · apoio de peito',
     mus: [['glute'], ['ham', 'erector']],
-    base: { root: [-0.06, 1.0, 0], up: [0.3, 1, 0], fwd: [1, 0, 0], arm: [0.6, 1.05, 0.18], ep: [-1, -0.2, 0.3], leg: [0.04, 0.08, 0.1], kp: [1, 0, 0] },
-    keys: [{}, { legR: [-0.38, 0.2, 0.1], kpR: [0.9, -0.3, 0] }, { legL: [-0.38, 0.2, -0.1], kpL: [0.9, -0.3, 0] }],
+    base: { root: [-0.02, 0.98, 0], up: [0.5, 1, 0], fwd: [1, 0, 0], arm: [0.58, 1.0, 0.2], ep: [-1, -0.2, 0.3], leg: [0.04, 0.08, 0.1], kp: [1, 0, 0] },
+    keys: [{}, { legR: [-0.36, 0.22, 0.1], kpR: [0.9, -0.3, 0] }, { legL: [-0.36, 0.22, -0.1], kpL: [0.9, -0.3, 0] }],
     ph: alt({ up: 1, hold: 1, down: 3, t: [
-      'Cabo baixo, tornozeleira na perna de trabalho. Mãos apoiadas, tronco levemente inclinado, costelas para baixo, lombar neutra.',
-      'Leve o calcanhar para trás e para cima em ~1s, estendendo o quadril. Joelho quase reto.',
+      'Peito no apoio, mãos nas empunhaduras, costelas para baixo, lombar neutra. Pé da perna de trabalho na plataforma.',
+      'Empurre a plataforma para trás e para cima em ~1s, estendendo o quadril. Joelho quase reto.',
       'Pausa de 1s com o glúteo contraído. Quadril não gira, lombar não arqueia.',
-      'Volte em 3s controlando o cabo, sem apoiar o pé no chão entre as repetições.',
+      'Volte em 3s sem soltar a carga.',
       'Agora a outra perna.'] }),
-    cues: [['costelas para baixo', 'ok'], ['amplitude curta, sem arquear', 'hot', [1, 2, 4, 5]], ['quadril não gira', 'warn', [1, 2, 4, 5]]],
+    cues: [['peito no apoio', 'ok'], ['amplitude curta, sem arquear', 'hot', [1, 2, 4, 5]], ['quadril não gira', 'warn', [1, 2, 4, 5]]],
     eq(k) {
-      const { R, V, M } = k; k.matFloor(-0.7, 1.0, 0.7);
-      k.stack(0.9, 0, 2.1, 0.3);
-      [-1, 1].forEach(s => k.beam([0.9, 1.02, 0.15 * s], [0.62, 1.02, 0.25 * s], 0.02));
-      k.beam([0.62, 1.02, -0.25], [0.62, 1.02, 0.25], 0.026);
-      k.pulley([0.78, 0.2, 0]);
+      const { R, V, M } = k; const F = k.frame(0); k.rails(-0.45, 0.85, 0.32);
+      k.boxF(F, 't', [0.17, 0.36, 0], [0.07, 0.34, 0.34]);
+      k.beam(k.ptF(F, 't', [0.2, 0.2, 0]), V(0.5, 0.03, 0), 0.03);
+      k.beam(V(0.5, 0.03, 0), V(0.5, 1.0, 0), 0.03);
+      [-1, 1].forEach(s => k.beam([0.5, 0.94, 0.22 * s], [0.62, 0.94, 0.22 * s], 0.016, M.steel));
       const wa = () => (R.an[0].x < R.an[1].x ? R.an[0] : R.an[1]);
-      k.padAt(wa, () => V(0, 1, 0), 0.1, 0.045);
-      k.cable(wa, [0.78, 0.2, 0]);
+      k.link(() => V(0.62, 0.2, wa().z), () => wa().clone().add(V(-0.04, -0.07, 0)), 0.024);
+      k.padAt(() => wa().clone().add(V(-0.04, -0.07, 0)), () => V(0, 0, 1), 0.16, 0.045);
+      k.box([0.62, 0.2, 0], [0.1, 0.1, 0.3], M.plate, null, 0.015);
     }
   },
   flexs: {
