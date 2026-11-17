@@ -51,7 +51,7 @@ const handlesSide = (k, x = 0.08, y = 0.5) => [-1, 1].forEach(s => { k.beam([x -
 export const EX = {
   /* ===================== TERÇA / SEXTA — PERNAS ===================== */
   ext: {
-    day: 'Terça e sexta · Pernas', title: 'Extensora', sub: '4 × 10–12 · excêntrico de 3s · sem carga axial',
+    day: 'Terça, quinta e sexta · Pernas', title: 'Extensora', sub: '3–4 séries · excêntrico de 3s · sem carga axial',
     mus: [['quad'], []],
     base: { root: [0, 0.6, 0], up: [-0.14, 1, 0], arm: [0.07, 0.5, 0.27], ep: [-1, -0.2, 0.3], kp: [0.5, 1, 0] },
     keys: [{ leg: [0.47, 0.12, 0.1] }, { leg: [0.77, 0.25, 0.1] }, { leg: [0.895, 0.5, 0.1], ank: -10 }],
@@ -114,8 +114,31 @@ export const EX = {
       [-1, 1].forEach(s => k.beam([0.68, 0.22, 0.3 * s], [0.68, 0.03, 0.3 * s], 0.026));
     }
   },
+  kick: {
+    day: 'Terça · Pernas', title: 'Kickback de glúteo no cabo', sub: '3 × 12–15 por lado · costelas para baixo',
+    mus: [['glute'], ['ham', 'erector']],
+    base: { root: [-0.06, 1.0, 0], up: [0.3, 1, 0], fwd: [1, 0, 0], arm: [0.6, 1.05, 0.18], ep: [-1, -0.2, 0.3], leg: [0.04, 0.08, 0.1], kp: [1, 0, 0] },
+    keys: [{}, { legR: [-0.38, 0.2, 0.1], kpR: [0.9, -0.3, 0] }, { legL: [-0.38, 0.2, -0.1], kpL: [0.9, -0.3, 0] }],
+    ph: alt({ up: 1, hold: 1, down: 3, t: [
+      'Cabo baixo, tornozeleira na perna de trabalho. Mãos apoiadas, tronco levemente inclinado, costelas para baixo, lombar neutra.',
+      'Leve o calcanhar para trás e para cima em ~1s, estendendo o quadril. Joelho quase reto.',
+      'Pausa de 1s com o glúteo contraído. Quadril não gira, lombar não arqueia.',
+      'Volte em 3s controlando o cabo, sem apoiar o pé no chão entre as repetições.',
+      'Agora a outra perna.'] }),
+    cues: [['costelas para baixo', 'ok'], ['amplitude curta, sem arquear', 'hot', [1, 2, 4, 5]], ['quadril não gira', 'warn', [1, 2, 4, 5]]],
+    eq(k) {
+      const { R, V, M } = k; k.matFloor(-0.7, 1.0, 0.7);
+      k.stack(0.9, 0, 2.1, 0.3);
+      [-1, 1].forEach(s => k.beam([0.9, 1.02, 0.15 * s], [0.62, 1.02, 0.25 * s], 0.02));
+      k.beam([0.62, 1.02, -0.25], [0.62, 1.02, 0.25], 0.026);
+      k.pulley([0.78, 0.2, 0]);
+      const wa = () => (R.an[0].x < R.an[1].x ? R.an[0] : R.an[1]);
+      k.padAt(wa, () => V(0, 1, 0), 0.1, 0.045);
+      k.cable(wa, [0.78, 0.2, 0]);
+    }
+  },
   flexs: {
-    day: 'Terça · Pernas', title: 'Flexora sentada', sub: '3 × 12 · isquiotibial alongado',
+    day: 'Terça · Pernas', title: 'Flexora sentada', sub: '4 × 12 · isquiotibial alongado',
     mus: [['ham'], ['calf']],
     base: { root: [0, 0.6, 0], up: [-0.17, 1, 0], arm: [0.07, 0.5, 0.27], ep: [-1, -0.2, 0.3], kp: [0.3, 1, 0] },
     keys: [{ leg: [0.885, 0.5, 0.1], ank: -5 }, { leg: [0.79, 0.27, 0.1] }, { leg: [0.53, 0.12, 0.1] }],
@@ -135,7 +158,7 @@ export const EX = {
     }
   },
   pant: {
-    day: 'Terça · Pernas', title: 'Panturrilha sentada', sub: '4 × 20 · sem carga axial na coluna',
+    day: 'Terça e quinta · Pernas', title: 'Panturrilha sentada', sub: '4 × 15–20 · sem carga axial na coluna',
     mus: [['calf'], []],
     base: { root: [0, 0.55, 0], up: [0.05, 1, 0], arm: [0.38, 0.72, 0.2], ep: [-0.5, -1, 0.3], kp: [0.4, 1, 0] },
     keys: [{ leg: [0.46, 0.14, 0.11], ank: -18 }, { leg: [0.46, 0.215, 0.11], ank: 28 }],
@@ -157,7 +180,7 @@ export const EX = {
 
   /* ===================== SEXTA — POSTERIOR ===================== */
   flexd: {
-    day: 'Sexta · Posterior', title: 'Flexora deitada', sub: '4 × 10–12 · bilateral',
+    day: 'Sexta · Posterior', title: 'Flexora deitada', sub: '5 × 10–12 · bilateral',
     mus: [['ham'], ['calf']],
     base: { root: [0, 0.665, 0], up: [1, 0, 0], fwd: [0, -1, 0], arm: [0.56, 0.44, 0.22], ep: [-0.3, 0, 1], kp: [-0.6, -1, 0] },
     keys: [{ leg: [-0.92, 0.6, 0.1] }, { leg: [-0.76, 0.98, 0.1] }, { leg: [-0.36, 1.02, 0.1], ank: -10 }],
