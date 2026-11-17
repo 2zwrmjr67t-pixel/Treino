@@ -159,25 +159,31 @@ export const EX = {
     }
   },
   pant: {
-    day: 'Terça e quinta · Pernas', title: 'Panturrilha sentada', sub: '4 × 15–20 · sem carga axial na coluna',
+    day: 'Terça e quinta · Pernas', title: 'Panturrilha na Rotary Calf', sub: '4 × 15–20 · pernas quase estendidas · sem carga axial',
     mus: [['calf'], []],
-    base: { root: [0, 0.55, 0], up: [0.05, 1, 0], arm: [0.38, 0.72, 0.2], ep: [-0.5, -1, 0.3], kp: [0.4, 1, 0] },
-    keys: [{ leg: [0.46, 0.14, 0.11], ank: -18 }, { leg: [0.46, 0.215, 0.11], ank: 28 }],
+    base: { root: [0, 0.56, 0], up: [-0.45, 1, 0], arm: [0.12, 0.47, 0.27], ep: [-1, -0.2, 0.3], kp: [0, 1, 0] },
+    keys: [{ leg: [0.86, 0.5, 0.12], ank: -15 }, { leg: [0.86, 0.5, 0.12], ank: 30 }],
     ph: [
-      { n: 'Alongado · 1s', d: 1, p: [0], k: 'r', t: 'Antepé na plataforma, apoio sobre as coxas perto do joelho. Calcanhar abaixo da plataforma: pausa de 1s no alongamento.' },
-      { n: 'Subida · 1s', d: 1, p: [0, 1], k: 'u', t: 'Suba na ponta dos pés, sobre o dedão, em ~1s.' },
+      { n: 'Alongado · 1s', d: 1, p: [0], k: 'r', t: 'Costas no encosto, antepé na plataforma, joelhos levemente flexionados (nunca travados). Calcanhar para trás: pausa de 1s no alongamento.' },
+      { n: 'Extensão · 1s', d: 1, p: [0, 1], k: 'u', t: 'Empurre com a ponta dos pés em ~1s, acompanhando o giro da plataforma. Só o tornozelo se move — o joelho não muda de ângulo.' },
       { n: 'Topo · 1s', d: 1, p: [1], k: 'h', t: 'Segure 1s com a panturrilha contraída.' },
-      { n: 'Descida · 2s', d: 2, p: [1, 0], k: 'd', t: 'Desça em 2s até o alongamento total, sem quicar.' }],
-    cues: [['amplitude total', 'ok'], ['pausa no alongamento', 'hot', [0]], ['sem quicar', 'warn', [3]]],
+      { n: 'Retorno · 2s', d: 2, p: [1, 0], k: 'd', t: 'Volte em 2s até o alongamento, sem deixar as placas encostarem.' }],
+    cues: [['joelho levemente flexionado, fixo', 'ok'], ['pausa no alongamento', 'hot', [0]], ['nunca trave o joelho', 'warn', [1, 2]]],
     eq(k) {
-      const { V, R, M } = k; seat(k, { x0: -0.2, x1: 0.3, top: 0.46, back: false });
-      k.box([0.6, 0.06, 0], [0.2, 0.12, 0.38], M.frame, null, 0.015);
-      const pp = () => R.kn[0].clone().add(R.kn[1]).multiplyScalar(0.5).add(V(-0.03, 0.085, 0));
-      k.padAt(pp, () => V(0, 0, 1), 0.42, 0.05);
-      [-1, 1].forEach(s => k.link(() => pp().setZ(0.22 * s), () => V(-0.15, 0.62, 0.24 * s), 0.022));
-      [-1, 1].forEach(s => k.beam([-0.15, 0.62, 0.24 * s], [-0.15, 0.03, 0.24 * s], 0.026));
+      const { V, R, M } = k;
+      k.box([0.12, 0.46, 0], [0.42, 0.08, 0.4], M.pad, null, 0.03);
+      const F = k.frame(0); k.boxF(F, 't', [-0.16, 0.36, 0], [0.08, 0.66, 0.38]);
+      k.beam([0.1, 0.03, 0], [0.1, 0.42, 0], 0.035); k.rails(-0.4, 1.15, 0.3);
+      [-1, 1].forEach(s => k.beam([0.12, 0.6, 0.24 * s], [0.12, 0.6, 0.3 * s], 0.016, M.steel));
+      k.box([1.1, 0.75, 0], [0.16, 1.5, 0.36], M.frame, null, 0.03);
+      const sole = i => R.an[i].clone().lerp(R.toe[i], 0.75);
+      const plate = () => sole(0).clone().add(sole(1)).multiplyScalar(0.5);
+      k.padAt(plate, () => V(0, 0, 1), 0.34, 0.035);
+      k.link(plate, () => V(1.02, 0.42, 0), 0.03);
+      k.box([1.02, 0.42, 0], [0.08, 0.08, 0.3], M.steel, null, 0.02);
     }
   },
+
 
   /* ===================== SEXTA — POSTERIOR ===================== */
   flexd: {
