@@ -226,6 +226,29 @@ export const EX = {
       });
     }
   },
+  abdi: {
+    day: 'Terça · Pernas', title: 'Abdução com tronco inclinado', sub: '3 × 12–15 · glúteo máximo e médio',
+    mus: [['glute', 'gmed'], []], tagM: 'glute',
+    base: { root: [0.02, 0.58, 0], up: [0.5, 1, 0], arm: [0.3, 0.55, 0.25], ep: [-1, -0.2, 0.3] },
+    keys: [{ leg: [0.5, 0.2, 0.1], kp: [0.4, 1, 0] }, { leg: [0.44, 0.2, 0.36], kp: [0.4, 1, 0.45] }],
+    ph: std({ up: 1, hold: 1, down: 3, n1: 'Abertura', n2: 'Aberto', n3: 'Retorno', t: [
+      'Tronco inclinado à frente (~30°), costas retas, mãos nas empunhaduras, almofadas por fora dos joelhos.',
+      'Abra as pernas em ~1s até onde o quadril permite, sem dor.',
+      'Pausa de 1s com o glúteo contraído, sem arredondar a lombar.',
+      'Volte em 3s, sem deixar as placas baterem.'] }),
+    cues: [['tronco inclinado, costas retas', 'ok'], ['abra até onde o quadril permite', 'hot', [1, 2]], ['sem impulso', 'warn', [3]]],
+    eq(k) {
+      const { V, R } = k; seat(k); handlesSide(k);
+      [0, 1].forEach(i => {
+        const s = i ? -1 : 1;
+        const pp = () => R.kn[i].clone().add(V(-0.04, 0, 0.075 * s));
+        k.padAt(pp, () => V(0, 1, 0), 0.16, 0.04);
+        k.link(pp, () => V(0.12, 0.42, 0.06 * s), 0.02);
+        k.padAt(() => R.an[i].clone().add(V(0.02, -0.06, 0)), () => V(1, 0, 0), 0.2, 0.018);
+        k.link(() => R.an[i].clone().add(V(-0.08, -0.06, 0)), () => V(0.12, 0.42, 0.06 * s), 0.016);
+      });
+    }
+  },
   adu: {
     day: 'Sexta · Posterior', title: 'Adução de quadril na máquina', sub: '3 × 15 · adutores',
     mus: [['add'], []],
