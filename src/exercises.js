@@ -115,27 +115,40 @@ export const EX = {
     }
   },
   kick: {
-    day: 'Terça · Pernas', title: 'Kickback de glúteo na máquina', sub: '3 × 12–15 por lado · apoio de peito',
-    mus: [['glute'], ['ham', 'erector']],
-    base: { root: [-0.02, 0.98, 0], up: [0.5, 1, 0], fwd: [1, 0, 0], arm: [0.58, 1.0, 0.2], ep: [-1, -0.2, 0.3], leg: [0.04, 0.08, 0.1], kp: [1, 0, 0] },
-    keys: [{}, { legR: [-0.36, 0.22, 0.1], kpR: [0.9, -0.3, 0] }, { legL: [-0.36, 0.22, -0.1], kpL: [0.9, -0.3, 0] }],
-    ph: alt({ up: 1, hold: 1, down: 3, t: [
-      'Peito no apoio, mãos nas empunhaduras, costelas para baixo, lombar neutra. Pé da perna de trabalho na plataforma.',
-      'Empurre a plataforma para trás e para cima em ~1s, estendendo o quadril. Joelho quase reto.',
-      'Pausa de 1s com o glúteo contraído. Quadril não gira, lombar não arqueia.',
-      'Volte em 3s sem soltar a carga.',
-      'Agora a outra perna.'] }),
-    cues: [['peito no apoio', 'ok'], ['amplitude curta, sem arquear', 'hot', [1, 2, 4, 5]], ['quadril não gira', 'warn', [1, 2, 4, 5]]],
+    day: 'Terça · Pernas', title: 'Rear Kick (Technogym) — kickback de glúteo', sub: '4 × 12–15 por lado · apoio de peito · sola inteira na placa',
+    mus: [['glute'], ['ham', 'erector']], view: 'lat',
+    /* Pictograma da máquina: tronco inclinado no apoio, perna de apoio no piso, perna de trabalho com joelho ~90° e a SOLA contra a placa do braço;
+       a placa leva o pé para trás e para cima num arco curto. Demo mostra o lado direito; repita no esquerdo. */
+    base: { root: [-0.02, 0.98, 0], up: [0.84, 1, 0], fwd: [1, 0, 0], arm: [0.58, 1.0, 0.2], ep: [-1, -0.2, 0.3], leg: [0.04, 0.08, 0.1], kp: [1, 0, 0] },
+    keys: [{ legR: [-0.43, 0.51, 0.1], kpR: [0.9, -0.3, 0] }, { legR: [-0.855, 0.588, 0.1], kpR: [0.4, -0.9, 0] }],
+    ph: std({ path: [0, 1], up: 1, hold: 1, down: 3, n0: 'Posição', n1: 'Chute p/ trás', n2: 'Pico', n3: 'Retorno', t: [
+      'Peito no apoio, mãos nas empunhaduras, costelas para baixo. Perna de apoio firme na plataforma. Perna de trabalho: sola inteira (calcanhar ao antepé) encostada na placa, joelho a ~90°.',
+      'Empurre a placa para trás e para cima em ~1s, estendendo o quadril. O joelho acompanha (quase reto), mas quem move a carga é o glúteo.',
+      'Pausa de 1s no pico: coxa quase alinhada ao tronco. Quadril não gira, lombar não arqueia. Amplitude curta.',
+      'Volte em 3s até o joelho a ~90°, sem soltar a carga. Termine o lado e repita no outro.'] }),
+    cues: [['peito no apoio', 'ok'], ['sola inteira na placa', 'ok', [0, 1]], ['amplitude curta, sem arquear', 'hot', [1, 2]], ['quadril não gira', 'warn', [1, 2]]],
     eq(k) {
-      const { R, V, M } = k; const F = k.frame(0); k.rails(-0.45, 0.85, 0.32);
-      k.boxF(F, 't', [0.17, 0.36, 0], [0.07, 0.34, 0.34]);
+      const { R, V, M } = k; const F = k.frame(0);
+      k.box([0.0, 0.02, 0], [1.5, 0.04, 0.58], M.matf, null, 0.01);               // plataforma base (perna de apoio)
+      k.rails(-0.75, 0.85, 0.32);
+      k.boxF(F, 't', [0.17, 0.36, 0], [0.07, 0.34, 0.34]);                          // apoio de peito
       k.beam(k.ptF(F, 't', [0.2, 0.2, 0]), V(0.5, 0.03, 0), 0.03);
       k.beam(V(0.5, 0.03, 0), V(0.5, 1.0, 0), 0.03);
       [-1, 1].forEach(s => k.beam([0.5, 0.94, 0.22 * s], [0.62, 0.94, 0.22 * s], 0.016, M.steel));
-      const wa = () => (R.an[0].x < R.an[1].x ? R.an[0] : R.an[1]);
-      k.link(() => V(0.62, 0.2, wa().z), () => wa().clone().add(V(-0.04, -0.07, 0)), 0.024);
-      k.padAt(() => wa().clone().add(V(-0.04, -0.07, 0)), () => V(0, 0, 1), 0.16, 0.045);
-      k.box([0.62, 0.2, 0], [0.1, 0.1, 0.3], M.plate, null, 0.015);
+      /* placa de pé: acompanha a sola da perna de trabalho (sola em y = -0.0415 no referencial do pé) */
+      const Q = () => R.fq[0];
+      const loc = (x, y, z = 0) => () => V(x, y, z).applyQuaternion(R.fq[0]).add(R.an[0]);
+      k.plateAt(loc(0.06, -0.0555), Q, [0.34, 0.028, 0.2], M.frame);
+      [-1, 1].forEach(s => k.plateAt(loc(0.06 + 0.0845 * s, -0.0425), Q, [0.16, 0.003, 0.19], M.steel, 0.001));   // duas metades com ranhuras
+      /* braço da máquina (único, no lado externo da placa): placa → pivô (acima e atrás) → carga */
+      const PV = V(-0.565, 1.223, 0.23);
+      k.link(loc(0.06, -0.07, 0.1), () => PV, 0.022);
+      k.beam([PV.x, 0.03, 0], [PV.x, 0.03, 0.26], 0.022);
+      k.beam([PV.x, 0.03, 0.26], [PV.x, PV.y, 0.26], 0.026);
+      k.padAt(() => PV, () => V(0, 0, 1), 0.1, 0.04, M.steel);
+      const horn = () => { const c = loc(0.06, -0.07)(); c.z = PV.z; return PV.clone().addScaledVector(V().subVectors(PV, c).normalize(), 0.3); };
+      k.link(() => PV, horn, 0.016, M.steel);
+      k.padAt(horn, () => V(0, 0, 1), 0.05, 0.13, M.plate);
     }
   },
   flexs: {

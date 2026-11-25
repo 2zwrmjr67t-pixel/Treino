@@ -243,7 +243,7 @@ function ik(S, T, a, b, pole) {
   p.normalize();
   return { M: S.clone().addScaledVector(dir, a * cosA).addScaledVector(p, a * sinA), E: S.clone().addScaledVector(dir, L), p };
 }
-const R = { sh: [V(), V()], el: [V(), V()], wr: [V(), V()], grip: [V(), V()], fore: [V(), V()], lq: [new THREE.Quaternion(), new THREE.Quaternion()], hip: [V(), V()], kn: [V(), V()], an: [V(), V()], toe: [V(), V()], shinX: [V(), V()], shinY: [V(), V()], F: null };
+const R = { sh: [V(), V()], el: [V(), V()], wr: [V(), V()], grip: [V(), V()], fore: [V(), V()], lq: [new THREE.Quaternion(), new THREE.Quaternion()], hip: [V(), V()], kn: [V(), V()], an: [V(), V()], toe: [V(), V()], shinX: [V(), V()], shinY: [V(), V()], fq: [new THREE.Quaternion(), new THREE.Quaternion()], F: null };
 const SH_Y0 = 0.47, SH_DY = 0.075;
 function applyPose(P) {
   const F = frameOf(P.root.toArray(), P.up.toArray(), P.fwd.toArray(), P.tf); R.F = F;
@@ -276,6 +276,7 @@ function applyPose(P) {
     L.footG.position.copy(l.E);
     L.footG.quaternion.setFromRotationMatrix(_m4.makeBasis(fr.X, fr.Y, fr.Z)).multiply(Qz(-P.ank[i] * D2R));
     R.toe[i].copy(V(0.17, -0.02, 0).applyQuaternion(L.footG.quaternion).add(l.E));
+    R.fq[i].copy(L.footG.quaternion);
   });
 }
 
@@ -301,7 +302,9 @@ const kit = {
   dyn(fn) { dyn.push(fn); },
   cable(getA, B) { const m = stick(0.006, M.cable); dyn.push(() => orientBetween(m, getA(), typeof B === 'function' ? B() : VV(B))); return m; },
   link(getA, getB, r = 0.022, mat = M.frame) { const m = stick(r, mat); dyn.push(() => orientBetween(m, getA(), getB())); return m; },
-  padAt(getP, getAxis, len = 0.3, r = 0.05) { const m = cyl(r, len, M.pad); scene.add(m); dyn.push(() => { m.position.copy(getP()); m.quaternion.setFromUnitVectors(UP, getAxis()); }); return m; },
+  padAt(getP, getAxis, len = 0.3, r = 0.05, mat = M.pad) { const m = cyl(r, len, mat); scene.add(m); dyn.push(() => { m.position.copy(getP()); m.quaternion.setFromUnitVectors(UP, getAxis()); }); return m; },
+  /* placa/caixa que acompanha uma orientação (ex.: placa de pé que gira junto com a sola) */
+  plateAt(getP, getQ, sz, mat = M.frame, rad = 0.012) { const m = rbox(sz[0], sz[1], sz[2], mat, rad); scene.add(m); dyn.push(() => { m.position.copy(getP()); m.quaternion.copy(getQ()); }); return m; },
   dumbbell(i, axisFn, size = 1) {
     const g = new THREE.Group(); scene.add(g);
     g.add(cyl(0.016, 0.17 * size, M.steel));
