@@ -228,6 +228,55 @@ canvas{width:100%;height:120px;margin-top:4px}
 #d3ov{position:fixed;inset:0;z-index:200;background:#141311;display:none}
 #d3ov iframe{width:100%;height:100%;border:0;display:block}
 #d3ov button{position:absolute;right:16px;top:max(16px,env(safe-area-inset-top));width:34px;height:34px;border-radius:50%;border:1px solid #2e2c29;background:rgba(22,21,19,.86);color:#e8e2d8;font-size:14px;z-index:2}
+
+/* ---- Dashboard v2 ---- */
+.today-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.today-t{font-size:19px;font-weight:600;color:#fff}
+.today-s{font-size:11.5px;color:var(--mt);margin-top:3px;line-height:1.5}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:11px;padding:5px 9px;border-radius:20px;border:1px solid var(--br);color:var(--mt);background:var(--s2)}
+.chip.ok{border-color:rgba(106,154,106,.45);color:#9cc49c;background:rgba(106,154,106,.10)}
+.chip.no{border-color:rgba(192,112,112,.40);color:#d99a9a;background:rgba(192,112,112,.08)}
+.gobtn{margin-top:12px;width:100%;padding:10px;border-radius:9px;border:1px solid var(--ac);background:transparent;color:var(--ac);font:600 12.5px inherit;font-family:inherit;cursor:pointer}
+.wk7{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:4px}
+.wk7 .c{text-align:center;padding:6px 0 7px;border-radius:7px;background:var(--s2);border:1px solid transparent}
+.wk7 .c.now{border-color:var(--ac)}
+.wk7 .dn{font-size:9.5px;color:var(--mt);margin-bottom:6px;letter-spacing:.05em}
+.wk7 .mk{display:flex;flex-direction:column;align-items:center;gap:3px}
+.wk7 .mk i{display:block;width:70%;height:4px;border-radius:2px;background:var(--br)}
+.wk7 .mk i.t.on{background:var(--ac)} .wk7 .mk i.k.on{background:var(--rd)} .wk7 .mk i.d.on{background:var(--gn)}
+.wk7 .mk i.off{background:transparent;border:1px dashed var(--br);height:2px}
+.legend{display:flex;gap:12px;font-size:10px;color:var(--mt);margin:9px 0 2px}
+.legend b{display:inline-block;width:10px;height:4px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.kpi{background:var(--s2);border-radius:8px;padding:9px 11px}
+.kpi .v{font-size:17px;font-weight:600;color:#fff}.kpi .v small{font-size:11px;color:var(--mt);font-weight:400}
+.kpi .t{font-size:9.5px;color:var(--mt);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+details.plan>summary{list-style:none;cursor:pointer}
+details.plan>summary::-webkit-details-marker{display:none}
+.pbar{height:5px;border-radius:3px;background:var(--s2);overflow:hidden;margin:9px 0 6px}
+.pbar i{display:block;height:100%;background:var(--ac)}
+.psum{display:flex;justify-content:space-between;align-items:baseline}
+.psum b{font-size:14px;color:#fff;font-weight:600}
+.psum .tog{font-size:11px;color:var(--ac)}
+details.plan[open] .psum .tog .a{display:none} details.plan:not([open]) .psum .tog .b{display:none}
+.mrk{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--br);font-size:11.5px}
+.mrk .md{flex:none;width:62px;color:var(--mt)} .mrk .mt3{color:var(--tx)} .mrk .mo{color:var(--mt);font-size:11px;margin-top:2px}
+.mrk.done .md,.mrk.done .mt3{text-decoration:line-through;opacity:.6}
+.mrk.late .md{color:var(--rd)}
+.alrt{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--br);font-size:12px;line-height:1.45}
+.alrt:first-of-type{border-top:0}
+.alrt .ic2{flex:none;width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--ac)}
+.alrt.r .ic2{background:var(--rd)} .alrt.g .ic2{background:var(--gn)}
+.alrt small{display:block;color:var(--mt);font-size:11px}
+/* ---- Treino: cabeçalho fixo ---- */
+.trsticky{position:sticky;top:0;z-index:15;background:var(--bg);margin:0 -20px;padding:12px 20px 0}
+#s-train .day-tabs{position:sticky;top:var(--trh,52px);z-index:14;background:var(--bg)}
+#s-train .tl{position:sticky;top:calc(var(--trh,52px) + var(--dth,46px));z-index:12;background:var(--s1);box-shadow:0 -10px 0 var(--bg),0 14px 0 var(--bg)}
+#s-train .tl .ts{cursor:pointer}
+#s-train .ec{scroll-margin-top:calc(var(--trh,52px) + var(--dth,46px) + 64px)}
+#dPlanBody .row{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--br);font-size:11.5px;line-height:1.5}
+#dPlanBody .row .d{flex:none;width:78px;color:var(--mt)}#dPlanBody .row .m{color:var(--tx)}
 </style>
 </head>
 <body>
@@ -247,26 +296,47 @@ canvas{width:100%;height:120px;margin-top:4px}
 <div class="scrollwrap">
 
 <section id="s-dash" class="on"><div class="pad">
+  <div class="card" id="dToday"></div>
   <div class="card">
-    <div class="lbl">Semana · dieta <span class="lblsub">vs. semana anterior · banda ±10%</span></div>
-    <div class="dgrid" id="dietWeekGrid"></div>
-    <div class="wkstrip" id="dietWeekStrip"></div>
+    <div class="lbl">Esta semana</div>
+    <div class="wk7" id="dWeek"></div>
+    <div class="legend"><span><b style="background:var(--ac)"></b>treino</span><span><b style="background:var(--rd)"></b>cardio</span><span><b style="background:var(--gn)"></b>dieta</span></div>
+    <div class="kpis" id="dKpis"></div>
   </div>
-
-  <div class="card">
-    <div class="lbl">Semana · atividade</div>
-    <div class="dgrid" id="healthWeekGrid"></div>
-    <div id="healthWeekWarn"></div>
-  </div>
-
-  <div class="card">
-    <div class="lbl">Resumo do mês</div>
-    <div class="stat">
-      <div class="s"><div class="v" id="moKcal">—</div><div class="t">Média kcal/dia</div></div>
-      <div class="s"><div class="v" id="moPeso">—</div><div class="t">Peso atual</div><div class="dv" id="moPesoDelta"></div></div>
-    </div>
-    <div class="note" id="moNote" style="margin-top:2px">Sem dados suficientes ainda neste mês.</div>
-  </div>
+  <div class="card" id="dAlerts"></div>
+  <div class="card"><details class="plan" id="dPlan">
+    <summary><div class="lbl" style="margin-bottom:6px">Plano · lean bulk 16 semanas</div><div class="psum"><b id="dPlanTxt">—</b><span class="tog"><span class="a">ver plano ▾</span><span class="b">recolher ▴</span></span></div>
+      <div class="pbar"><i id="dPlanBar" style="width:0"></i></div><div class="note" id="dPlanNext" style="margin:0"></div></summary>
+    <div id="dMarcos" style="margin-top:10px"></div>
+    <div id="dPlanBody" style="margin-top:12px"><div class="stage"><div class="st">Bloco 1 · semanas 1–8 · até 19/01</div><h3>Superávit consistente</h3>
+<p>3.550–3.700 kcal todos os dias, inclusive fim de semana e dia sem treino (set–out a média foi ~3.160 kcal com peso parado: era manutenção). Perna: adução 2× por semana e carga registrada em toda sessão. Cardio curto depois da musculação: tiros (seg), Zona 2 (qui), capacidade (sáb).</p>
+<div class="goal">Meta: +0,25–0,35 kg/semana pela média semanal (≈ 80 kg na semana 8).</div>
+<p style="margin-top:8px;font-size:11px;color:var(--ac)"><b>Deca:</b> se entrar neste bloco, retém água e infla o peso. Durante ela, leia o peso junto com a cintura: peso subindo com cintura estável está ok.</p></div>
+<div class="stage"><div class="st">Bloco 2 · semanas 9–16 · até 16/03</div><h3>Ajuste e composto de perna</h3>
+<p>Calorias pelos gatilhos abaixo. Se o especialista liberar, entra o belt squat (carga no quadril, sem compressão na coluna).</p>
+<div class="goal">Meta: ≈ 82 kg com cintura até +2 cm, com ganho de massa livre confirmado em avaliação profissional.</div></div>
+<div class="lbl" style="margin-top:6px">Pendências médicas</div>
+<div class="row"><div class="d">Sangue</div><div class="m">Painel novo <b>antes da Deca</b>: hemograma (hematócrito 54,6% em out/25), TGO/TGP, lipídios, estradiol, prolactina, vitamina D</div></div>
+<div class="row"><div class="d">Esforço</div><div class="m">Teste ergoespirométrico: FC máxima real e zonas de treino</div></div>
+<div class="row"><div class="d">Coluna</div><div class="m">Liberação do especialista para o Bloco 2</div></div>
+<div class="row"><div class="d">Nariz/sono</div><div class="m">Otorrino (septo, 2 recidivas) e polissonografia</div></div>
+<div class="lbl" style="margin-top:12px">Medidas</div>
+<div class="row"><div class="d">Peso</div><div class="m">Diário em jejum; vale a <b>média semanal</b></div></div>
+<div class="row"><div class="d">Cintura</div><div class="m">Semanal, no umbigo, mesma condição</div></div>
+<div class="row"><div class="d">Cargas</div><div class="m">Toda sessão — o sinal mais direto de progresso</div></div>
+<div class="row"><div class="d">Composição</div><div class="m">7 dobras com o profissional de sempre (ou DEXA) nas semanas 8 e 16. Caseiras só como direção (*)</div></div>
+<div class="row"><div class="d">Cardio</div><div class="m">Pico e FC após 1 min nos tiros — mande no chat</div></div>
+<div class="lbl" style="margin-top:12px">Gatilhos de ajuste</div>
+<div class="trig"><div class="sig">Média de peso parada 2 semanas com ≥3.550 kcal registradas</div><div class="act">↑ calorias +150</div></div>
+<div class="trig"><div class="sig">Cintura +2 cm antes de o peso subir 2 kg</div><div class="act">↓ calorias −150</div></div>
+<div class="trig"><div class="sig">Carga trava + fadiga/dor lombar</div><div class="act">Deload, revisar exercícios</div></div>
+<div class="trig"><div class="sig">Recuperação ≤12 bpm em 1 min, tontura ou dor no peito</div><div class="act">Parar e médico</div></div>
+<div class="trig"><div class="sig">Hematócrito ≥52% ou PA subindo</div><div class="act">Manejo médico</div></div>
+<div class="trig"><div class="sig">Libido/ereção em queda</div><div class="act">Médico — prolactina e estradiol</div></div>
+<div class="lbl" style="margin-top:12px">Suplementação em uso</div>
+<div class="pgc">Whey · creatina 3–5 g/dia · pré-treino Growth. Vitamina D (18 ng/mL em out/25): discutir reposição com o médico.</div>
+<div class="ibox warn" style="margin-top:12px"><b>Escopo:</b> material de apoio, não prescrição. Ciclo androgênico, hematócrito, PA e lipídios são decisões do médico.</div></div>
+  </details></div>
 </div></section>
 
 <section id="s-diet"><div class="pad">
@@ -303,9 +373,11 @@ canvas{width:100%;height:120px;margin-top:4px}
 </div></section>
 
 <section id="s-train"><div class="pad">
-  <div class="slots" style="margin-bottom:14px">
+  <div class="trsticky" id="trSticky">
+  <div class="slots" style="margin-bottom:10px">
     <button id="trTabMusc" class="on" onclick="setTrainTab('musc')" style="flex:1;text-align:center">Musculação</button>
     <button id="trTabCard" onclick="setTrainTab('card')" style="flex:1;text-align:center">Cardio <span id="trCardBadge" style="opacity:.75"></span></button>
+  </div>
   </div>
   <div id="trPanelCard" style="display:none">
   <div class="ibox" style="margin-top:0"><b>Protocolo:</b> Bike ergométrica ou esteira inclinada — <b>nunca corrida</b> (menor impacto lombar, menor interferência na hipertrofia). 12–15 min, <b>logo depois da musculação</b> nos dias de membro superior (Seg, Qui, Sáb) — nenhum dia a mais na academia e nada colado nas pernas (Ter/Sex).</div>
@@ -387,50 +459,6 @@ canvas{width:100%;height:120px;margin-top:4px}
   </div>
 </div></section>
 
-<section id="s-plan"><div class="pad">
-  <div class="card">
-    <div class="lbl">Lean bulk · 16 semanas (a partir de 24/11/2026)</div>
-    <div class="stage">
-      <div class="st">Bloco 1 · semanas 1–8</div>
-      <h3>Superávit consistente</h3>
-      <p>3.550–3.700 kcal todos os dias, inclusive fim de semana e dia sem treino. Diagnóstico: set–out a média registrada foi ~3.160 kcal com peso parado em 77,6–77,8 kg — era manutenção, não bulk. Perna: adução 2× por semana e registro de carga em toda sessão. DEXA de base na semana 0.</p>
-      <div class="goal">Meta: +0,25–0,35 kg/semana pela média semanal (≈ 80 kg na semana 8).</div>
-      <p style="margin-top:8px;font-size:11px;color:var(--ac)"><b>Nota:</b> o início da creatina nesta mesma janela pode reter água intracelular e inflar o peso nas primeiras 1–2 semanas sem ser tecido novo — mais um motivo para usar a média semanal, nunca o valor isolado.</p>
-    </div>
-    <div class="stage">
-      <div class="st">Bloco 2 · semanas 9–16</div>
-      <h3>Ajuste e composto de perna</h3>
-      <p>Calorias ajustadas pelos gatilhos abaixo. Se o especialista liberar, entra o agachamento com cinto (belt squat — carga no quadril, sem compressão na coluna) como composto de quadríceps/glúteo. DEXA de controle na semana 16.</p>
-      <div class="goal">Meta: ≈ 82 kg com cintura até +2 cm — ganho de massa magra confirmado no DEXA, sobretudo em membros inferiores.</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="lbl">Medidas e acompanhamento</div>
-    <div class="row"><div class="d">Peso</div><div class="m">Diário, em jejum — registrar a <b>média semanal</b>, nunca o número isolado</div></div>
-    <div class="row"><div class="d">Cintura</div><div class="m">Semanal — umbigo, mesma hora/condição — melhor marcador de "virou gordura?"</div></div>
-    <div class="row"><div class="d">Fotos</div><div class="m">Mensal — mesma luz/pose/horário</div></div>
-    <div class="row"><div class="d">Cargas</div><div class="m">Toda sessão — progressão de carga é um dos sinais mais confiáveis, junto com reps, execução e proximidade da falha</div></div>
-    <div class="row"><div class="d">DEXA</div><div class="m">Semana 0 e semana 16 — composição corporal por segmento. Dobras caseiras suspensas (leituras não confiáveis com adipômetro plástico)</div></div>
-  </div>
-  <div class="card">
-    <div class="lbl">Gatilhos de ajuste</div>
-    <div class="trig"><div class="sig">Média semanal de peso parada por 2 sem com ≥3.550 kcal registradas</div><div class="act">↑ calorias +150</div></div>
-    <div class="trig"><div class="sig">Cintura +2 cm antes de o peso subir +2 kg</div><div class="act">↓ calorias −150</div></div>
-    <div class="trig"><div class="sig">Carga trava + fadiga/dor lombar</div><div class="act">Deload, revisar exercícios</div></div>
-    <div class="trig"><div class="sig">Dor ciática no cardio</div><div class="act">Ajustar postura, não parar</div></div>
-    <div class="trig"><div class="sig">Hematócrito ~52–54% ou PA subindo</div><div class="act">Manejo médico</div></div>
-    <div class="trig"><div class="sig">Libido/ereção em queda (ciclo out–fev)</div><div class="act">Médico — checar prolactina</div></div>
-  </div>
-  <div class="card">
-    <div class="lbl">Suplementação — referência</div>
-    <div class="pgc"><b>Contínuo:</b> creatina 5g/dia · ômega-3 2–3g/dia · D3 2.000–4.000 UI/dia</div>
-    <div class="pgc"><b>Dias de treino:</b> citrulina 6–8g pré-treino · cafeína 200–400mg pré-treino · beta-alanina 3,2–6,4g/dia</div>
-  </div>
-  <div class="card">
-    <div class="ibox warn"><b>Escopo:</b> material de apoio, não prescrição. Manejo do ciclo androgênico, hematócrito, PA e lipídios são decisões do médico que acompanha seus exames.</div>
-  </div>
-</div></section>
-
 </div>
 
 <nav class="bn">
@@ -438,7 +466,6 @@ canvas{width:100%;height:120px;margin-top:4px}
   <button data-tab="diet" onclick="go('diet')"><span class="ic">▤</span>Dieta</button>
   <button data-tab="train" onclick="go('train')"><span class="ic">▦</span>Treino</button>
   <button data-tab="meas" onclick="go('meas')"><span class="ic">↧</span>Medidas</button>
-  <button data-tab="plan" onclick="go('plan')"><span class="ic">◈</span>Plano</button>
 </nav>
 
 <script>
@@ -462,6 +489,7 @@ function go(t){
   document.querySelector(".scrollwrap").scrollTop=0;
   if(t==="meas")drawChart();
   if(t==="dash")renderDash();
+  if(t==="train")setTimeout(setTrH,0);
 
 }
 
@@ -486,6 +514,9 @@ async function loadRemoteData(){
     if(remote.diet)DB.diet=remote.diet;
     if(remote.dobras)DB.dobras=remote.dobras;
     if(remote.avaliacoesProf)DB.avaliacoesProf=remote.avaliacoesProf;
+    if(remote.treinos)DB.treinos=remote.treinos;
+    if(remote.planoRevisoes)DB.planoRevisoes=remote.planoRevisoes;
+    if(remote.exames)DB.exames=remote.exames;
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
     if(remote.health)DB.health=remote.health;
     if(remote.healthWeekly)DB.healthWeekly=remote.healthWeekly;
@@ -614,7 +645,7 @@ function buildMusc(){
     });
     tabs.appendChild(tb);
     var pnl=document.createElement('div');pnl.className='panel'+(i===0?' on':'');pnl.id='dp'+i;
-    var tl='<div class="tl">';d.tl.forEach(function(s){tl+='<div class="ts'+(s.h?' hi':'')+'">'+s.t+'<div class="tm">'+s.m+'</div></div>'});tl+='</div>';
+    var tl='<div class="tl">',xi=0;d.tl.forEach(function(s){var tgt=s.h?xi++:-1;tl+='<div class="ts'+(s.h?' hi':'')+'"'+(tgt>=0?' onclick="jumpEx('+i+','+tgt+')"':'')+'>'+s.t+'<div class="tm">'+s.m+'</div></div>'});tl+='</div>';
     var ex='';
     d.ex.forEach(function(e,ei){
       var tgs='';if(e.tg.length){tgs='<div class="etgs">';e.tg.forEach(function(t){var m=TM[t];tgs+='<span class="etg '+m[0]+'">'+m[1]+'</span>'});tgs+='</div>'}
@@ -724,11 +755,16 @@ function renderCardioChecks(){
     el.appendChild(row);
   });
 }
+function jumpEx(i,ei){var el=document.getElementById('card_'+i+'_'+ei);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+function setTrH(){var st=document.getElementById('trSticky'),dt=document.getElementById('dtabs');if(!st)return;
+  var sec=document.getElementById('s-train');sec.style.setProperty('--trh',st.offsetHeight+'px');
+  var vis=document.getElementById('trPanelMusc').style.display==='none'?document.getElementById('ctabs'):dt;if(vis&&vis.offsetHeight)sec.style.setProperty('--dth',vis.offsetHeight+'px')}
 function setTrainTab(t){
   document.getElementById('trTabMusc').classList.toggle('on',t==='musc');
   document.getElementById('trTabCard').classList.toggle('on',t==='card');
   document.getElementById('trPanelMusc').style.display=t==='musc'?'block':'none';
   document.getElementById('trPanelCard').style.display=t==='card'?'block':'none';
+  setTimeout(setTrH,0);
 }
 function cardioBadge(){
   var wk=weekKeyOf(new Date());var c=(DB.cardioWeek||{})[wk]||{};var n=CARD.filter(function(d,i){return c[i]}).length;
@@ -855,52 +891,83 @@ function metricBox(label,value,unit,deltaHtmlStr,color,full){
     +'<div class="dvv" style="color:'+color+'">'+value+unit+'</div>'+deltaHtmlStr+'</div>';
 }
 
+var PLANO={inicio:'2026-11-24',semanas:16,marcos:[
+  {sem:4,d:'2026-12-22',t:'Leitura do peso médio',o:'Subiu 0,25–0,35 kg/semana? Se não, +150 kcal.'},
+  {sem:8,d:'2027-01-19',t:'Fim do Bloco 1',o:'Avaliação de composição e decisão do Bloco 2 com o especialista.'},
+  {sem:16,d:'2027-03-16',t:'Fechamento',o:'Avaliação 7 dobras com profissional (ou DEXA) e novo plano.'}]};
+var DOWS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+function dParse(k){return new Date(k+'T12:00:00')}
+function daysBetween(a,b){return Math.round((dParse(keyOf(b))-dParse(keyOf(a)))/86400000)}
+function fmtD(k){return dParse(k).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}
+function muscOf(d){var l=DOWS[d.getDay()];for(var i=0;i<MUSC.length;i++)if(MUSC[i].l===l)return{i:i,d:MUSC[i]};return null}
+function cardOf(d){var l=DOWS[d.getDay()];for(var i=0;i<CARD.length;i++)if(CARD[i].l===l)return{i:i,d:CARD[i]};return null}
+function treinoDia(k){return(DB.treinos||{})[k]||null}
+function openTreino(i,card){go('train');setTrainTab(card?'card':'musc');
+  var tabs=document.querySelectorAll(card?'#ctabs .day-tab':'#dtabs .day-tab');if(tabs[i])tabs[i].click()}
 function renderDash(){
-  var curMon=mondayOf(new Date());
-  var prevMon=new Date(curMon);prevMon.setDate(prevMon.getDate()-7);
-  var cur=weekAvgMacros(curMon);var prev=weekAvgMacros(prevMon);
-
-  var COL={k:'var(--ac)',p:'var(--pro)',c:'var(--carb)',f:'var(--fat)'};
-  var grid=document.getElementById('dietWeekGrid');
-  grid.innerHTML=
-    metricBox('Kcal médio/dia',cur?Math.round(cur.avgK).toLocaleString('pt-BR'):'—','',cur?deltaHtml(cur.avgK,prev?prev.avgK:null,COL.k):'<span class="dd" style="color:var(--mt)">sem dados</span>',COL.k)
-    +metricBox('Proteína média',cur?Math.round(cur.avgP):'—','g',cur?deltaHtml(cur.avgP,prev?prev.avgP:null,COL.p):'',COL.p)
-    +metricBox('Carbo médio',cur?Math.round(cur.avgC):'—','g',cur?deltaHtml(cur.avgC,prev?prev.avgC:null,COL.c):'',COL.c)
-    +metricBox('Gordura média',cur?Math.round(cur.avgF):'—','g',cur?deltaHtml(cur.avgF,prev?prev.avgF:null,COL.f):'',COL.f);
-
-  // tira de dias da semana atual (Seg–Dom)
-  var dowLabels=['S','T','Q','Q','S','S','D'];
-  var strip=document.getElementById('dietWeekStrip');strip.innerHTML='';
-  weekDatesFrom(curMon).forEach(function(d,i){
-    var logged=dayTotals(keyOf(d)).k>0;
-    var el=document.createElement('div');el.className='day';
-    el.innerHTML='<div class="dn">'+dowLabels[i]+'</div><div class="db'+(logged?' on':'')+'"></div>';
-    strip.appendChild(el);
+  var now=new Date(),kHoje=keyOf(now);
+  /* --- Hoje --- */
+  var m=muscOf(now),c=cardOf(now),t=treinoDia(kHoje)||{},kc=dayTotals(kHoje).k;
+  var h='<div class="lbl">Hoje · '+now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+'</div>';
+  h+='<div class="today-t">'+(m?m.d.n:'Descanso')+(c?' <span style="color:var(--mt);font-weight:400">+ cardio</span>':'')+'</div>';
+  h+='<div class="today-s">'+(m?m.d.foc:'Sem musculação programada. Dia de recuperação — a dieta continua em 3.550–3.700 kcal.')+(c?'<br>Cardio: '+c.d.n+' · '+c.d.dur:'')+'</div>';
+  h+='<div class="chips">';
+  if(m)h+='<span class="chip '+(t.musc?'ok':'')+'">'+(t.musc?'✓ treino registrado':'treino não registrado')+'</span>';
+  if(c)h+='<span class="chip '+(t.cardio?'ok':'')+'">'+(t.cardio?'✓ cardio registrado':'cardio não registrado')+'</span>';
+  h+='<span class="chip '+(kc>=TARGET.kcal?'ok':'')+'">dieta '+(kc>0?Math.round(kc).toLocaleString('pt-BR'):'0')+' / '+TARGET.kcal.toLocaleString('pt-BR')+' kcal</span></div>';
+  if(m)h+='<button class="gobtn" onclick="openTreino('+m.i+',false)">Abrir treino de hoje →</button>';
+  else if(c)h+='<button class="gobtn" onclick="openTreino('+c.i+',true)">Abrir cardio de hoje →</button>';
+  document.getElementById('dToday').innerHTML=h;
+  /* --- Semana --- */
+  var mon=mondayOf(now),days=weekDatesFrom(mon),w='',nT=0,pT=0,nC=0,pC=0,nD=0,sumK=0;
+  days.forEach(function(d){
+    var k=keyOf(d),tm=muscOf(d),tc=cardOf(d),tr=treinoDia(k)||{},dk=dayTotals(k).k,past=k<=kHoje;
+    if(tm){pT++;if(tr.musc)nT++} if(tc){pC++;if(tr.cardio)nC++}
+    if(dk>0){nD++;sumK+=dk}
+    w+='<div class="c'+(k===kHoje?' now':'')+'"><div class="dn">'+DOWS[d.getDay()].charAt(0)+'</div><div class="mk">'
+      +'<i class="t '+(tm?(tr.musc?'on':''):'off')+'"></i><i class="k '+(tc?(tr.cardio?'on':''):'off')+'"></i><i class="d '+(dk>0?'on':'')+'"></i></div></div>';
   });
-
-  renderHealthWeek();
-
-  // mês
-  var now=new Date();var monthVals=[];
-  Object.keys(DB.diet||{}).forEach(function(k){
-    var dd=new Date(k+'T12:00:00');
-    if(dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear()){
-      var v=dayTotals(k).k;if(v>0)monthVals.push(v);
-    }
+  document.getElementById('dWeek').innerHTML=w;
+  var ws=healthSorted('peso').filter(function(e){return daysBetween(dParse(e.d),now)<=7});
+  var pm=ws.length?ws.reduce(function(a,e){return a+e.v},0)/ws.length:null;
+  document.getElementById('dKpis').innerHTML=
+    '<div class="kpi"><div class="v">'+nT+'<small>/'+pT+'</small> · '+nC+'<small>/'+pC+'</small></div><div class="t">treinos · cardios</div></div>'
+   +'<div class="kpi"><div class="v">'+nD+'<small>/7</small></div><div class="t">dias com dieta</div></div>'
+   +'<div class="kpi"><div class="v">'+(nD?Math.round(sumK/nD).toLocaleString('pt-BR'):'—')+'<small> kcal</small></div><div class="t">média · meta 3.550–3.700</div></div>'
+   +'<div class="kpi"><div class="v">'+(pm!=null?pm.toFixed(1).replace('.',','):'—')+'<small> kg</small></div><div class="t">peso médio 7 dias</div></div>';
+  /* --- Plano --- */
+  var ini=dParse(PLANO.inicio),dd=daysBetween(ini,now),sem=Math.min(PLANO.semanas,Math.max(1,Math.floor(dd/7)+1));
+  var bloco=sem<=8?1:2,rev=DB.planoRevisoes||[];
+  document.getElementById('dPlanTxt').textContent='Bloco '+bloco+' · semana '+sem+' de '+PLANO.semanas;
+  document.getElementById('dPlanBar').style.width=Math.min(100,Math.max(0,dd/(PLANO.semanas*7)*100))+'%';
+  var prox=null,late=[];
+  var mh='';PLANO.marcos.forEach(function(x){
+    var done=rev.indexOf(x.d)>=0,lt=!done&&x.d<kHoje;if(lt)late.push(x);if(!done&&!lt&&!prox)prox=x;
+    mh+='<div class="mrk'+(done?' done':'')+(lt?' late':'')+'"><div class="md">Sem '+x.sem+'<br>'+fmtD(x.d)+'</div><div><div class="mt3">'+x.t+(done?' ✓':'')+(lt?' — vencida':'')+'</div><div class="mo">'+x.o+'</div></div></div>';
   });
-  document.getElementById('moKcal').textContent=monthVals.length?Math.round(monthVals.reduce(function(a,b){return a+b},0)/monthVals.length).toLocaleString('pt-BR'):'—';
-  var wDates=healthSorted('peso');
-  var lastW=wDates.length?wDates[wDates.length-1]:null;
-  document.getElementById('moPeso').textContent=lastW?lastW.v.toFixed(1):'—';
-  var monthW=wDates.filter(function(e){var dd=new Date(e.d+'T12:00:00');return dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear()});
-  var dvEl=document.getElementById('moPesoDelta');
-  if(monthW.length>=2){
-    var d=monthW[monthW.length-1].v-monthW[0].v;
-    dvEl.className='dv '+(Math.abs(d)<0.1?'flat':(d>0?'up':'down'));
-    dvEl.textContent=(d>0?'+':'')+d.toFixed(1)+' kg no mês';
-  } else dvEl.textContent='';
-  var note=document.getElementById('moNote');
-  note.textContent=monthVals.length?monthVals.length+' dia(s) registrados neste mês.':'Sem dados suficientes ainda neste mês.';
+  document.getElementById('dMarcos').innerHTML='<div class="lbl" style="margin-bottom:2px">Revisões</div>'+mh;
+  var nx=document.getElementById('dPlanNext');
+  if(late.length){nx.innerHTML='<span style="color:var(--rd)">Revisão vencida: '+late[0].t+' ('+fmtD(late[0].d)+'). Hora de rever o plano.</span>'}
+  else if(prox){var fd=daysBetween(now,dParse(prox.d));nx.textContent='Próxima revisão: '+prox.t+' · '+fmtD(prox.d)+' ('+(fd===0?'hoje':'em '+fd+' dia'+(fd>1?'s':''))+')'}
+  else nx.textContent='Plano concluído — hora de montar o próximo.';
+  /* --- Alertas --- */
+  var al=[];
+  late.forEach(function(x){al.push(['r','Revisão do plano vencida: '+x.t,'Era em '+fmtD(x.d)+'. Me chame no chat para rever.'])});
+  var dk=Object.keys(DB.diet||{}).filter(function(k){return dayTotals(k).k>0&&k<=kHoje}).sort(),lastD=dk.length?dk[dk.length-1]:null;
+  var gapD=lastD?daysBetween(dParse(lastD),now):null;
+  if(lastD===null||gapD>=2)al.push(['r','Dieta sem registro '+(lastD?'há '+gapD+' dias':'ainda'),lastD?'Último dia registrado: '+fmtD(lastD)+'. Mande as refeições no chat.':'Mande as refeições no chat.']);
+  var ont=new Date(now);ont.setDate(ont.getDate()-1);var ko=keyOf(ont),mo=muscOf(ont),to=treinoDia(ko)||{};
+  if(mo&&!to.musc)al.push(['a','Treino de ontem ('+mo.d.n+') sem registro','Me diga no chat se treinou.']);
+  var pw=healthSorted('peso'),lastP=pw.length?pw[pw.length-1].d:null,gp=lastP?daysBetween(dParse(lastP),now):null;
+  if(gp===null||gp>=4)al.push(['a','Peso sem registro há '+(gp===null?'—':gp+' dias'),'No bulk vale a média semanal: pese 3–4× por semana em jejum.']);
+  var ex=(DB.exames||[]).filter(function(e){return e.tipo==='sangue'}).sort(function(a,b){return a.d<b.d?-1:1}),le=ex.length?ex[ex.length-1]:null;
+  if(le){var me=Math.floor(daysBetween(dParse(le.d),now)/30.4);if(me>=6)al.push(['r','Exame de sangue com '+me+' meses','Último: '+le.d.split('-').reverse().join('/')+'. Fazer painel novo antes da Deca.'])}
+  var ap=(DB.avaliacoesProf||[]).filter(function(x){return !x.caseira}).sort(function(a,b){return a.d<b.d?-1:1}),la=ap.length?ap[ap.length-1]:null;
+  if(la){var ma=Math.floor(daysBetween(dParse(la.d),now)/30.4);if(ma>=4)al.push(['a','Avaliação profissional de composição há '+ma+' meses','Última: '+la.d.split('-').reverse().join('/')+' ('+String(la.bf).replace('.',',')+'%). Próxima prevista na semana 8.'])}
+  var ah='<div class="lbl">Alertas</div>';
+  if(!al.length)ah+='<div class="alrt g"><div class="ic2"></div><div>Nada pendente.</div></div>';
+  al.forEach(function(x){ah+='<div class="alrt '+x[0]+'"><div class="ic2"></div><div>'+x[1]+'<small>'+x[2]+'</small></div></div>'});
+  document.getElementById('dAlerts').innerHTML=ah;
 }
 
 /* ------------------------------------------------------------

@@ -3025,5 +3025,18 @@
       "caseira": true,
       "fonte": "7 dobras caseiras — leituras inconsistentes (peitoral/axilar baixos, tríceps alto)"
     }
-  ]
+  ],
+  "treinos": {
+    "2026-11-26": {
+      "cardio": "Tiros 5×20/40 na bike — pico ~140 bpm, recuperação difícil acima de 120"
+    }
+  },
+  "exames": [
+    {
+      "d": "2025-10-25",
+      "tipo": "sangue",
+      "doc": "exames/exame-sangue-2025-10-25.md"
+    }
+  ],
+  "planoRevisoes": []
 }
