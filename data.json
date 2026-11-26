@@ -2388,6 +2388,49 @@
           "f": 13
         }
       ]
+    },
+    "2026-11-26": {
+      "cafe": [
+        {
+          "n": "Shake pré (água de coco 200 ml, banana, whey 1 scoop, aveia 1 scoop, creatina 3 g)",
+          "k": 364,
+          "p": 29,
+          "c": 52,
+          "f": 4
+        }
+      ],
+      "lm": [
+        {
+          "n": "Shake pós (água de coco 200 ml, banana, whey 1 scoop, aveia 2 scoops)",
+          "k": 481,
+          "p": 33,
+          "c": 69,
+          "f": 6
+        },
+        {
+          "n": "Pão de forma 1 fatia + presunto 2 fatias + queijo 1 fatia",
+          "k": 160,
+          "p": 11,
+          "c": 12,
+          "f": 7
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Coxa de frango sem pele e sem osso (220 g)",
+          "k": 394,
+          "p": 55,
+          "c": 0,
+          "f": 18
+        },
+        {
+          "n": "Arroz branco cozido (220 g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 0
+        }
+      ]
     }
   },
   "dobras": [
@@ -2893,6 +2936,12 @@
       "p": 189,
       "c": 306,
       "f": 51
+    },
+    "2026-11-26": {
+      "k": 1681,
+      "p": 134,
+      "c": 195,
+      "f": 35
     }
   },
   "avaliacoesProf": [
@@ -3040,5 +3089,16 @@
     }
   ],
   "planoRevisoes": [],
-  "processados": {}
+  "processados": {
+    "mwxk98477hnj3r": {
+      "d": "2026-11-26",
+      "slot": "cafe+lm",
+      "k": 1005
+    },
+    "mwxkboks2toyaw": {
+      "d": "2026-11-26",
+      "slot": "almoco",
+      "k": 676
+    }
+  }
 }

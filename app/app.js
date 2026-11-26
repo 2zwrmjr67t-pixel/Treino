@@ -491,13 +491,7 @@ function aplicarRecebidos(){
    DIETA
 ============================================================ */
 var SLOTS=[["cafe","Café da Manhã"],["lm","Lanche Manhã"],["almoco","Almoço"],["lt","Lanche Tarde"],["janta","Janta"],["ceia","Ceia"]];
-var QUICK=[
-  {n:"Shake Pré",k:378,p:29,c:61,f:3,slot:"cafe"},
-  {n:"Shake Pós",k:480,p:33,c:79,f:5,slot:"lm"},
-  {n:"Arroz (100g)",k:130,p:3,c:28,f:0,slot:null},
-  {n:"Carne moída (100g)",k:215,p:26,c:0,f:12,slot:null},
-  {n:"Frango grelhado (100g)",k:165,p:31,c:0,f:4,slot:null}
-];
+var QUICK=C.QUICK||[];
 var curSlot="cafe";
 var curDate=new Date();
 
@@ -518,7 +512,7 @@ function renderSlotBar(){
 function renderChips(){
   var el=document.getElementById('chipBar');el.innerHTML='';
   QUICK.forEach(function(q){
-    var b=document.createElement('button');b.textContent=q.n;
+    var b=document.createElement('button');b.textContent=q.l||q.n;
     b.onclick=function(){
       document.getElementById('mName').value=q.n;
       document.getElementById('mK').value=q.k;
