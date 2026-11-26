@@ -1,6 +1,51 @@
 {
-  "registros": [],
-  "ultimoId": "zG81MDR2EREe",
+  "registros": [
+    {
+      "t": "treino",
+      "id": "mwxl2g2lh24mqm",
+      "d": "2026-11-26",
+      "dia": "Superiores A · Costas",
+      "ini": "10:23",
+      "dur": 0.0,
+      "ex": [
+        [
+          "Puxada frontal pegada aberta",
+          null,
+          1
+        ],
+        [
+          "Remada baixa no cabo, pegada neutra",
+          null,
+          0
+        ],
+        [
+          "Desenvolvimento com halteres sentada",
+          null,
+          0
+        ],
+        [
+          "Elevação lateral no cabo",
+          null,
+          0
+        ],
+        [
+          "Face pull com corda",
+          null,
+          0
+        ]
+      ],
+      "recebido": "2026-11-26T13:23"
+    },
+    {
+      "t": "dieta",
+      "id": "mwxl3go9g66rr8",
+      "d": "2026-11-26",
+      "ts": "2026-11-26T10:24",
+      "texto": "Smooth de 200 ml de água de coco um esculpe de way e um esculpe pequenino de psilium",
+      "recebido": "2026-11-26T13:24"
+    }
+  ],
+  "ultimoId": "w27K4N4Nw9Vb",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }
