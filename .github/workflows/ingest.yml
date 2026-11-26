@@ -1,0 +1,40 @@
+name: Receber registros do app
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      teste:
+        description: "Enviar uma mensagem de teste ao ntfy antes de buscar"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mensagem de teste
+        if: ${{ inputs.teste }}
+        run: |
+          curl -s -d "{\"v\":1,\"t\":\"teste\",\"id\":\"teste-${GITHUB_RUN_ID}\"}" https://ntfy.sh/pg-ca2a704c401a6f81
+          sleep 3
+      - name: Buscar e gravar
+        run: python3 scripts/ingest.py
+      - name: Commit
+        run: |
+          if git diff --quiet -- treinos.json; then echo "Nada novo"; exit 0; fi
+          git config user.name "app-treino-bot"
+          git config user.email "app-treino-bot@users.noreply.github.com"
+          git add treinos.json
+          git commit -m "Registros do app"
+          for i in 1 2 3; do git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          exit 1

@@ -277,6 +277,17 @@ details.plan[open] .psum .tog .a{display:none} details.plan:not([open]) .psum .t
 #s-train .ec{scroll-margin-top:calc(var(--trh,52px) + var(--dth,46px) + 64px)}
 #dPlanBody .row{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--br);font-size:11.5px;line-height:1.5}
 #dPlanBody .row .d{flex:none;width:78px;color:var(--mt)}#dPlanBody .row .m{color:var(--tx)}
+/* ---- Envio pelo app ---- */
+.sendbar{display:flex;gap:8px;align-items:center;margin:0 0 14px}
+.sendbar .gobtn{margin:0;flex:1}
+.sendbar .gobtn.run{background:var(--ac);color:#1a1408}
+.sendbar .tmr{font-size:12px;color:var(--mt);min-width:52px;text-align:right}
+.sendst{font-size:11px;color:var(--mt);margin:-6px 0 12px}
+.cfin{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.cfin input,.dit textarea{width:100%;background:var(--s2);border:1px solid var(--br);border-radius:8px;color:var(--tx);padding:9px 10px;font:13px inherit;font-family:inherit}
+.dit textarea{min-height:74px;resize:vertical}
+.qrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--br);font-size:11.5px}
+.qrow span:first-child{color:var(--tx)} .qrow span:last-child{color:var(--mt);flex:none}
 </style>
 </head>
 <body>
@@ -340,6 +351,13 @@ details.plan[open] .psum .tog .a{display:none} details.plan:not([open]) .psum .t
 </div></section>
 
 <section id="s-diet"><div class="pad">
+  <div class="card dit">
+    <div class="lbl">Comi agora — ditado</div>
+    <textarea id="ditTxt" placeholder="Toque no microfone do teclado e fale: o que comeu e quanto. Ex.: almoço, arroz 200 g, feijão uma concha, frango 150 g, salada."></textarea>
+    <button class="gobtn" id="ditBtn" onclick="enviarDitado()">Enviar refeição</button>
+    <div class="note" style="margin:8px 0 0">Sai com data e hora de agora. O Claude calcula kcal e macros no fechamento do dia.</div>
+    <div id="ditList"></div>
+  </div>
   <div class="datebar">
     <button onclick="shiftDay(-1)">‹</button>
     <div class="dt"><b id="dLabel">Hoje</b><span id="dFull"></span></div>
@@ -515,6 +533,8 @@ async function loadRemoteData(){
     if(remote.dobras)DB.dobras=remote.dobras;
     if(remote.avaliacoesProf)DB.avaliacoesProf=remote.avaliacoesProf;
     if(remote.treinos)DB.treinos=remote.treinos;
+    try{var r2=await fetch('treinos.json',{cache:'no-store'});if(r2.ok)DB.recebidos=await r2.json()}catch(e){}
+    aplicarRecebidos();
     if(remote.planoRevisoes)DB.planoRevisoes=remote.planoRevisoes;
     if(remote.exames)DB.exames=remote.exames;
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
@@ -537,6 +557,7 @@ async function syncNow(){
   btn.disabled=true;btn.style.opacity='.5';
   var ok=await loadRemoteData();
   renderDash();renderDiet();renderMeas();renderDobras();renderCardioChecks();
+  processarFila().then(renderEnvios);
   if(document.getElementById('s-meas').classList.contains('on'))drawChart();
   var now=new Date();var hm=pad(now.getHours())+':'+pad(now.getMinutes());
   if(ok){st.textContent='Sincronizado às '+hm;st.style.color='var(--mt)'}
@@ -664,8 +685,9 @@ function buildMusc(){
         +'<div class="reg-right"><input class="reg-inp" type="number" id="inp_'+i+'_'+ei+'" placeholder="kg" min="0" max="300" step="1" inputmode="decimal"/>'
         +'<span class="reg-unit">kg</span><button class="reg-btn" onclick="salvarCarga('+i+','+ei+')">Salvar</button></div></div></div>';
     });
+    var runb='<div class="sendbar"><button class="gobtn" id="runbtn_'+i+'" onclick="iniciarOuConcluir('+i+')"></button><span class="tmr" id="runtmr_'+i+'"></span></div><div class="sendst"></div>';
     pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.n+'</span>'
-      +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'+tl+ex
+      +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'+tl+runb+ex
       +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
       +'<div class="ftr"><div class="ftrtl">Diretrizes</div>'
       +'Aquecimento: 3–4 min + 1 série leve (50%) no composto principal.<br>'
@@ -740,7 +762,9 @@ function buildCard(){
     });
     pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.badge+'</span>'
       +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'+meta+phases
-      +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>';
+      +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
+      +'<div class="card"><div class="lbl">Fechar a sessão</div><div class="cfin"><input id="cpk_'+i+'" inputmode="numeric" placeholder="FC pico (bpm)"><input id="cf1_'+i+'" inputmode="numeric" placeholder="FC após 1 min"></div>'
+      +'<button class="gobtn" id="cbtn_'+i+'" onclick="concluirCardio('+i+')">Concluir e enviar cardio</button><div class="sendst" style="margin:8px 0 0"></div></div>';
     panels.appendChild(pnl);
   });
 }
@@ -771,6 +795,100 @@ function cardioBadge(){
   var el=document.getElementById('trCardBadge');if(el)el.textContent='· '+n+'/'+CARD.length;
 }
 function resetCardioWeek(){var wk=weekKeyOf(new Date());DB.cardioWeek=DB.cardioWeek||{};DB.cardioWeek[wk]={};save();renderCardioChecks()}
+
+
+/* ============================================================
+   ENVIO PELO APP — app -> ntfy.sh (anônimo) -> GitHub Actions -> treinos.json
+   Fila local guarda tudo até aparecer no treinos.json.
+============================================================ */
+var NTFY_TOPIC='pg-ca2a704c401a6f81';
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function nowTs(){var n=new Date();return keyOf(n)+'T'+pad(n.getHours())+':'+pad(n.getMinutes())}
+function fila(){try{return JSON.parse(localStorage.getItem('pgFila')||'[]')}catch(e){return[]}}
+function setFila(f){try{localStorage.setItem('pgFila',JSON.stringify(f.slice(-60)))}catch(e){}}
+async function postNtfy(p){
+  var r=await fetch('https://ntfy.sh/'+NTFY_TOPIC,{method:'POST',body:JSON.stringify(p)});
+  if(!r.ok)throw new Error('ntfy '+r.status);
+}
+async function enviar(p){
+  var f=fila();f.push({p:p,st:'pendente',em:nowTs()});setFila(f);
+  await processarFila();renderEnvios();
+}
+async function processarFila(){
+  var f=fila(),ok=recebidosIds();
+  for(var i=0;i<f.length;i++){
+    if(ok[f[i].p.id])f[i].st='gravado';
+    else if(f[i].st==='pendente'){try{await postNtfy(f[i].p);f[i].st='enviado'}catch(e){}}
+  }
+  setFila(f);
+}
+function recebidosIds(){var m={};((DB.recebidos||{}).registros||[]).forEach(function(r){m[r.id]=1});return m}
+function stTxt(st){return st==='gravado'?'✓ gravado':st==='enviado'?'enviado · aguardando GitHub':'sem conexão · vai reenviar'}
+/* --- Treino --- */
+var TREINO_RUN=null;try{TREINO_RUN=JSON.parse(localStorage.getItem('pgRun')||'null')}catch(e){}
+function iniciarOuConcluir(i){
+  var b=document.getElementById('runbtn_'+i);
+  if(!TREINO_RUN||TREINO_RUN.i!==i){
+    TREINO_RUN={i:i,ini:Date.now()};localStorage.setItem('pgRun',JSON.stringify(TREINO_RUN));renderRunBars();return;
+  }
+  if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='Toque de novo para confirmar';setTimeout(function(){b.dataset.c='';renderRunBars()},3500);return}
+  var d=MUSC[i],ex=d.ex.map(function(e,ei){
+    var c=localStorage.getItem(getKey(i,ei)),on=document.getElementById('chk_'+i+'_'+ei).classList.contains('on');
+    return[e.n.slice(0,40),c?parseFloat(c):null,on?1:0]});
+  var ini=new Date(TREINO_RUN.ini),dur=Math.round((Date.now()-TREINO_RUN.ini)/60000);
+  var p={v:1,t:'treino',id:uid(),d:keyOf(new Date()),dia:d.n,ini:pad(ini.getHours())+':'+pad(ini.getMinutes()),dur:dur,ex:ex};
+  TREINO_RUN=null;localStorage.removeItem('pgRun');
+  d.ex.forEach(function(e,ei){var c=document.getElementById('chk_'+i+'_'+ei);c.classList.remove('on');document.getElementById('card_'+i+'_'+ei).classList.remove('done')});
+  enviar(p).then(function(){renderRunBars();renderDash()});
+}
+function renderRunBars(){
+  MUSC.forEach(function(d,i){
+    var b=document.getElementById('runbtn_'+i),t=document.getElementById('runtmr_'+i);if(!b)return;
+    var run=TREINO_RUN&&TREINO_RUN.i===i;b.dataset.c='';
+    b.textContent=run?'Concluir e enviar treino':'▶ Iniciar treino de '+d.n.toLowerCase();
+    b.classList.toggle('run',!!run);
+    t.textContent=run?Math.floor((Date.now()-TREINO_RUN.ini)/60000)+' min':'';
+  });
+}
+setInterval(function(){if(TREINO_RUN)renderRunBars()},30000);
+/* --- Cardio --- */
+function concluirCardio(i){
+  var b=document.getElementById('cbtn_'+i);
+  if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='Toque de novo para confirmar';setTimeout(function(){b.dataset.c='';b.textContent='Concluir e enviar cardio'},3500);return}
+  var pk=parseFloat((document.getElementById('cpk_'+i).value||'').replace(',','.')),f1=parseFloat((document.getElementById('cf1_'+i).value||'').replace(',','.'));
+  var p={v:1,t:'cardio',id:uid(),d:keyOf(new Date()),sess:CARD[i].n,pico:isNaN(pk)?null:pk,fc1:isNaN(f1)?null:f1};
+  document.getElementById('cpk_'+i).value='';document.getElementById('cf1_'+i).value='';
+  b.dataset.c='';b.textContent='Enviado ✓';setTimeout(function(){b.textContent='Concluir e enviar cardio'},3000);
+  enviar(p).then(function(){renderDash()});
+}
+/* --- Dieta (ditado) --- */
+function enviarDitado(){
+  var el=document.getElementById('ditTxt'),tx=(el.value||'').trim();if(!tx)return;
+  el.value='';enviar({v:1,t:'dieta',id:uid(),ts:nowTs(),texto:tx.slice(0,1500)});
+}
+function renderEnvios(){
+  var box=document.getElementById('ditList');if(!box)return;
+  var hoje=keyOf(new Date()),ok=recebidosIds(),rows=[];
+  fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts.slice(0,10)===hoje)rows.push([x.p.ts.slice(11),x.p.texto,ok[x.p.id]?'gravado':x.st])});
+  box.innerHTML=rows.length?'<div class="lbl" style="margin:12px 0 2px">Enviados hoje</div>':'';
+  rows.reverse().forEach(function(r){var d=document.createElement('div');d.className='qrow';
+    var a=document.createElement('span');a.textContent=r[0]+' · '+r[1];var b=document.createElement('span');b.textContent=stTxt(r[2]);
+    d.appendChild(a);d.appendChild(b);box.appendChild(d)});
+  var st=document.getElementById('sendSt');
+  var pend=fila().filter(function(x){return !ok[x.p.id]}).length;
+  document.querySelectorAll('.sendst').forEach(function(e){e.textContent=pend?pend+' envio(s) aguardando o GitHub (até ~15 min)':''});
+}
+/* registros recebidos -> treinos do Dashboard e cargas */
+function aplicarRecebidos(){
+  DB.treinos=DB.treinos||{};
+  ((DB.recebidos||{}).registros||[]).forEach(function(r){
+    var t=DB.treinos[r.d]=DB.treinos[r.d]||{};
+    if(r.t==='treino'){t.musc=t.musc||r.dia;
+      var di=-1;MUSC.forEach(function(m,ix){if(m.n===r.dia)di=ix});
+      if(di>=0)(r.ex||[]).forEach(function(e,ei){if(e[1]!=null&&MUSC[di].ex[ei]&&MUSC[di].ex[ei].n.slice(0,40)===e[0])localStorage.setItem(getKey(di,ei),e[1])});}
+    if(r.t==='cardio')t.cardio=t.cardio||r.sess;
+  });
+}
 
 /* ============================================================
    DIETA
@@ -914,7 +1032,8 @@ function renderDash(){
   h+='<div class="chips">';
   if(m)h+='<span class="chip '+(t.musc?'ok':'')+'">'+(t.musc?'✓ treino registrado':'treino não registrado')+'</span>';
   if(c)h+='<span class="chip '+(t.cardio?'ok':'')+'">'+(t.cardio?'✓ cardio registrado':'cardio não registrado')+'</span>';
-  h+='<span class="chip '+(kc>=TARGET.kcal?'ok':'')+'">dieta '+(kc>0?Math.round(kc).toLocaleString('pt-BR'):'0')+' / '+TARGET.kcal.toLocaleString('pt-BR')+' kcal</span></div>';
+  var nd=fila().filter(function(x){return x.p.t==='dieta'&&x.p.ts.slice(0,10)===kHoje}).length;
+  h+='<span class="chip '+(kc>=TARGET.kcal?'ok':'')+'">dieta '+(kc>0?Math.round(kc).toLocaleString('pt-BR'):'0')+' / '+TARGET.kcal.toLocaleString('pt-BR')+' kcal</span>'+(nd?'<span class="chip">'+nd+' refeição(ões) ditada(s) · aguardando cálculo</span>':'')+'</div>';
   if(m)h+='<button class="gobtn" onclick="openTreino('+m.i+',false)">Abrir treino de hoje →</button>';
   else if(c)h+='<button class="gobtn" onclick="openTreino('+c.i+',true)">Abrir cardio de hoje →</button>';
   document.getElementById('dToday').innerHTML=h;
@@ -1235,6 +1354,7 @@ async function initApp(){
   await loadRemoteData();
   buildMusc();
   buildCard();
+  renderRunBars();
   renderCardioChecks();
   renderSlotBar();
   renderChips();
@@ -1242,6 +1362,7 @@ async function initApp(){
   renderMeas();
   renderDobras();
   renderDash();
+  processarFila().then(renderEnvios);
 }
 initApp();
 </script>
