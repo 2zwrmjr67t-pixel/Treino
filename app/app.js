@@ -221,6 +221,7 @@ async function loadRemoteData(){
     aplicarRecebidos();
     if(remote.planoRevisoes)DB.planoRevisoes=remote.planoRevisoes;
     if(remote.exames)DB.exames=remote.exames;
+    DB.processados=remote.processados||{};
     if(remote.cardioWeek)DB.cardioWeek=remote.cardioWeek;
     if(remote.health)DB.health=remote.health;
     if(remote.healthWeekly)DB.healthWeekly=remote.healthWeekly;
@@ -419,7 +420,7 @@ async function processarFila(){
   setFila(f);
 }
 function recebidosIds(){var m={};((DB.recebidos||{}).registros||[]).forEach(function(r){m[r.id]=1});return m}
-function stTxt(st){return st==='gravado'?'✓ gravado':st==='enviado'?'enviado · aguardando GitHub':'sem conexão · vai reenviar'}
+function stTxt(st){if(st&&st.k!=null)return 'calculado · '+Math.round(st.k).toLocaleString('pt-BR')+' kcal';return st==='gravado'?'✓ gravado':st==='enviado'?'enviado · aguardando GitHub':'sem conexão · vai reenviar'}
 /* --- Treino --- */
 var TREINO_RUN=null;try{TREINO_RUN=JSON.parse(LS.getItem('pgRun')||'null')}catch(e){}
 function iniciarOuConcluir(i){
@@ -465,7 +466,7 @@ function enviarDitado(){
 function renderEnvios(){
   var box=document.getElementById('ditList');if(!box)return;
   var hoje=keyOf(new Date()),ok=recebidosIds(),rows=[];
-  fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts.slice(0,10)===hoje)rows.push([x.p.ts.slice(11),x.p.texto,ok[x.p.id]?'gravado':x.st])});
+  fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts.slice(0,10)===hoje)var pr=(DB.processados||{})[x.p.id];rows.push([x.p.ts.slice(11),x.p.texto,pr?pr:(ok[x.p.id]?'gravado':x.st)])});
   box.innerHTML=rows.length?'<div class="lbl" style="margin:12px 0 2px">Enviados hoje</div>':'';
   rows.reverse().forEach(function(r){var d=document.createElement('div');d.className='qrow';
     var a=document.createElement('span');a.textContent=r[0]+' · '+r[1];var b=document.createElement('span');b.textContent=stTxt(r[2]);
@@ -625,7 +626,7 @@ function renderDash(){
   h+='<div class="chips">';
   if(m)h+='<span class="chip '+(t.musc?'ok':'')+'">'+(t.musc?'✓ treino registrado':'treino não registrado')+'</span>';
   if(c)h+='<span class="chip '+(t.cardio?'ok':'')+'">'+(t.cardio?'✓ cardio registrado':'cardio não registrado')+'</span>';
-  var nd=fila().filter(function(x){return x.p.t==='dieta'&&x.p.ts.slice(0,10)===kHoje}).length;
+  var nd=fila().filter(function(x){return x.p.t==='dieta'&&x.p.ts.slice(0,10)===kHoje&&!(DB.processados||{})[x.p.id]}).length;
   h+='<span class="chip '+(kc>=TARGET.kcal?'ok':'')+'">dieta '+(kc>0?Math.round(kc).toLocaleString('pt-BR'):'0')+' / '+TARGET.kcal.toLocaleString('pt-BR')+' kcal</span>'+(nd?'<span class="chip">'+nd+' refeição(ões) ditada(s) · aguardando cálculo</span>':'')+'</div>';
   if(m)h+='<button class="gobtn" onclick="openTreino('+m.i+',false)">Abrir treino de hoje →</button>';
   else if(c)h+='<button class="gobtn" onclick="openTreino('+c.i+',true)">Abrir cardio de hoje →</button>';
