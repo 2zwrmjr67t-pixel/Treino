@@ -7,9 +7,63 @@
       "ts": "2026-11-26T10:00",
       "texto": "De café da manhã eu tomei um Smooth com 200 ml de água de coco um esculpe de way um esculpe de aveia 3 g de creatina pré treino da Growth e o Hemogenes não pós treino eu tomei esse mesmo Smooth porém com duas aveia sem creatina além de uma fatia de pão com duas de presunto e uma de queijo",
       "recebido": "2026-11-26T13:00"
+    },
+    {
+      "t": "dieta",
+      "id": "mwxkboks2toyaw",
+      "d": "2026-11-26",
+      "ts": "2026-11-26T10:02",
+      "texto": "De almoço eu comi 220 g de coxa de frango ali sem pele sem osso também 220 g de arroz",
+      "recebido": "2026-11-26T13:02"
+    },
+    {
+      "t": "treino",
+      "id": "mwxkca7iz7ay8c",
+      "d": "2026-11-26",
+      "dia": "Costas",
+      "ini": "10:03",
+      "dur": 0.0,
+      "ex": [
+        [
+          "Puxada articulada pegada aberta (anilhas",
+          100.0,
+          1
+        ],
+        [
+          "Remada articulada com apoio peitoral (an",
+          80.0,
+          1
+        ],
+        [
+          "Remada polia baixa pegada neutra",
+          60.0,
+          1
+        ],
+        [
+          "Rosca direta barra EZ",
+          34.0,
+          1
+        ],
+        [
+          "Rosca martelo simultânea",
+          null,
+          1
+        ]
+      ],
+      "recebido": "2026-11-26T13:03"
+    },
+    {
+      "t": "cardio",
+      "id": "mwxkd4ccnhv2uj",
+      "d": "2026-11-26",
+      "sess": "Tiros curtos",
+      "pico": 142.0,
+      "fc1": 125.0,
+      "obs": null,
+      "recebido": "2026-11-26T13:03"
     }
   ],
-  "ultimoId": "K7iBDsATwZwF",
+  "ultimoId": "DYuEGhvfEsMr",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }
