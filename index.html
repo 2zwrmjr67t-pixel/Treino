@@ -303,12 +303,11 @@ canvas{width:100%;height:120px;margin-top:4px}
 </div></section>
 
 <section id="s-train"><div class="pad">
-  <div class="ibox warn" style="margin-top:0"><b>Versão de proteção</b> · ajustes conservadores de coluna aplicados em 09/06/2026, enquanto o quadro está em avaliação. Direcionamentos definitivos após a consulta.</div>
-  <div class="day-tabs" id="dtabs"></div>
-  <div id="dpanels"></div>
-</div></section>
-
-<section id="s-cardio"><div class="pad">
+  <div class="slots" style="margin-bottom:14px">
+    <button id="trTabMusc" class="on" onclick="setTrainTab('musc')" style="flex:1;text-align:center">Musculação</button>
+    <button id="trTabCard" onclick="setTrainTab('card')" style="flex:1;text-align:center">Cardio <span id="trCardBadge" style="opacity:.75"></span></button>
+  </div>
+  <div id="trPanelCard" style="display:none">
   <div class="ibox" style="margin-top:0"><b>Protocolo:</b> Bike ergométrica ou esteira inclinada — <b>nunca corrida</b> (menor impacto lombar, menor interferência na hipertrofia). 20–40 min por sessão, Zona 2. Sessões posicionadas para não colar em dia de perna (Terça/Sexta).</div>
   <div class="day-tabs" id="ctabs"></div>
   <div id="cpanels"></div>
@@ -316,6 +315,12 @@ canvas{width:100%;height:120px;margin-top:4px}
     <div class="lbl">Checklist da semana</div>
     <div id="cardioChecks"></div>
     <button class="reset2" onclick="resetCardioWeek()">Zerar semana</button>
+  </div>
+</div>
+  <div id="trPanelMusc">
+  <div class="ibox warn" style="margin-top:0"><b>Versão de proteção</b> · ajustes conservadores de coluna aplicados em 09/06/2026, enquanto o quadro está em avaliação. Direcionamentos definitivos após a consulta.</div>
+  <div class="day-tabs" id="dtabs"></div>
+  <div id="dpanels"></div>
   </div>
 </div></section>
 
@@ -343,6 +348,10 @@ canvas{width:100%;height:120px;margin-top:4px}
       </div>
       <button class="addbtn" onclick="saveMeas()">Salvar medida de hoje</button>
       <div class="hist" id="measHist" style="margin-top:10px"></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Circunferências — última avaliação</div>
+      <div id="circBox" class="hist"><div class="empty2">Nenhuma avaliação com fita registrada.</div></div>
     </div>
   </div>
 
@@ -423,7 +432,6 @@ canvas{width:100%;height:120px;margin-top:4px}
   <button class="on" data-tab="dash" onclick="go('dash')"><span class="ic">◔</span>Dashboard</button>
   <button data-tab="diet" onclick="go('diet')"><span class="ic">▤</span>Dieta</button>
   <button data-tab="train" onclick="go('train')"><span class="ic">▦</span>Treino</button>
-  <button data-tab="cardio" onclick="go('cardio')"><span class="ic">♥</span>Cardio</button>
   <button data-tab="meas" onclick="go('meas')"><span class="ic">↧</span>Medidas</button>
   <button data-tab="plan" onclick="go('plan')"><span class="ic">◈</span>Plano</button>
 </nav>
@@ -435,7 +443,7 @@ canvas{width:100%;height:120px;margin-top:4px}
 var TITLES={
   dash:["Protocolo <strong>Guilherme</strong>","Musculação · Nutrição · Cardio · Performance"],
   diet:["Nutrição","Registro de refeições e macros"],
-  train:["Musculação","5 dias · versão de proteção"],
+  train:["Treino","Musculação + cardio · versão de proteção"],
   cardio:["Cardio","Condicionamento e saúde vascular"],
   meas:["Medidas","Peso, cintura e tendência"],
   plan:["Plano","Timeline · 12 semanas · gatilhos"]
@@ -449,6 +457,7 @@ function go(t){
   document.querySelector(".scrollwrap").scrollTop=0;
   if(t==="meas")drawChart();
   if(t==="dash")renderDash();
+  if(t==="train"){var wd=new Date().getDay();setTrainTab(wd===3||wd===0?'card':'musc')}
 }
 
 /* ============================================================
@@ -702,7 +711,7 @@ function buildCard(){
 }
 function renderCardioChecks(){
   DB.cardioWeek=DB.cardioWeek||{};var wk=weekKeyOf(new Date());DB.cardioWeek[wk]=DB.cardioWeek[wk]||{};
-  var c=DB.cardioWeek[wk];var el=document.getElementById('cardioChecks');el.innerHTML='';
+  var c=DB.cardioWeek[wk];var el=document.getElementById('cardioChecks');el.innerHTML='';cardioBadge();
   CARD.forEach(function(d,i){
     var done=!!c[i];
     var row=document.createElement('div');row.className='chk'+(done?' done':'');
@@ -710,6 +719,16 @@ function renderCardioChecks(){
     row.onclick=function(){c[i]=!c[i];save();renderCardioChecks();if(document.getElementById('s-dash').classList.contains('on'))renderDash()};
     el.appendChild(row);
   });
+}
+function setTrainTab(t){
+  document.getElementById('trTabMusc').classList.toggle('on',t==='musc');
+  document.getElementById('trTabCard').classList.toggle('on',t==='card');
+  document.getElementById('trPanelMusc').style.display=t==='musc'?'block':'none';
+  document.getElementById('trPanelCard').style.display=t==='card'?'block':'none';
+}
+function cardioBadge(){
+  var wk=weekKeyOf(new Date());var c=(DB.cardioWeek||{})[wk]||{};var n=CARD.filter(function(d,i){return c[i]}).length;
+  var el=document.getElementById('trCardBadge');if(el)el.textContent='· '+n+'/'+CARD.length;
 }
 function resetCardioWeek(){var wk=weekKeyOf(new Date());DB.cardioWeek=DB.cardioWeek||{};DB.cardioWeek[wk]={};save();renderCardioChecks()}
 
@@ -979,6 +998,27 @@ function renderMeas(){
     var row=document.createElement('div');row.className='h';
     row.innerHTML='<span>'+dt+'</span><b>'+parts.join(' · ')+'</b>';h.appendChild(row);
   });
+  renderCirc();
+}
+var CIRC_FIELDS=[['cintura','Cintura'],['abdomen','Abdômen (umbigo)'],['quadril','Quadril'],['peitoC','Peito'],['ombros','Ombros'],['pescoco','Pescoço'],['bracoR','Braço relaxado'],['bracoC','Braço contraído'],['antebraco','Antebraço'],['coxaC','Coxa (meio)'],['panturrilha','Panturrilha']];
+function circVal(v,side){if(v==null)return null;if(typeof v==='number')return side==='esq'?null:v;return v[side]!=null?v[side]:null}
+function renderCirc(){
+  var box=document.getElementById('circBox');if(!box)return;
+  var ds=Object.keys(DB.health||{}).filter(function(k){return DB.health[k].circ}).sort();
+  if(!ds.length){box.innerHTML='<div class="empty2">Nenhuma avaliação com fita registrada.</div>';return}
+  var L=ds[ds.length-1],P=ds.length>1?ds[ds.length-2]:null,cl=DB.health[L].circ,cp=P?DB.health[P].circ:{};
+  var fd=function(k){return new Date(k+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'})};
+  var f1=function(n){return n==null?'—':(Math.round(n*10)/10).toString().replace('.',',')};
+  var dl=function(a,b){if(a==null||b==null)return '';var d=a-b;if(Math.abs(d)<0.05)return ' <span style="color:var(--mt)">(=)</span>';return ' <span style="color:var(--mt)">('+(d>0?'+':'')+f1(d)+')</span>'};
+  var html='<div class="note" style="margin-bottom:6px">'+fd(L)+(P?' · entre parênteses, a diferença para '+fd(P):'')+'. Membros: D / E.</div>';
+  CIRC_FIELDS.forEach(function(f){
+    var v=cl[f[0]];if(v==null)return;var pv=cp[f[0]];var txt;
+    if(typeof v==='number')txt=f1(v)+dl(v,circVal(pv,'dir'));
+    else txt='D '+f1(v.dir)+dl(v.dir,circVal(pv,'dir'))+' / E '+f1(v.esq)+dl(v.esq,circVal(pv,'esq'));
+    html+='<div class="h"><span>'+f[1]+'</span><b style="font-weight:500">'+txt+'</b></div>';
+  });
+  if(cl.cintura&&cl.quadril)html+='<div class="h"><span>Cintura / quadril</span><b style="font-weight:500">'+(cl.cintura/cl.quadril).toFixed(2).replace('.',',')+'</b></div>';
+  box.innerHTML=html;
 }
 function deltaEl(id,arr,unit){
   var el=document.getElementById(id);if(arr.length<2){el.textContent='';return}
@@ -1076,7 +1116,8 @@ function renderDobras(){
     var detail=DOBRA_FIELDS.map(function(f,idx){return x[f[1]]!=null?(idx+1)+' '+x[f[1]]:null}).filter(Boolean).join(' · ');
     var row=document.createElement('div');row.className='h';row.style.flexDirection='column';row.style.alignItems='flex-start';row.style.gap='2px';
     row.innerHTML='<div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>'+(bf!=null?bf.toFixed(1).replace('.',',')+'%':'—')+'</b></div>'
-      +'<div style="font-size:10.5px;color:var(--mt)">soma '+sumDobra(x).toFixed(1)+' mm'+(detail?' · '+detail:'')+'</div>';
+      +'<div style="font-size:10.5px;color:var(--mt)">soma '+sumDobra(x).toFixed(1)+' mm'+(detail?' · '+detail:'')+'</div>'
+      +((x.nv||x.confiavel===false)?'<div style="font-size:10.5px;color:var(--rd)">não confiável'+(x.obs?' — '+x.obs:'')+'</div>':'');
     h.appendChild(row);
   });
 }

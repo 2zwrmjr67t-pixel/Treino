@@ -2425,6 +2425,52 @@
       "supra": 3,
       "ax": 2,
       "obs": "Valores-piso: pinça não destacou a dobra em peito/ax/tri/supra/coxa; subescapular (11mm) foi o único ponto pinçado com confiança. %BF calculado (JP7+Siri) tende a subestimar o real."
+    },
+    {
+      "d": "2026-11-21",
+      "peito": 1,
+      "ax": 2,
+      "tri": 22,
+      "sub": 8,
+      "abd": 4,
+      "supra": 4,
+      "coxa": 8,
+      "leituras": {
+        "peito": [
+          1,
+          1,
+          1
+        ],
+        "ax": [
+          2
+        ],
+        "tri": [
+          20,
+          22,
+          22
+        ],
+        "sub": [
+          8,
+          10,
+          8
+        ],
+        "abd": [
+          6,
+          4,
+          4
+        ],
+        "supra": [
+          4,
+          4,
+          6
+        ],
+        "coxa": [
+          8,
+          8
+        ]
+      },
+      "confiavel": false,
+      "obs": "Jejum. Revisado no chat de 21/11: peitoral 1 e axilar 2 mm fisicamente impossíveis, tríceps 22 mm provável músculo junto, abdominal subestimado; %G 7,8% não se sustenta. Dobras caseiras suspensas — referência passa a ser DEXA."
     }
   ],
   "cardioWeek": {},
@@ -2610,10 +2656,57 @@
     },
     "2026-10-03": {
       "peso": 77.7,
-      "fonte": "manual"
+      "fonte": "manual",
+      "cintura": 82,
+      "circ": {
+        "cintura": 82,
+        "abdomen": 82,
+        "quadril": 98,
+        "peitoC": 102,
+        "ombros": 124,
+        "pescoco": 42,
+        "bracoR": 35,
+        "bracoC": 39,
+        "antebraco": 31,
+        "coxaC": 57,
+        "panturrilha": 37
+      }
     },
     "2026-10-04": {
       "peso": 77.65,
+      "fonte": "manual"
+    },
+    "2026-11-21": {
+      "peso": 77.61,
+      "cintura": 80,
+      "circ": {
+        "cintura": 80,
+        "abdomen": 81,
+        "quadril": 92,
+        "peitoC": 101,
+        "ombros": 114,
+        "pescoco": 43,
+        "bracoR": {
+          "dir": 36,
+          "esq": 34
+        },
+        "bracoC": {
+          "dir": 40,
+          "esq": 37
+        },
+        "antebraco": {
+          "dir": 32,
+          "esq": 31
+        },
+        "coxaC": {
+          "dir": 57,
+          "esq": 57
+        },
+        "panturrilha": {
+          "dir": 36,
+          "esq": 37
+        }
+      },
       "fonte": "manual"
     }
   },
