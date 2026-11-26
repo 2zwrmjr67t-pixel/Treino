@@ -2897,6 +2897,20 @@
   },
   "avaliacoesProf": [
     {
+      "d": "2018-01-17",
+      "peso": 70.0,
+      "bf": 23.1,
+      "mlg": 53.8,
+      "fonte": "Antropometria com profissional — sedentário, antes de começar a treinar (peso de 23/01/2018); %G = 1 − MLG/peso"
+    },
+    {
+      "d": "2018-11-12",
+      "peso": 71.8,
+      "bf": 20.6,
+      "mlg": 57.0,
+      "fonte": "Antropometria com profissional — início do treino; %G = 1 − MLG/peso"
+    },
+    {
       "d": "2021-01-13",
       "peso": 74.1,
       "bf": 9.9,
