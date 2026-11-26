@@ -2392,30 +2392,6 @@
   },
   "dobras": [
     {
-      "d": "2026-08-22",
-      "peito": 12,
-      "abd": 18,
-      "coxa": 14,
-      "tri": 10,
-      "sub": 13,
-      "supra": 11,
-      "ax": 9,
-      "nv": true,
-      "obs": "Sem origem confirmada: o usuário informa que a única medição realizada foi a de 03/10/2026. Não verificado — não usar em comparações nem como baseline."
-    },
-    {
-      "d": "2026-09-01",
-      "peito": 11,
-      "abd": 16,
-      "coxa": 13,
-      "tri": 9,
-      "sub": 12,
-      "supra": 10,
-      "ax": 8,
-      "nv": true,
-      "obs": "Sem origem confirmada: o usuário informa que a única medição realizada foi a de 03/10/2026. Não verificado — não usar em comparações nem como baseline."
-    },
-    {
       "d": "2026-10-03",
       "peito": 3,
       "abd": 4,
@@ -2424,7 +2400,8 @@
       "sub": 11,
       "supra": 3,
       "ax": 2,
-      "obs": "Valores-piso: pinça não destacou a dobra em peito/ax/tri/supra/coxa; subescapular (11mm) foi o único ponto pinçado com confiança. %BF calculado (JP7+Siri) tende a subestimar o real."
+      "obs": "Valores-piso: pinça não destacou a dobra em peito/ax/tri/supra/coxa; subescapular (11mm) foi o único ponto pinçado com confiança. %BF calculado (JP7+Siri) tende a subestimar o real.",
+      "confiavel": false
     },
     {
       "d": "2026-11-21",
