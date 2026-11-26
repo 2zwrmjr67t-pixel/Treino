@@ -1,7 +1,93 @@
 {
   "diet": {},
-  "health": {},
-  "dobras": [],
+  "health": {
+    "2026-11-21": {
+      "peso": 62.35,
+      "cintura": 74,
+      "circ": {
+        "cintura": 74,
+        "abdomen": 79,
+        "quadril": 88,
+        "peitoC": 92,
+        "ombros": 98,
+        "pescoco": 32,
+        "bracoR": {
+          "dir": 28,
+          "esq": 28
+        },
+        "bracoC": {
+          "dir": 30,
+          "esq": 29
+        },
+        "antebraco": {
+          "dir": 24,
+          "esq": 24
+        },
+        "coxaC": {
+          "dir": 57,
+          "esq": 57
+        },
+        "panturrilha": {
+          "dir": 35,
+          "esq": 36
+        }
+      },
+      "fonte": "manual"
+    }
+  },
+  "dobras": [
+    {
+      "d": "2026-11-21",
+      "peito": 11,
+      "ax": 8,
+      "tri": 12,
+      "sub": 13,
+      "abd": 14,
+      "supra": 13,
+      "coxa": 25,
+      "leituras": {
+        "peito": [
+          10,
+          11,
+          11
+        ],
+        "ax": [
+          8,
+          10,
+          8
+        ],
+        "tri": [
+          13,
+          11,
+          12
+        ],
+        "sub": [
+          12,
+          13,
+          13
+        ],
+        "abd": [
+          20,
+          12,
+          18,
+          14
+        ],
+        "supra": [
+          13,
+          13,
+          14
+        ],
+        "coxa": [
+          21,
+          29,
+          9,
+          8.5
+        ]
+      },
+      "confiavel": false,
+      "obs": "Jejum. Adipômetro de plástico, avaliador João. Coxa sem pinçamento confiável (21/29 e depois 9/8,5 perto do joelho) — valor 25 provisório. %G consolidado com fotos e fórmula da Marinha: ~22–23% (faixa 19–24%)."
+    }
+  ],
   "avaliacoesProf": [],
   "treinos": {},
   "exames": [],
