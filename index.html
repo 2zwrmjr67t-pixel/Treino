@@ -636,15 +636,15 @@ function buildMusc(){
    para Domingo (descanso real), conforme etapa 5 do projeto.
 ============================================================ */
 var CARD=[
-  {l:"Qua",n:"Base + Pico",badge:"Sessão 1",c:"#c07070",
-   foc:"Dia de descanso, após Pernas (Terça) — recuperação ativa com introdução ao pico",
-   dur:"11 min",equip:"Bike ou esteira inclinada",obj:"Primeiro contato com zona 5 e treino de recuperação",
+  {l:"Qua",n:"Base Zona 2",badge:"Sessão 1",c:"#c07070",
+   foc:"Dia de descanso, após Pernas (Terça) — base aeróbica para recuperar mais rápido entre esforços e entre treinos",
+   dur:"30 min",equip:"Bike ou esteira inclinada",obj:"Base aeróbica: melhora a recuperação entre rajadas e entre sessões",
    phases:[
-     {n:"Fase 1",t:"Aquecimento ativo",dur:"3 min",zona:"Zona 2",int:"Resistência leve",c:"#6a9a6a",note:"60–70% FCmax. Cadência moderada. Respire pelo nariz."},
-     {n:"Fase 2",t:"Intervalos de pico",dur:"5 × (20s esforço / 40s recuperação)",zona:"Zona 5 → Zona 3",int:"Máximo → leve",c:"#c07070",note:"Nos 20s: vá ao máximo. Nos 40s: pedale leve, não pare. 5 repetições."},
-     {n:"Fase 3",t:"Recuperação ativa",dur:"3 min",zona:"Zona 2",int:"Resistência mínima",c:"#6a9a6a",note:"Cadência baixa, respiração controlada."}
+     {n:"Fase 1",t:"Aquecimento",dur:"4 min",zona:"Zona 1–2",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa."},
+     {n:"Fase 2",t:"Bloco contínuo",dur:"22 min",zona:"Zona 2",int:"Moderado, conversa possível",c:"#c07070",note:"60–70% FCmax, ritmo em que você ainda fala frases inteiras. Respire pelo nariz enquanto estiver confortável; se obstruir, use a boca sem forçar."},
+     {n:"Fase 3",t:"Descida",dur:"4 min",zona:"Zona 1",int:"Mínima",c:"#5a8a7a",note:"Reduza aos poucos, sem parar de repente."}
    ],
-   info:"Dia de descanso real — nenhuma interferência com treino de força. Recuperação ativa do dia mais pesado de pernas."},
+   info:"Dia de descanso real — nenhuma interferência com a força. Se a FC passar de 70% FCmax, reduza a resistência."},
   {l:"Qui",n:"Intervalado",badge:"Sessão 2",c:"#c9a05a",
    foc:"Pós-ombros — treino de membro superior, baixa interferência com pernas",
    dur:"12 min",equip:"Bike ou esteira inclinada",obj:"Volume de intervalos — sessão principal de condicionamento",
@@ -655,16 +655,16 @@ var CARD=[
      {n:"Fase 4",t:"Respiração de finalização",dur:"1 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. 4 repetições."}
    ],
    info:"Sessão mais importante do protocolo. Ombros é dia de membro superior — baixa interferência com hipertrofia de perna."},
-  {l:"Dom",n:"Limiar",badge:"Sessão 3",c:"#6a9a6a",
+  {l:"Dom",n:"Capacidade 60s",badge:"Sessão 3",c:"#6a9a6a",
    foc:"Fechamento semanal em dia de descanso — evita interferência com Posterior (Sexta, dia de perna)",
-   dur:"12 min",equip:"Bike ou esteira inclinada",obj:"Elevar o limiar anaeróbico em dia sem carga de força",
+   dur:"~24 min",equip:"Bike (preferencial) ou esteira inclinada",obj:"Sustentar esforço forte de ~1 min repetido (ritmo/velocidade) e recuperar rápido",
    phases:[
-     {n:"Fase 1",t:"Aquecimento",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa."},
-     {n:"Fase 2",t:"Bloco de limiar",dur:"6 min contínuos",zona:"Zona 3–4",int:"Moderado-alto sustentado",c:"#c9a05a",note:"6 minutos contínuos em 75–85% FCmax. Sem parar, sem picos."},
-     {n:"Fase 3",t:"Recuperação ativa",dur:"2 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Pedale leve. Observe a frequência cardíaca descer."},
+     {n:"Fase 1",t:"Aquecimento progressivo",dur:"4 min",zona:"Zona 2–3",int:"Resistência crescente",c:"#6a9a6a",note:"Comece leve; nos últimos 30s suba para Zona 3."},
+     {n:"Fase 2",t:"Intervalos de 60s",dur:"4 × (60s forte / 3 min recuperação)",zona:"Zona 4–5 → Zona 2",int:"Forte, mas sustentável",c:"#c9a05a",note:"Nos 60s: ritmo forte que você sustenta até o fim sem desmoronar (~85–90%), cadência alta. Nos 3 min: pedale leve, não pare. Respire pelo diafragma e não prenda o ar. Progressão: sem 1–2 → 4 × 45s; sem 3–4 → 4 × 60s; sem 5–6 → 5–6 × 60s com recuperação de 2:30."},
+     {n:"Fase 3",t:"Recuperação ativa",dur:"3 min",zona:"Zona 2",int:"Leve",c:"#6a9a6a",note:"Pedale leve. Observe a frequência cardíaca descer."},
      {n:"Fase 4",t:"Respiração de finalização",dur:"2 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. 6 repetições."}
    ],
-   info:"Movida de Sexta para Domingo: Sexta é dia de Posterior (cadeia de perna) — colar cardio ali geraria interferência na hipertrofia. Domingo é descanso real."}
+   info:"Treina o esforço de ~1 min repetido. Se escurecer a visão, vier tontura forte, dor no peito ou palpitação: pare e leve ao médico do esporte antes de repetir."}
 ];
 function buildCard(){
   var tabs=document.getElementById('ctabs');var panels=document.getElementById('cpanels');
