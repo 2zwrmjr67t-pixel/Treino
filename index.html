@@ -308,7 +308,7 @@ canvas{width:100%;height:120px;margin-top:4px}
     <button id="trTabCard" onclick="setTrainTab('card')" style="flex:1;text-align:center">Cardio <span id="trCardBadge" style="opacity:.75"></span></button>
   </div>
   <div id="trPanelCard" style="display:none">
-  <div class="ibox" style="margin-top:0"><b>Protocolo:</b> Bike ergométrica ou esteira inclinada — <b>nunca corrida</b> (menor impacto lombar, menor interferência na hipertrofia). 20–40 min por sessão, Zona 2. Sessões posicionadas para não colar em dia de perna (Terça/Sexta).</div>
+  <div class="ibox" style="margin-top:0"><b>Protocolo:</b> Bike ergométrica ou esteira inclinada — <b>nunca corrida</b> (menor impacto lombar, menor interferência na hipertrofia). 12–15 min, <b>logo depois da musculação</b> nos dias de membro superior (Seg, Qui, Sáb) — nenhum dia a mais na academia e nada colado nas pernas (Ter/Sex).</div>
   <div class="day-tabs" id="ctabs"></div>
   <div id="cpanels"></div>
   <div class="card">
@@ -457,7 +457,7 @@ function go(t){
   document.querySelector(".scrollwrap").scrollTop=0;
   if(t==="meas")drawChart();
   if(t==="dash")renderDash();
-  if(t==="train"){var wd=new Date().getDay();setTrainTab(wd===3||wd===0?'card':'musc')}
+
 }
 
 /* ============================================================
@@ -645,33 +645,31 @@ function buildMusc(){
    para Domingo (descanso real), conforme etapa 5 do projeto.
 ============================================================ */
 var CARD=[
-  {l:"Qua",n:"Base Zona 2",badge:"Sessão 1",c:"#c07070",
-   foc:"Dia de descanso, após Pernas (Terça) — base aeróbica: é ela que faz a FC descer rápido entre esforços",
-   dur:"30 min",equip:"Bike ou esteira inclinada",obj:"Base aeróbica guiada por FC: 110–125 bpm, sem passar de 125",
+  {l:"Seg",n:"Tiros curtos",badge:"Após Peito",c:"#c9a05a",
+   foc:"Logo depois da musculação de peito — dia de membro superior, sem interferir nas pernas",
+   dur:"~12 min",equip:"Bike",obj:"Repetir esforço forte curto e recuperar a FC entre os tiros",
    phases:[
-     {n:"Fase 1",t:"Aquecimento",dur:"4 min",zona:"FC < 110",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa."},
-     {n:"Fase 2",t:"Bloco contínuo",dur:"22 min",zona:"110–125 bpm",int:"Moderado, conversa possível",c:"#c07070",note:"Fique entre 110 e 125 bpm. Passou de 125, alivie a resistência. Respire pelo nariz enquanto der; se obstruir, use a boca sem forçar. Progressão: +4 min a cada 2 semanas até 40 min."},
-     {n:"Fase 3",t:"Descida",dur:"4 min",zona:"FC < 110",int:"Mínima",c:"#5a8a7a",note:"Reduza aos poucos, sem parar de repente."}
+     {n:"Fase 1",t:"Aquecimento",dur:"3 min",zona:"até ~110 bpm",int:"Resistência crescente",c:"#6a9a6a",note:"Comece leve e suba aos poucos."},
+     {n:"Fase 2",t:"Tiros",dur:"5 × (20s forte / 40s leve)",zona:"pico até ~140 → volta < 120",int:"Forte, não máximo",c:"#c9a05a",note:"Ponto de partida = o teste de 26/11. Só comece o próximo tiro com a FC abaixo de 120; se não descer em 40s, descanse mais. Progressão semanal (só avance se a FC voltar < 120 dentro dos 40s em todos os tiros): 6×20/40 → 8×20/40 → 6×30/30 → 8×30/30."},
+     {n:"Fase 3",t:"Recuperação cardíaca",dur:"1 min + 2 min",zona:"—",int:"Medida",c:"#5a8a7a",note:"Fim do último tiro: anote a FC (pico). Pare de pedalar, fique sentado e anote a FC após 1 minuto. Recuperação = pico − FC de 1 min. Depois pedale leve 2 min."}
    ],
-   info:"Faixa de FC calibrada pelo teste de 26/11 (recuperação ficou difícil acima de 120 bpm). Revisar quando houver teste ergoespirométrico."},
-  {l:"Qui",n:"Tiros curtos",badge:"Sessão 2",c:"#c9a05a",
-   foc:"Pós-ombros — treino de membro superior, baixa interferência com pernas",
-   dur:"~14 min",equip:"Bike",obj:"Repetir esforço forte curto e recuperar a FC entre os tiros",
+   info:"Indicador de evolução: a recuperação de 1 minuto. Me mande pico e FC de 1 min no chat que eu registro."},
+  {l:"Qui",n:"Base Zona 2",badge:"Após Ombros",c:"#c07070",
+   foc:"Logo depois da musculação de ombros — base aeróbica curta para acelerar a recuperação entre esforços",
+   dur:"15 min",equip:"Bike ou esteira inclinada",obj:"Base aeróbica guiada por FC: 110–125 bpm",
    phases:[
-     {n:"Fase 1",t:"Aquecimento progressivo",dur:"4 min",zona:"até ~110 bpm",int:"Resistência crescente",c:"#6a9a6a",note:"Comece leve e suba aos poucos."},
-     {n:"Fase 2",t:"Tiros",dur:"5 × (20s forte / 40s leve)",zona:"pico até ~140 → volta < 120",int:"Forte, não máximo",c:"#c9a05a",note:"Ponto de partida = o que você fez em 26/11. Regra: só comece o próximo tiro quando a FC estiver abaixo de 120; se não descer nos 40s, estenda a recuperação. Progressão semanal (só avance se a FC voltar < 120 dentro dos 40s em todos os tiros): 6×20/40 → 8×20/40 → 6×30/30 → 8×30/30."},
-     {n:"Fase 3",t:"Descida controlada",dur:"3 min",zona:"FC < 110",int:"Resistência mínima",c:"#6a9a6a",note:"Não pare de repente. Anote quanto a FC cai no 1º minuto após o último tiro."},
-     {n:"Fase 4",t:"Respiração de finalização",dur:"1 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. 4 repetições."}
+     {n:"Fase 1",t:"Entrada",dur:"2 min",zona:"FC < 110",int:"Leve",c:"#6a9a6a",note:"Cadência moderada, resistência baixa."},
+     {n:"Fase 2",t:"Bloco contínuo",dur:"12 min",zona:"110–125 bpm",int:"Moderado, conversa possível",c:"#c07070",note:"Fique entre 110 e 125 bpm. Passou de 125, alivie a resistência. Respire pelo nariz enquanto der; se obstruir, use a boca sem forçar."},
+     {n:"Fase 3",t:"Descida",dur:"1 min",zona:"FC < 110",int:"Mínima",c:"#5a8a7a",note:"Reduza aos poucos, sem parar de repente."}
    ],
-   info:"O indicador de evolução é a recuperação: quantos bpm a FC cai em 40s e no 1º minuto após o fim. Queda maior = mais fôlego para sustentar ritmo."},
-  {l:"Dom",n:"Capacidade (rumo aos 60s)",badge:"Sessão 3",c:"#6a9a6a",
-   foc:"Fechamento semanal em dia de descanso — evita interferência com Posterior (Sexta, dia de perna)",
-   dur:"~22 min",equip:"Bike",obj:"Alongar o esforço forte até ~1 min, com recuperação completa",
+   info:"Curto de propósito: o que mais transfere para esforços de ~1 min são os tiros. Esta sessão é manutenção da base, não o foco."},
+  {l:"Sáb",n:"Capacidade (rumo aos 60s)",badge:"Após Costas",c:"#6a9a6a",
+   foc:"Logo depois da musculação de costas — dia de membro superior",
+   dur:"~15 min",equip:"Bike",obj:"Alongar o esforço forte até ~1 min, com recuperação completa",
    phases:[
-     {n:"Fase 1",t:"Aquecimento progressivo",dur:"5 min",zona:"até ~110 bpm",int:"Resistência crescente",c:"#6a9a6a",note:"Comece leve; nos últimos 30s suba um pouco."},
-     {n:"Fase 2",t:"Esforços longos",dur:"4 × (30s forte / 2–3 min leve)",zona:"pico ~140 → volta < 110",int:"Forte e sustentável",c:"#c9a05a",note:"Ritmo que você sustenta até o fim sem desmoronar. Só comece o próximo quando a FC estiver abaixo de 110. Progressão (avance a cada 2 semanas se a FC voltar < 110 em até 2 min): 4×30s → 4×45s → 4×60s → 5×60s."},
-     {n:"Fase 3",t:"Recuperação ativa",dur:"3 min",zona:"FC < 110",int:"Leve",c:"#6a9a6a",note:"Pedale leve. Observe a FC descer."},
-     {n:"Fase 4",t:"Respiração de finalização",dur:"2 min",zona:"—",int:"Parado ou cadência mínima",c:"#5a8a7a",note:"4s inspira · 4s segura · 6s expira. 6 repetições."}
+     {n:"Fase 1",t:"Aquecimento",dur:"3 min",zona:"até ~110 bpm",int:"Resistência crescente",c:"#6a9a6a",note:"Comece leve; nos últimos 30s suba um pouco."},
+     {n:"Fase 2",t:"Esforços longos",dur:"4 × (30s forte / ~2 min leve)",zona:"pico ~140 → volta < 110",int:"Forte e sustentável",c:"#c9a05a",note:"Ritmo que você sustenta até o fim sem desmoronar. Só comece o próximo com a FC abaixo de 110. Progressão (a cada 2 semanas, se a FC voltar < 110 em até 2 min): 4×30s → 4×45s → 4×60s."},
+     {n:"Fase 3",t:"Recuperação cardíaca",dur:"1 min + 2 min",zona:"—",int:"Medida",c:"#5a8a7a",note:"Mesma medida da segunda: FC no fim do último esforço, parado, e FC após 1 minuto. Depois pedale leve 2 min."}
    ],
    info:"Se escurecer a visão, vier tontura forte, dor no peito, falta de ar desproporcional ou palpitação: pare e leve ao médico antes de repetir."}
 ];
