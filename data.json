@@ -2945,7 +2945,7 @@
       "peso": 77.8,
       "bf": 12.3,
       "mlg": 68.2,
-      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+      "fonte": "Profissional (registro no Apple Health, sem laudo)"
     },
     {
       "d": "2022-06-01",
@@ -2972,42 +2972,58 @@
       "peso": 77.4,
       "bf": 8.3,
       "mlg": 70.96,
-      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+      "fonte": "7 dobras com profissional (até 2 avaliadores)"
     },
     {
       "d": "2023-08-22",
       "peso": 77.8,
       "bf": 8.3,
       "mlg": 71.33,
-      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+      "fonte": "7 dobras com profissional (até 2 avaliadores)"
     },
     {
       "d": "2023-12-24",
       "peso": 80.1,
       "bf": 6.0,
       "mlg": 75.32,
-      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso (peso de 26/12/2023)"
+      "fonte": "7 dobras com profissional (até 2 avaliadores) · peso de 26/12/2023"
     },
     {
       "d": "2024-12-11",
       "peso": 78.3,
       "bf": 6.1,
       "mlg": 73.5,
-      "fonte": "Apple Health — avaliação com profissional (%G e MLG registrados)"
+      "fonte": "7 dobras com profissional (até 2 avaliadores)"
     },
     {
       "d": "2025-01-21",
       "peso": 81.1,
       "bf": 5.5,
       "mlg": 76.6,
-      "fonte": "Apple Health — avaliação com profissional (%G registrado; MLG calculada)"
+      "fonte": "7 dobras com profissional (até 2 avaliadores) · MLG calculada"
     },
     {
       "d": "2026-02-17",
       "peso": 80.7,
       "bf": 7.2,
       "mlg": 74.9,
-      "fonte": "Apple Health — avaliação com profissional (%G e MLG registrados); peso durante o ciclo"
+      "fonte": "7 dobras com profissional (até 2 avaliadores) · peso durante o ciclo"
+    },
+    {
+      "d": "2026-10-03",
+      "peso": 77.7,
+      "bf": 4.5,
+      "mlg": 74.2,
+      "caseira": true,
+      "fonte": "7 dobras caseiras — valores-piso em 5 pontos; subestima o %G"
+    },
+    {
+      "d": "2026-11-21",
+      "peso": 77.6,
+      "bf": 7.8,
+      "mlg": 71.6,
+      "caseira": true,
+      "fonte": "7 dobras caseiras — leituras inconsistentes (peitoral/axilar baixos, tríceps alto)"
     }
   ]
 }

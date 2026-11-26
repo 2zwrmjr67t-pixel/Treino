@@ -357,8 +357,8 @@ canvas{width:100%;height:120px;margin-top:4px}
 
   <div id="measPanelDobras" style="display:none">
     <div class="card">
-      <div class="lbl">Avaliações profissionais — referência de %G</div>
-      <div class="note" style="margin-bottom:6px">Medidas feitas por profissionais. São a referência real de gordura; as dobras caseiras abaixo não servem como número absoluto.</div>
+      <div class="lbl">Histórico de composição corporal — o norte</div>
+      <div class="note" style="margin-bottom:6px">2018: antropometria · 2021–22: nutricionista · 2023–26: 7 dobras com profissional. <b>*</b> = dobras caseiras: referência aproximada, não medida.</div>
       <div id="profBox" class="hist"></div>
     </div>
     <div class="stat">
@@ -1076,7 +1076,7 @@ function renderProf(){
     var dt=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
     var f=function(n){return String(n).replace('.',',')};
     var det=[];if(x.peso!=null)det.push(f(x.peso)+' kg');if(x.mlg!=null)det.push('MLG '+f(x.mlg)+' kg');if(x.mg!=null)det.push('gordura '+f(x.mg)+' kg');
-    return '<div class="h" style="flex-direction:column;align-items:flex-start;gap:2px"><div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>'+f(x.bf)+'%</b></div>'
+    return '<div class="h" style="flex-direction:column;align-items:flex-start;gap:2px'+(x.caseira?';opacity:.7':'')+'"><div style="display:flex;justify-content:space-between;width:100%"><span>'+dt+'</span><b>'+f(x.bf)+'%'+(x.caseira?'*':'')+'</b></div>'
       +'<div style="font-size:10.5px;color:var(--mt)">'+(det.length?det.join(' · ')+' · ':'')+x.fonte+'</div></div>';
   }).join('');
 }
