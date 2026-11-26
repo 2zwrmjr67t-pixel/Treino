@@ -622,5 +622,208 @@ export const EX = {
       'Desça em 3s até estender.'] }),
     cues: [['cotovelos fixos', 'ok'], ['punhos neutros', 'ok'], ['sem balanço do tronco', 'warn', [1]]],
     eq(k) { [0, 1].forEach(i => k.dumbbell(i, k.axis.hammer)); }
+  },
+  /* ===================== MORGANA — exercícios do app dela (morgana/config.js) ===================== */
+  stiff: {
+    day: 'Segunda · Inferiores A', title: 'Stiff com halteres', sub: '3 × 10 · joelhos destravados, coluna neutra',
+    mus: [['ham', 'glute'], ['erector']],
+    base: { leg: [0.02, 0.055, 0.1], kp: [1, 0.15, 0], ep: [-1, 0, 0.15] },
+    keys: [
+      { root: [0, 0.975, 0], up: [0.04, 1, 0], arm: [0.13, 0.9, 0.13] },
+      { root: [-0.15, 0.925, 0], up: [0.82, 0.58, 0], arm: [0.25, 0.64, 0.13], neck: -8 }],
+    ph: std({ up: 3, hold: 1, down: 1.5, n1: 'Descida', n2: 'Embaixo', n3: 'Subida', t: [
+      'Em pé, pés na largura do quadril, halteres à frente das coxas. Joelhos levemente flexionados (não travar).',
+      'Leve o quadril para trás em 3s, halteres rentes às pernas. A coluna fica neutra o tempo todo.',
+      'Pare quando sentir o posterior alongar (abaixo dos joelhos), sem arredondar a lombar.',
+      'Suba empurrando o quadril à frente e contraindo o glúteo. Costelas para baixo no topo, sem jogar o tronco para trás.'] }),
+    cues: [['coluna neutra', 'ok'], ['halteres rentes às pernas', 'hot', [1, 3]], ['não arredondar a lombar', 'warn', [2]]],
+    eq(k) { [0, 1].forEach(i => k.dumbbell(i, k.axis.lat)); }
+  },
+  devh: {
+    day: 'Terça · Superiores A', title: 'Desenvolvimento com halteres sentada', sub: '3 × 10 · encosto alto, costelas fechadas',
+    mus: [['delt'], ['tri', 'trap']],
+    base: { root: [0, 0.6, 0], up: [-0.08, 1, 0], leg: [0.5, 0.055, 0.17], kp: [1, 0.3, 0.1] },
+    keys: [
+      { arm: [0.03, 1.1, 0.4], ep: [0.15, -1, 0.7] },
+      { arm: [0.01, 1.58, 0.17], ep: [0, -0.4, 1] }],
+    ph: std({ up: 1, hold: 1, down: 3, n1: 'Empurra', n2: 'Topo', n3: 'Descida', t: [
+      'Sentada com as costas no encosto alto, pés firmes no chão. Halteres na altura das orelhas, cotovelos levemente à frente do tronco.',
+      'Empurre para cima em ~1s, expirando. Os halteres se aproximam no topo.',
+      'Braços quase estendidos, sem travar os cotovelos. Costelas fechadas: a lombar não sai do encosto.',
+      'Desça em 3s até a altura das orelhas.'] }),
+    cues: [['lombar no encosto', 'ok'], ['costelas fechadas', 'hot', [1, 2]], ['não arquear a lombar', 'warn', [2]]],
+    eq(k) { seat(k, { backLen: 0.78 }); [0, 1].forEach(i => k.dumbbell(i, k.axis.lat)); }
+  },
+  pranchaf: {
+    day: 'Quarta · Core', title: 'Prancha frontal', sub: '3 × 30–40s · isometria',
+    mus: [['abs'], ['obl', 'glute', 'delt']], view: 'lat',
+    base: { fwd: [0, -1, 0], arm: [0.74, 0.07, 0.12], ep: [0.2, -1, 0.3], leg: [-0.95, 0.075, 0.1], kp: [0, -1, 0], ank: 70 },
+    keys: [
+      { root: [0, 0.17, 0], up: [1, 0.34, 0] },
+      { root: [0, 0.255, 0], up: [1, 0.165, 0] }],
+    ph: [
+      { n: 'Apoio', d: 1, p: [0], k: 'r', t: 'De bruços, antebraços no chão com os cotovelos exatamente sob os ombros. Pés apoiados na ponta.' },
+      { n: 'Eleva · 1,5s', d: 1.5, p: [0, 1], k: 'u', t: 'Contraia glúteo e abdômen e eleve o quadril até alinhar ombro, quadril e tornozelo.' },
+      { n: 'Segure · 30–40s', d: 4, p: [1], k: 'h', t: 'Costelas fechadas e glúteo contraído: a lombar não cede. Respiração contínua, pescoço alinhado.' },
+      { n: 'Desce · 1,5s', d: 1.5, p: [1, 0], k: 'd', t: 'Desça controlando. Se a lombar começar a afundar, encerre a série.' }],
+    cues: [['corpo alinhado', 'ok'], ['glúteo contraído', 'ok'], ['lombar não cede', 'warn', [2]]],
+    eq(k) { k.matFloor(-1.1, 1.0, 0.7); }
+  },
+  flexq: {
+    day: 'Quarta · Mobilidade', title: 'Alongamento do flexor do quadril', sub: '2 × 45s por lado · meio ajoelhado',
+    mus: [['quad'], ['glute', 'abs']], tag: 'flexor do quadril (perna de trás)', noSpine: false,
+    base: { arm: { t: [0.06, 0.03, 0.2] }, ep: [-1, 0.3, 0.6],
+      legR: [-0.76, 0.075, 0.12], kpR: [0.3, -1, 0], ankR: 75,
+      legL: [0.5, 0.055, -0.13], kpL: [1, 0.6, 0] },
+    keys: [
+      { root: [-0.02, 0.5, 0], up: [0.02, 1, 0] },
+      { root: [0.12, 0.47, 0], up: [-0.06, 1, 0] }],
+    ph: [
+      { n: 'Posição', d: 1, p: [0], k: 'r', t: 'Joelho de trás no chão (use um apoio macio), pé da frente apoiado com o joelho a ~90°. Tronco alto, mãos no quadril.' },
+      { n: 'Avança · 1,5s', d: 1.5, p: [0, 1], k: 'u', t: 'Contraia o glúteo da perna de trás e leve o quadril levemente à frente, sem arquear a lombar.' },
+      { n: 'Segure · 45s', d: 4, p: [1], k: 'h', t: 'Sinta o alongamento na frente do quadril da perna de trás. Costelas para baixo, respiração lenta.' },
+      { n: 'Volta · 1,5s', d: 1.5, p: [1, 0], k: 'd', t: 'Volte devagar e troque de lado.' }],
+    cues: [['glúteo de trás contraído', 'hot', [1, 2]], ['tronco alto', 'ok'], ['não arquear a lombar', 'warn', [2]]],
+    eq(k) { k.matFloor(-1.0, 0.85, 0.7); }
+  },
+  agach: {
+    day: 'Quinta · Inferiores B', title: 'Agachamento no smith', sub: '4 × 8–10 · amplitude controlada',
+    mus: [['quad', 'glute'], ['add', 'ham']],
+    base: { leg: [0.1, 0.055, 0.15], kp: [1, 0.1, 0.35], arm: { t: [-0.13, 0.47, 0.4] }, ep: { t: [-0.3, -1, 0.4] }, ank: 0 },
+    keys: [
+      { root: [0, 0.975, 0], up: [0.03, 1, 0] },
+      { root: [-0.13, 0.57, 0], up: [0.36, 0.93, 0], neck: -10 }],
+    ph: std({ up: 2.5, hold: 0.6, down: 1.2, n1: 'Descida', n2: 'Embaixo', n3: 'Subida', holdTxt: 'transição', t: [
+      'Barra apoiada no trapézio, pés um pouco à frente da linha da barra, na largura dos ombros. Abdômen firme.',
+      'Desça em ~2,5s levando o quadril para trás e para baixo, joelhos na direção dos pés.',
+      'Coxas perto da paralela, calcanhares no chão, coluna neutra.',
+      'Suba empurrando o chão. No topo, não trave os joelhos.'] }),
+    cues: [['calcanhares no chão', 'ok'], ['joelhos na linha dos pés', 'hot', [1, 2]], ['não travar os joelhos', 'warn', [3]]],
+    eq(k) {
+      const { M } = k;
+      [-1, 1].forEach(s => k.beam([-0.06, 0.03, 0.72 * s], [-0.06, 2.1, 0.72 * s], 0.03, M.steel));
+      k.beam([-0.06, 2.1, -0.72], [-0.06, 2.1, 0.72], 0.03); k.rails(-0.45, 0.45, 0.8);
+      k.bar(1.5, 0.16, false);
+    }
+  },
+  bulg: {
+    day: 'Quinta · Inferiores B', title: 'Afundo búlgaro com halteres', sub: '3 × 10 por lado · pé de trás no banco',
+    mus: [['quad', 'glute'], ['add', 'ham']],
+    base: { legR: [0.36, 0.055, 0.12], kpR: [1, 0.3, 0.1], legL: [-0.64, 0.5, -0.12], kpL: [0.2, -1, 0], ankL: 70, ep: [-1, 0, 0.15] },
+    keys: [
+      { root: [0, 0.88, 0], up: [0.08, 1, 0], arm: { t: [0.03, -0.08, 0.23] } },
+      { root: [0.05, 0.56, 0], up: [0.3, 0.95, 0], arm: { t: [0.03, -0.08, 0.23] } }],
+    ph: std({ up: 2, hold: 0.8, down: 1.2, n1: 'Descida', n2: 'Embaixo', n3: 'Subida', holdTxt: 'transição', t: [
+      'Pé de trás apoiado no banco (peito do pé), pé da frente afastado o suficiente para o joelho ficar sobre o pé. Halteres ao lado do corpo.',
+      'Desça em ~2s com o tronco levemente à frente: mais glúteo. O peso fica na perna da frente.',
+      'Joelho de trás perto do chão, joelho da frente alinhado com o pé.',
+      'Suba empurrando o chão com o pé inteiro da frente. Faça todas as reps de um lado e troque.'] }),
+    cues: [['peso na perna da frente', 'ok'], ['joelho alinhado ao pé', 'hot', [1, 2]], ['tronco estável', 'ok']],
+    eq(k) {
+      const { M } = k;
+      k.box([-0.72, 0.42, -0.12], [0.42, 0.07, 0.34], M.pad, null, 0.03);
+      [-0.85, -0.6].forEach(x => k.beam([x, 0.03, -0.12], [x, 0.39, -0.12], 0.03));
+      [0, 1].forEach(i => k.dumbbell(i, k.axis.x));
+    }
+  },
+  remuni: {
+    day: 'Sexta · Superiores B', title: 'Remada unilateral com halter', sub: '4 × 10 por lado · apoio no banco',
+    mus: [['lat'], ['trapm', 'scap', 'bic']], view: 'tq',
+    base: { root: [-0.1, 0.9, 0], up: [1, 0.15, 0], fwd: [0, -1, 0],
+      armL: [0.42, 0.5, -0.17], epL: [-0.3, 0, -1],
+      legL: [-0.52, 0.52, -0.12], kpL: [0.1, -1, 0], ankL: 70,
+      legR: [-0.12, 0.055, 0.32], kpR: [1, 0.2, 0.2] },
+    keys: [
+      { armR: [0.38, 0.44, 0.22], epR: [-0.4, 0.2, 1] },
+      { armR: [0.06, 0.84, 0.22], epR: [-0.6, 1, 0.2], shR: 0.8 }],
+    ph: std({ up: 1, hold: 1, down: 2, n1: 'Puxada', n2: 'Contração', n3: 'Retorno', t: [
+      'Joelho e mão do mesmo lado no banco, a outra perna firme no chão. Tronco quase paralelo ao chão, coluna neutra.',
+      'Puxe o cotovelo em direção ao quadril, sem girar o tronco.',
+      'Segure 1s com a escápula para trás. O ombro não sobe para a orelha.',
+      'Desça em 2s até estender o braço, deixando a escápula alongar.'] }),
+    cues: [['coluna neutra', 'ok'], ['cotovelo para o quadril', 'hot', [1, 2]], ['sem girar o tronco', 'warn', [1]]],
+    eq(k) {
+      const { M } = k;
+      k.box([-0.1, 0.42, -0.14], [1.15, 0.07, 0.34], M.pad, null, 0.03);
+      [-0.5, 0.3].forEach(x => k.beam([x, 0.03, -0.14], [x, 0.39, -0.14], 0.03)); k.rails(-0.75, 0.6, 0.3);
+      k.dumbbell(0, k.axis.x);
+    }
+  },
+  pulln: {
+    day: 'Sexta · Superiores B', title: 'Puxada com pegada neutra fechada', sub: '3 × 10 · triângulo no cabo',
+    mus: [['lat'], ['bic', 'trapm', 'scap']],
+    base: { root: [0, 0.56, 0], up: [-0.18, 1, 0], leg: [0.47, 0.06, 0.12], kp: [0.6, 1, 0] },
+    keys: [{ arm: [0.16, 1.56, 0.075], ep: [1, -0.3, 0.4] }, { arm: [0.2, 1.33, 0.075], ep: [0.6, -1, 0.5] }, { arm: [0.21, 1.12, 0.075], ep: [0.1, -1, 0.5], shR: 0.6 }],
+    ph: std({ path: [0, 1, 2], up: 1, hold: 1, down: 3, n1: 'Puxada', n2: 'Contração', n3: 'Retorno', t: [
+      'Coxas travadas no apoio, triângulo com as palmas voltadas uma para a outra, braços estendidos. Leve inclinação para trás.',
+      'Puxe o triângulo até a parte alta do peito, cotovelos descendo à frente do corpo.',
+      'Pausa de 1s com o peito alto e as escápulas para baixo.',
+      'Volte em 3s até estender os braços, sem soltar a carga.'] }),
+    cues: [['peito alto', 'ok'], ['cotovelos para baixo', 'hot', [1, 2]], ['sem balançar o tronco', 'warn', [1]]],
+    eq(k) {
+      const { M, R, V } = k; seat(k, { back: false, x0: -0.25, x1: 0.32, top: 0.46 });
+      k.box([0.3, 0.71, 0], [0.12, 0.07, 0.42], M.pad, null, 0.03);
+      [-1, 1].forEach(s => k.beam([0.3, 0.71, 0.18 * s], [0.12, 0.42, 0.1 * s], 0.02));
+      k.stack(0.85, 0, 2.3, 0.3); k.pulley([0.2, 2.3, 0]); k.beam([0.2, 2.3, 0], [0.85, 2.3, 0], 0.03);
+      const hub = () => k.gripMid().add(V(0, 0.1, 0));
+      [0, 1].forEach(i => k.link(hub, () => R.grip[i], 0.014, M.steel));
+      k.cable(hub, [0.2, 2.3, 0]);
+    }
+  },
+  supih: {
+    day: 'Sexta · Superiores B', title: 'Supino inclinado com halteres', sub: '3 × 10 · banco a 30°',
+    mus: [['pec'], ['delt', 'tri']],
+    base: { root: [0.25, 0.555, 0], up: [-0.866, 0.5, 0], fwd: [0.5, 0.866, 0], leg: [0.74, 0.06, 0.18], kp: [1, 1, 0] },
+    keys: [{ arm: { t: [0.14, 0.42, 0.38] }, ep: { t: [-0.7, -0.3, 0.7] } }, { arm: { t: [0.55, 0.47, 0.13] }, ep: { t: [-0.4, 0, 1] } }],
+    ph: std({ up: 1, hold: 1, down: 3, n1: 'Empurra', t: [
+      'Banco a ~30°, escápulas encaixadas no encosto, pés firmes no chão. Halteres ao lado do peito, cotovelos a ~45°.',
+      'Empurre em ~1s: os halteres sobem e se aproximam acima do peito.',
+      'Braços quase estendidos, sem bater os halteres e sem travar os cotovelos.',
+      'Desça em 3s até a linha do peito, sem perder o encaixe das escápulas.'] }),
+    cues: [['escápulas encaixadas', 'ok'], ['cotovelos a ~45°', 'hot', [1, 3]], ['não travar os cotovelos', 'warn', [2]]],
+    eq(k) {
+      const { M, V, axis } = k; const F = k.frame(0);
+      k.boxF(F, 't', [-0.155, 0.32, 0], [0.07, 0.82, 0.3]);
+      k.box([0.32, 0.43, 0], [0.38, 0.07, 0.32], M.pad, null, 0.03);
+      const a = k.ptF(F, 't', [-0.2, 0.45, 0]); k.beam(a, V(a.x, 0.03, 0), 0.03);
+      k.beam([0.32, 0.03, 0], [0.32, 0.4, 0], 0.03); k.rails(-0.7, 0.6, 0.3);
+      [0, 1].forEach(i => k.dumbbell(i, axis.latT));
+    }
+  },
+  lath: {
+    day: 'Terça e sexta · Ombros', title: 'Elevação lateral com halteres', sub: '3 × 12–15 · até a linha do ombro',
+    mus: [['delt'], []], view: 'fr',
+    base: { ep: [-0.7, -0.1, 0.7] },
+    keys: [{ arm: [0.08, 0.92, 0.22] }, { arm: [0.06, 1.1, 0.56] }, { arm: [0.05, 1.4, 0.71] }],
+    ph: std({ path: [0, 1, 2], up: 1, hold: 1, down: 3, t: [
+      'Em pé, halteres ao lado do corpo, joelhos destravados, cotovelos levemente dobrados.',
+      'Eleve em arco lateral sem balançar o tronco, punho na linha do cotovelo.',
+      'Pare na altura do ombro, sem encolher o trapézio.',
+      'Desça em 3s controlando.'] }),
+    cues: [['tronco firme', 'ok'], ['pare na linha do ombro', 'hot', [2]], ['sem balanço', 'warn', [1]]],
+    eq(k) { [0, 1].forEach(i => k.dumbbell(i, k.axis.x, 0.85)); }
+  },
+  crucinv: {
+    day: 'Sexta · Superiores B', title: 'Crucifixo inverso apoiado', sub: '2 × 15 · banco inclinado, carga leve',
+    mus: [['delt', 'scap', 'trapm'], []], tag: 'deltoide posterior',
+    base: { tf: 45, leg: { p: [-0.1, -0.93, 0.1] }, kp: [1, 0.1, 0] },
+    keys: [{ arm: [0.36, 0.78, 0.17], ep: [-0.3, 0.6, 1] }, { arm: [0.3, 1.02, 0.58], ep: [-0.3, 1, 0.3], shR: 0.6 }, { arm: [0.27, 1.27, 0.7], ep: [-0.3, 1, 0.1], shR: 1 }],
+    ph: std({ path: [0, 1, 2], up: 1, hold: 1, down: 3, n1: 'Abertura', n2: 'Contração', n3: 'Retorno', t: [
+      'Peito apoiado no banco a 45°, braços pendurados com os cotovelos levemente dobrados. Pescoço neutro.',
+      'Abra os braços em arco lateral, guiando pelos cotovelos.',
+      'Pausa de 1s com as escápulas aproximadas, braços na linha dos ombros.',
+      'Desça em 3s controlando.'] }),
+    cues: [['peito no apoio', 'ok'], ['abra pelos cotovelos', 'hot', [1, 2]], ['sem encolher os ombros', 'warn', [2]]],
+    eq(k) {
+      const { V, M, axis } = k; const F = k.frame(0);
+      k.boxF(F, 't', [0.168, 0.15, 0], [0.075, 0.6, 0.27]);
+      const p1 = k.ptF(F, 't', [0.215, -0.1, 0]), p2 = k.ptF(F, 't', [0.215, 0.4, 0]); k.beam(p1, p2, 0.02);
+      const ct = k.ptF(F, 't', [0.215, 0.26, 0]); k.beam(ct, V(ct.x, 0.04, 0), 0.028);
+      const st = k.ptF(F, 't', [0.215, -0.08, 0]); k.beam(st, V(st.x + 0.02, 0.04, 0), 0.022);
+      k.rails(-0.42, ct.x + 0.32);
+      k.box([-0.29, 0.05, 0], [0.3, 0.025, 0.42], M.frame, null, 0.008);
+      [0, 1].forEach(i => k.dumbbell(i, axis.x, 0.8));
+    }
   }
+
 };

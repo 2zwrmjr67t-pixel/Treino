@@ -29,7 +29,7 @@ window.CFG={
    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Hip thrust",m:"11min",h:1},{t:"Stiff",m:"8min",h:1},{t:"Flexora",m:"7min",h:1},{t:"Abdução",m:"4min",h:1},{t:"Dead bug",m:"4min",h:1}],
    ex:[
      {n:"Hip thrust (barra ou máquina)",dm:"ht",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Composto principal — priorize a carga. Queixo levemente para baixo e costelas fechadas no topo: o movimento é do quadril, não da lombar. Pausa de 1s na contração."},
-     {n:"Stiff com halteres",dm:"",tg:[],s:"3",r:"10",d:"75s",nt:"Joelhos levemente flexionados (não travar). Quadril vai para trás, coluna neutra, halteres rentes às coxas. Desce até sentir o posterior alongar."},
+     {n:"Stiff com halteres",dm:"stiff",tg:[],s:"3",r:"10",d:"75s",nt:"Joelhos levemente flexionados (não travar). Quadril vai para trás, coluna neutra, halteres rentes às coxas. Desce até sentir o posterior alongar."},
      {n:"Cadeira flexora",dm:"flexs",tg:[],s:"3",r:"12",d:"60s",nt:"Amplitude total, sem impulso. Controle de 2–3s na volta."},
      {n:"Abdução de quadril na máquina",dm:"abd",tg:[],s:"2",r:"15",d:"45s",nt:"Glúteo médio — estabilidade do quadril. Pausa de 1s aberta."},
      {n:"Dead bug",dm:"deadbug",tg:[],s:"2",r:"8/lado",d:"30s",nt:"Lombar colada no chão o tempo todo. Expira ao estender braço e perna opostos. Corrige a anteversão pélvica."}
@@ -41,7 +41,7 @@ window.CFG={
    ex:[
      {n:"Puxada frontal pegada aberta",dm:"pulldown",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Composto principal — puxe pela escápula, cotovelos descendo para os bolsos. Peito alto, sem jogar o tronco para trás."},
      {n:"Remada baixa no cabo, pegada neutra",dm:"rowlow",tg:[],s:"3",r:"10–12",d:"75s",nt:"Espessura do meio das costas. Cotovelos rentes ao corpo, pausa de 1s com as escápulas juntas."},
-     {n:"Desenvolvimento com halteres sentada",dm:"",tg:[],s:"3",r:"10",d:"75s",nt:"Encosto alto, costelas fechadas — sem arquear a lombar. Controle na descida."},
+     {n:"Desenvolvimento com halteres sentada",dm:"devh",tg:[],s:"3",r:"10",d:"75s",nt:"Encosto alto, costelas fechadas — sem arquear a lombar. Controle na descida."},
      {n:"Elevação lateral no cabo",dm:"lat",tg:[],s:"3",r:"15",d:"60s",nt:"Deltoide lateral — cotovelo levemente flexionado, sobe até a altura do ombro."},
      {n:"Face pull com corda",dm:"face",tg:[],s:"2",r:"15",d:"45s",nt:"Deltoide posterior e manguito — puxe para a altura da testa, abrindo a corda. Ajuda a postura dos ombros."}
    ],
@@ -50,17 +50,17 @@ window.CFG={
    foc:"Dia leve depois do cardio — core anti-extensão e quadril",
    tl:[{t:"Prancha",m:"4min",h:1},{t:"Dead bug",m:"4min",h:1},{t:"Flexor quadril",m:"4min",h:1}],
    ex:[
-     {n:"Prancha frontal",dm:"",tg:[],s:"3",r:"30–40s",d:"30s",nt:"Glúteo contraído, costelas fechadas, quadril alinhado — sem deixar a lombar cair."},
+     {n:"Prancha frontal",dm:"pranchaf",tg:[],s:"3",r:"30–40s",d:"30s",nt:"Glúteo contraído, costelas fechadas, quadril alinhado — sem deixar a lombar cair."},
      {n:"Dead bug",dm:"deadbug",tg:[],s:"2",r:"8/lado",d:"30s",nt:"Lombar colada no chão. Devagar, expirando na extensão."},
-     {n:"Alongamento do flexor do quadril (meio ajoelhado)",dm:"",tg:[],s:"2",r:"45s/lado",d:"—",nt:"Joelho de trás no chão, glúteo desse lado contraído e quadril levemente para a frente. Tronco reto, sem arquear."}
+     {n:"Alongamento do flexor do quadril (meio ajoelhado)",dm:"flexq",tg:[],s:"2",r:"45s/lado",d:"—",nt:"Joelho de trás no chão, glúteo desse lado contraído e quadril levemente para a frente. Tronco reto, sem arquear."}
    ],
    info:"Feito logo depois da Zona 2 da quarta. Curto de propósito: postura e core, não volume."},
   {l:"Qui",n:"Inferiores B",c:"#7a6bbf",
    foc:"Quadríceps e glúteo — segundo estímulo de perna",
    tl:[{t:"Aquec.",m:"4min",h:0},{t:"Agachamento",m:"11min",h:1},{t:"Búlgaro",m:"10min",h:1},{t:"Extensora",m:"7min",h:1},{t:"Panturrilha",m:"4min",h:1},{t:"Prancha lat.",m:"4min",h:1}],
    ex:[
-     {n:"Agachamento no smith ou leg press",dm:"",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Composto principal — amplitude completa e controlada, joelhos na linha dos pés. No topo, não travar os joelhos."},
-     {n:"Afundo búlgaro com halteres",dm:"",tg:[],s:"3",r:"10/lado",d:"75s",nt:"Tronco levemente à frente para mais glúteo. Joelho da frente alinhado ao pé."},
+     {n:"Agachamento no smith ou leg press",dm:"agach",tg:["p"],s:"4",r:"8–10",d:"90s",nt:"Composto principal — amplitude completa e controlada, joelhos na linha dos pés. No topo, não travar os joelhos."},
+     {n:"Afundo búlgaro com halteres",dm:"bulg",tg:[],s:"3",r:"10/lado",d:"75s",nt:"Tronco levemente à frente para mais glúteo. Joelho da frente alinhado ao pé."},
      {n:"Cadeira extensora",dm:"ext",tg:[],s:"3",r:"12–15",d:"60s",nt:"Pausa de 1s no topo, descida em 3s."},
      {n:"Panturrilha",dm:"pant",tg:[],s:"2",r:"15",d:"45s",nt:"Amplitude total, pausa de 1s no alongamento."},
      {n:"Prancha lateral",dm:"plank",tg:[],s:"2",r:"30s/lado",d:"30s",nt:"Quadril alto, corpo em linha reta. Oblíquos e glúteo médio."}
@@ -70,11 +70,11 @@ window.CFG={
    foc:"Segundo dia de costas + empurrar e posterior de ombro",
    tl:[{t:"Aquec.",m:"3min",h:0},{t:"Remada unilat.",m:"11min",h:1},{t:"Puxada neutra",m:"8min",h:1},{t:"Supino incl.",m:"8min",h:1},{t:"Elev. lateral",m:"6min",h:1},{t:"Crucifixo inv.",m:"4min",h:1}],
    ex:[
-     {n:"Remada unilateral com halter",dm:"",tg:["p"],s:"4",r:"10",d:"75s",nt:"Composto principal do dia. Apoio no banco, coluna neutra; puxe o cotovelo em direção ao quadril, sem girar o tronco."},
-     {n:"Puxada pegada neutra fechada",dm:"",tg:[],s:"3",r:"10",d:"75s",nt:"Cotovelos à frente do corpo, desce até o peito. Foco no grande dorsal."},
-     {n:"Supino inclinado com halteres",dm:"",tg:[],s:"3",r:"10",d:"75s",nt:"Banco a 30°, escápulas encaixadas no banco. Cotovelos a ~45°."},
-     {n:"Elevação lateral com halteres",dm:"",tg:[],s:"3",r:"12–15",d:"60s",nt:"Sobe até a altura do ombro, sem balançar o tronco."},
-     {n:"Crucifixo inverso (posterior de ombro)",dm:"",tg:[],s:"2",r:"15",d:"45s",nt:"Na máquina peck deck invertida ou com halteres inclinada. Carga leve, foco em abrir as escápulas."}
+     {n:"Remada unilateral com halter",dm:"remuni",tg:["p"],s:"4",r:"10",d:"75s",nt:"Composto principal do dia. Apoio no banco, coluna neutra; puxe o cotovelo em direção ao quadril, sem girar o tronco."},
+     {n:"Puxada pegada neutra fechada",dm:"pulln",tg:[],s:"3",r:"10",d:"75s",nt:"Cotovelos à frente do corpo, desce até o peito. Foco no grande dorsal."},
+     {n:"Supino inclinado com halteres",dm:"supih",tg:[],s:"3",r:"10",d:"75s",nt:"Banco a 30°, escápulas encaixadas no banco. Cotovelos a ~45°."},
+     {n:"Elevação lateral com halteres",dm:"lath",tg:[],s:"3",r:"12–15",d:"60s",nt:"Sobe até a altura do ombro, sem balançar o tronco."},
+     {n:"Crucifixo inverso (posterior de ombro)",dm:"crucinv",tg:[],s:"2",r:"15",d:"45s",nt:"Na máquina peck deck invertida ou com halteres inclinada. Carga leve, foco em abrir as escápulas."}
    ],
    info:"15 séries. Costas fecham ~14 séries diretas na semana."}
   ],
