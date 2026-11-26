@@ -2904,7 +2904,7 @@
       "mlg": 66.7,
       "rcq": 0.8,
       "cmb": 31.9,
-      "fonte": "Nutricionista Danieli Noschang (avaliação presencial)"
+      "fonte": "Nutricionista Danieli Noschang (avaliação presencial) (no Health consta MLG 68,7 — provável erro de digitação)"
     },
     {
       "d": "2021-02-25",
@@ -2927,6 +2927,13 @@
       "fonte": "Nutricionista Danieli Noschang (avaliação presencial)"
     },
     {
+      "d": "2021-10-26",
+      "peso": 77.8,
+      "bf": 12.3,
+      "mlg": 68.2,
+      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+    },
+    {
       "d": "2022-06-01",
       "peso": 76.6,
       "bf": 10.3,
@@ -2947,20 +2954,46 @@
       "fonte": "Nutricionista Danieli Noschang (avaliação presencial)"
     },
     {
+      "d": "2023-03-21",
+      "peso": 77.4,
+      "bf": 8.3,
+      "mlg": 70.96,
+      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+    },
+    {
+      "d": "2023-08-22",
+      "peso": 77.8,
+      "bf": 8.3,
+      "mlg": 71.33,
+      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso"
+    },
+    {
+      "d": "2023-12-24",
+      "peso": 80.1,
+      "bf": 6.0,
+      "mlg": 75.32,
+      "fonte": "Apple Health — avaliação com profissional; %G = 1 − MLG/peso (peso de 26/12/2023)"
+    },
+    {
       "d": "2024-12-11",
+      "peso": 78.3,
       "bf": 6.1,
-      "fonte": "Apple Health — avaliação com profissional (método não informado)"
+      "mlg": 73.5,
+      "fonte": "Apple Health — avaliação com profissional (%G e MLG registrados)"
     },
     {
       "d": "2025-01-21",
+      "peso": 81.1,
       "bf": 5.5,
-      "fonte": "Apple Health — avaliação com profissional (método não informado)"
+      "mlg": 76.6,
+      "fonte": "Apple Health — avaliação com profissional (%G registrado; MLG calculada)"
     },
     {
       "d": "2026-02-17",
       "peso": 80.7,
       "bf": 7.2,
-      "fonte": "Apple Health — avaliação com profissional (método não informado); peso durante o ciclo"
+      "mlg": 74.9,
+      "fonte": "Apple Health — avaliação com profissional (%G e MLG registrados); peso durante o ciclo"
     }
   ]
 }
