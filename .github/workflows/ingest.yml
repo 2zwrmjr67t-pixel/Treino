@@ -25,16 +25,20 @@ jobs:
       - name: Mensagem de teste
         if: ${{ inputs.teste }}
         run: |
-          curl -s -d "{\"v\":1,\"t\":\"teste\",\"id\":\"teste-${GITHUB_RUN_ID}\"}" https://ntfy.sh/pg-ca2a704c401a6f81
+          for t in pg-ca2a704c401a6f81 mg-2007bb48a1686974; do
+            curl -s -d "{\"v\":1,\"t\":\"teste\",\"id\":\"teste-${GITHUB_RUN_ID}\"}" https://ntfy.sh/$t
+          done
           sleep 3
-      - name: Buscar e gravar
-        run: python3 scripts/ingest.py
+      - name: Buscar e gravar — João
+        run: NTFY_TOPIC=pg-ca2a704c401a6f81 OUT_FILE=treinos.json python3 scripts/ingest.py
+      - name: Buscar e gravar — Morgana
+        run: NTFY_TOPIC=mg-2007bb48a1686974 OUT_FILE=morgana/treinos.json python3 scripts/ingest.py
       - name: Commit
         run: |
-          if git diff --quiet -- treinos.json; then echo "Nada novo"; exit 0; fi
+          if git diff --quiet -- treinos.json morgana/treinos.json; then echo "Nada novo"; exit 0; fi
           git config user.name "app-treino-bot"
           git config user.email "app-treino-bot@users.noreply.github.com"
-          git add treinos.json
+          git add treinos.json morgana/treinos.json
           git commit -m "Registros do app"
           for i in 1 2 3; do git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
           exit 1
