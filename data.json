@@ -2433,11 +2433,11 @@
       ],
       "lt": [
         {
-          "n": "Pão brioche da receita (1 un. de 16, c/ cobertura de doce de leite)",
-          "k": 357,
-          "p": 9,
-          "c": 57,
-          "f": 11
+          "n": "Pão brioche da receita (1 un. de 27, porção de 60 g, c/ cobertura de doce de leite)",
+          "k": 212,
+          "p": 5,
+          "c": 34,
+          "f": 6
         },
         {
           "n": "Cinnamon roll da receita (1 un. de 8, c/ glacê)",
@@ -2998,10 +2998,10 @@
       "f": 51
     },
     "2026-11-26": {
-      "k": 3738,
-      "p": 208,
-      "c": 441,
-      "f": 122
+      "k": 3593,
+      "p": 204,
+      "c": 418,
+      "f": 117
     }
   },
   "avaliacoesProf": [
