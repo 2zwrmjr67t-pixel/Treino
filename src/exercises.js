@@ -804,26 +804,16 @@ export const EX = {
     eq(k) { [0, 1].forEach(i => k.dumbbell(i, k.axis.x, 0.85)); }
   },
   crucinv: {
-    day: 'Sexta · Superiores B', title: 'Crucifixo inverso apoiado', sub: '2 × 15 · banco inclinado, carga leve',
-    mus: [['delt', 'scap', 'trapm'], []], tag: 'deltoide posterior',
-    base: { tf: 45, leg: { p: [-0.1, -0.93, 0.1] }, kp: [1, 0.1, 0] },
-    keys: [{ arm: [0.36, 0.78, 0.17], ep: [-0.3, 0.6, 1] }, { arm: [0.3, 1.02, 0.58], ep: [-0.3, 1, 0.3], shR: 0.6 }, { arm: [0.27, 1.27, 0.7], ep: [-0.3, 1, 0.1], shR: 1 }],
+    day: 'Sexta · Superiores B', title: 'Crucifixo inverso curvado (livre)', sub: '2 × 15 · em pé, sem apoio no peito, carga leve',
+    mus: [['delt', 'scap', 'trapm'], ['erector']], tag: 'deltoide posterior',
+    base: { root: [-0.13, 0.93, 0], up: [0.72, 0.69, 0], leg: [0.02, 0.055, 0.12], kp: [1, 0.2, 0.1], neck: -10 },
+    keys: [{ arm: [0.23, 0.74, 0.17], ep: [-0.3, 0.6, 1] }, { arm: [0.22, 0.98, 0.55], ep: [-0.3, 1, 0.3], shR: 0.6 }, { arm: [0.2, 1.18, 0.68], ep: [-0.3, 1, 0.1], shR: 1 }],
     ph: std({ path: [0, 1, 2], up: 1, hold: 1, down: 3, n1: 'Abertura', n2: 'Contração', n3: 'Retorno', t: [
-      'Peito apoiado no banco a 45°, braços pendurados com os cotovelos levemente dobrados. Pescoço neutro.',
-      'Abra os braços em arco lateral, guiando pelos cotovelos.',
+      'Em pé, quadril para trás e tronco inclinado ~45°, joelhos destravados, coluna neutra. Braços pendurados, cotovelos levemente dobrados. Sem apoio no peito.',
+      'Abra os braços em arco lateral, guiando pelos cotovelos. O tronco não sobe.',
       'Pausa de 1s com as escápulas aproximadas, braços na linha dos ombros.',
-      'Desça em 3s controlando.'] }),
-    cues: [['peito no apoio', 'ok'], ['abra pelos cotovelos', 'hot', [1, 2]], ['sem encolher os ombros', 'warn', [2]]],
-    eq(k) {
-      const { V, M, axis } = k; const F = k.frame(0);
-      k.boxF(F, 't', [0.168, 0.15, 0], [0.075, 0.6, 0.27]);
-      const p1 = k.ptF(F, 't', [0.215, -0.1, 0]), p2 = k.ptF(F, 't', [0.215, 0.4, 0]); k.beam(p1, p2, 0.02);
-      const ct = k.ptF(F, 't', [0.215, 0.26, 0]); k.beam(ct, V(ct.x, 0.04, 0), 0.028);
-      const st = k.ptF(F, 't', [0.215, -0.08, 0]); k.beam(st, V(st.x + 0.02, 0.04, 0), 0.022);
-      k.rails(-0.42, ct.x + 0.32);
-      k.box([-0.29, 0.05, 0], [0.3, 0.025, 0.42], M.frame, null, 0.008);
-      [0, 1].forEach(i => k.dumbbell(i, axis.x, 0.8));
-    }
+      'Desça em 3s controlando. Carga leve: se a lombar cansar antes do ombro, apoie a testa num banco inclinado.'] }),
+    cues: [['coluna neutra', 'ok'], ['abra pelos cotovelos', 'hot', [1, 2]], ['tronco parado', 'warn', [1]]],
+    eq(k) { [0, 1].forEach(i => k.dumbbell(i, k.axis.x, 0.8)); }
   }
-
 };

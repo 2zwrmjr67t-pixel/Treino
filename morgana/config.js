@@ -11,7 +11,7 @@ window.CFG={
   nascimento:[1991,8,9],             /* 09/08/1991 */
   metaKcalTxt:'1.600–1.700',
   metaNota:"Meta ~1.650 kcal <b>todo dia</b>, inclusive fim de semana · <b>proteína 125–135 g é o piso</b> (mínimo 120 g mesmo em dia livre) · gordura 50–60 g · carboidrato é o resto, perto do treino",
-  avisoTreino:"<b>Plano v2 · Definição</b> · 5 dias de ~40 min. Prioridade: <b>costas 2×/semana</b> e core anti-extensão (postura). Carga pesada com 1–2 reps na reserva; sobe a carga ao completar todas as reps limpas em 2 sessões seguidas.",
+  avisoTreino:"<b>Plano v2 · Definição</b> · 5 dias de ~40 min. Prioridade: <b>costas 2×/semana</b> e core anti-extensão (postura). <b>Sem máquinas com apoio no peito</b> (prótese): versão livre ou outra máquina. Carga pesada com 1–2 reps na reserva; sobe a carga ao completar todas as reps limpas em 2 sessões seguidas.",
   cardioProtocolo:"<b>Protocolo:</b> base diária de <b>8–10 mil passos</b> + Zona 2 (conversa possível, sem ofegar) na bike ou esteira inclinada. Intervalado só a partir da semana 5, se as cargas estiverem estáveis.",
   exameNota:'Consulta com médico do esporte: levar exames recentes e lista de medicações/suplementos.',
   composicaoNota:'Próxima avaliação na semana 4 (21/12): fotos padronizadas, circunferências e dobras (sem coxa, com bíceps).',
@@ -74,7 +74,7 @@ window.CFG={
      {n:"Puxada pegada neutra fechada",dm:"pulln",tg:[],s:"3",r:"10",d:"75s",nt:"Cotovelos à frente do corpo, desce até o peito. Foco no grande dorsal."},
      {n:"Supino inclinado com halteres",dm:"supih",tg:[],s:"3",r:"10",d:"75s",nt:"Banco a 30°, escápulas encaixadas no banco. Cotovelos a ~45°."},
      {n:"Elevação lateral com halteres",dm:"lath",tg:[],s:"3",r:"12–15",d:"60s",nt:"Sobe até a altura do ombro, sem balançar o tronco."},
-     {n:"Crucifixo inverso (posterior de ombro)",dm:"crucinv",tg:[],s:"2",r:"15",d:"45s",nt:"Na máquina peck deck invertida ou com halteres inclinada. Carga leve, foco em abrir as escápulas."}
+     {n:"Crucifixo inverso curvado com halteres",dm:"crucinv",tg:[],s:"2",r:"15",d:"45s",nt:"Livre, em pé — sem apoio no peito. Tronco a ~45°, joelhos destravados, carga leve. Abra pelos cotovelos e aproxime as escápulas."}
    ],
    info:"15 séries. Costas fecham ~14 séries diretas na semana."}
   ],
