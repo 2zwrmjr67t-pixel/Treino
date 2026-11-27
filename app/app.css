@@ -276,3 +276,8 @@ details.plan[open] .psum .tog .a{display:none} details.plan:not([open]) .psum .t
 .dit textarea{min-height:74px;resize:vertical}
 .qrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--br);font-size:11.5px}
 .qrow span:first-child{color:var(--tx)} .qrow span:last-child{color:var(--mt);flex:none}
+.hrr-res{font-size:13px;font-weight:600;margin:2px 0 4px;min-height:18px}
+.hrr-res.r{color:#d99a9a}.hrr-res.a{color:var(--ac)}.hrr-res.g{color:#9cc49c}
+.hrr-row{display:flex;justify-content:space-between;font-size:11.5px;padding:6px 8px;border-left:3px solid var(--br);background:var(--s2);margin-top:3px;border-radius:0 6px 6px 0}
+.hrr-row.r{border-color:var(--rd)}.hrr-row.a{border-color:var(--ac)}.hrr-row.g{border-color:var(--gn)}
+.hrr-row span:last-child{color:var(--mt)}

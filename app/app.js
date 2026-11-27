@@ -360,7 +360,9 @@ function buildCard(){
     pnl.innerHTML='<span class="bdg" style="background:'+d.c+'22;color:'+d.c+'">'+d.badge+'</span>'
       +'<div class="ptl">'+d.n+'</div><div class="pfoc">'+d.foc+'</div>'+meta+phases
       +'<div class="ibox"><b>Nota:</b> '+d.info+'</div>'
-      +'<div class="card"><div class="lbl">Fechar a sessão</div><div class="cfin"><input id="cpk_'+i+'" inputmode="numeric" placeholder="FC pico (bpm)"><input id="cf1_'+i+'" inputmode="numeric" placeholder="FC após 1 min"></div>'
+      +'<div class="card"><div class="lbl">Fechar a sessão</div><div class="note" style="margin:0 0 8px">No fim do último tiro, anote a FC (pico). Pare, fique sentado e anote a FC 1 minuto depois.</div>'
+      +'<div class="cfin"><input id="cpk_'+i+'" inputmode="numeric" placeholder="FC pico (bpm)" oninput="hrrCalc('+i+')"><input id="cf1_'+i+'" inputmode="numeric" placeholder="FC após 1 min" oninput="hrrCalc('+i+')"></div>'
+      +'<div class="hrr-res" id="hrr_'+i+'"></div>'+hrrTable()
       +'<button class="gobtn" id="cbtn_'+i+'" onclick="concluirCardio('+i+')">Concluir e enviar cardio</button><div class="sendst" style="margin:8px 0 0"></div></div>';
     panels.appendChild(pnl);
   });
@@ -457,6 +459,19 @@ function concluirCardio(i){
   document.getElementById('cpk_'+i).value='';document.getElementById('cf1_'+i).value='';
   b.dataset.c='';b.textContent='Enviado ✓';setTimeout(function(){b.textContent='Concluir e enviar cardio'},3000);
   enviar(p).then(function(){renderDash()});
+}
+/* --- Recuperação cardíaca: queda da FC em 1 min após o esforço --- */
+var HRR=[[0,12,'Ruim — leve ao médico','r'],[13,20,'Aceitável','a'],[21,30,'Bom','g'],[31,999,'Muito bom','g']];
+function hrrTable(){
+  return '<div class="hrr-t"><div class="lbl" style="margin:12px 0 4px">Queda em 1 min — referência</div>'
+   +HRR.map(function(h){return '<div class="hrr-row '+h[3]+'"><span>'+(h[1]>=999?'mais de 30 bpm':h[0]===0?'até 12 bpm':h[0]+'–'+h[1]+' bpm')+'</span><span>'+h[2]+'</span></div>'}).join('')
+   +'<div class="note" style="margin:6px 0 0">Exemplo: pico 160 → 1 min depois 148 ou mais = ruim · 140–147 aceitável · 130–139 bom · abaixo de 130 muito bom. Compare sempre o mesmo tiro final, medindo do mesmo jeito. Evoluir = pico mais baixo e queda maior.</div></div>';
+}
+function hrrCalc(i){
+  var pk=parseFloat((document.getElementById('cpk_'+i).value||'').replace(',','.')),f1=parseFloat((document.getElementById('cf1_'+i).value||'').replace(',','.'));
+  var el=document.getElementById('hrr_'+i);if(isNaN(pk)||isNaN(f1)){el.textContent='';el.className='hrr-res';return}
+  var q=pk-f1,h=HRR.filter(function(x){return q>=x[0]&&q<=x[1]})[0]||HRR[0];
+  el.className='hrr-res '+h[3];el.textContent='Queda de '+q+' bpm · '+h[2];
 }
 /* --- Dieta (ditado) --- */
 function enviarDitado(){
