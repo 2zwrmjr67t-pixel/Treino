@@ -2430,6 +2430,66 @@
           "c": 62,
           "f": 0
         }
+      ],
+      "lt": [
+        {
+          "n": "Pão brioche caseiro (1 un., ~80 g)",
+          "k": 240,
+          "p": 6,
+          "c": 27,
+          "f": 12
+        },
+        {
+          "n": "Cinnamon roll caseiro (1 un., ~100 g)",
+          "k": 380,
+          "p": 6,
+          "c": 52,
+          "f": 16
+        }
+      ],
+      "janta": [
+        {
+          "n": "Pão de hambúrguer caseiro (1 un., ~80 g)",
+          "k": 250,
+          "p": 8,
+          "c": 40,
+          "f": 7
+        },
+        {
+          "n": "Hambúrguer peito bovino + acém (200 g cru)",
+          "k": 460,
+          "p": 37,
+          "c": 0,
+          "f": 34
+        },
+        {
+          "n": "Queijo colonial (~40 g)",
+          "k": 150,
+          "p": 9,
+          "c": 1,
+          "f": 12
+        },
+        {
+          "n": "Tomate (1/2 un., ~60 g) + rúcula",
+          "k": 15,
+          "p": 1,
+          "c": 3,
+          "f": 0
+        },
+        {
+          "n": "Batata no forno (100 g)",
+          "k": 150,
+          "p": 3,
+          "c": 26,
+          "f": 4
+        },
+        {
+          "n": "Crumble de frutas vermelhas caseiro (2 colheres de sopa, ~50 g)",
+          "k": 110,
+          "p": 1,
+          "c": 16,
+          "f": 5
+        }
       ]
     }
   },
@@ -2938,10 +2998,10 @@
       "f": 51
     },
     "2026-11-26": {
-      "k": 1681,
-      "p": 134,
-      "c": 195,
-      "f": 35
+      "k": 3436,
+      "p": 205,
+      "c": 360,
+      "f": 125
     }
   },
   "avaliacoesProf": [
