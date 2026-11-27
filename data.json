@@ -2491,6 +2491,17 @@
           "f": 5
         }
       ]
+    },
+    "2026-11-27": {
+      "cafe": [
+        {
+          "n": "Shake pré (água de coco 200 ml, banana, whey 1 scoop, aveia 1 scoop, creatina 3 g)",
+          "k": 364,
+          "p": 29,
+          "c": 52,
+          "f": 4
+        }
+      ]
     }
   },
   "dobras": [
@@ -3002,6 +3013,12 @@
       "p": 204,
       "c": 418,
       "f": 117
+    },
+    "2026-11-27": {
+      "k": 364,
+      "p": 29,
+      "c": 52,
+      "f": 4
     }
   },
   "avaliacoesProf": [
@@ -3139,6 +3156,10 @@
     "2026-11-26": {
       "cardio": "Tiros 5×20/40 na bike — pico ~140 bpm, recuperação difícil acima de 120",
       "musc": "Ombros"
+    },
+    "2026-11-27": {
+      "musc": "Posterior",
+      "cardio": "Capacidade (rumo aos 60s)"
     }
   },
   "exames": [

@@ -152,7 +152,9 @@
           0
         ]
       ],
-      "recebido": "2026-11-27T10:55"
+      "recebido": "2026-11-27T10:55",
+      "ignorar": true,
+      "motivo": "envio acidental (confirmado pelo João em 27/11)"
     }
   ],
   "ultimoId": "BzaKK7SvBaCz",

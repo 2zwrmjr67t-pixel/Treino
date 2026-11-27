@@ -483,7 +483,7 @@ function enviarDitado(){
 function renderEnvios(){
   var box=document.getElementById('ditList');if(!box)return;
   var hoje=keyOf(new Date()),ok=recebidosIds(),rows=[];
-  fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts.slice(0,10)===hoje)var pr=(DB.processados||{})[x.p.id];rows.push([x.p.ts.slice(11),x.p.texto,pr?pr:(ok[x.p.id]?'gravado':x.st)])});
+  fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts&&x.p.ts.slice(0,10)===hoje){var pr=(DB.processados||{})[x.p.id];rows.push([x.p.ts.slice(11),x.p.texto,pr?pr:(ok[x.p.id]?'gravado':x.st)])}});
   box.innerHTML=rows.length?'<div class="lbl" style="margin:12px 0 2px">Enviados hoje</div>':'';
   rows.reverse().forEach(function(r){var d=document.createElement('div');d.className='qrow';
     var a=document.createElement('span');a.textContent=r[0]+' · '+r[1];var b=document.createElement('span');b.textContent=stTxt(r[2]);
@@ -496,11 +496,25 @@ function renderEnvios(){
 function aplicarRecebidos(){
   DB.treinos=DB.treinos||{};
   ((DB.recebidos||{}).registros||[]).forEach(function(r){
+    if(r.ignorar)return;
     var t=DB.treinos[r.d]=DB.treinos[r.d]||{};
     if(r.t==='treino'){t.musc=t.musc||r.dia;
       var di=-1;MUSC.forEach(function(m,ix){if(m.n===r.dia)di=ix});
       if(di>=0)(r.ex||[]).forEach(function(e,ei){if(e[1]!=null&&MUSC[di].ex[ei]&&MUSC[di].ex[ei].n.slice(0,40)===e[0])LS.setItem(getKey(di,ei),e[1])});}
     if(r.t==='cardio')t.cardio=t.cardio||r.sess;
+  });
+  mesclarRefeicoes();
+}
+/* Refeições lançadas no app: aparecem na Dieta mesmo antes do fechamento da noite */
+function mesclarRefeicoes(){
+  var regs=((DB.recebidos||{}).registros||[]).filter(function(r){return !r.ignorar}),proc=DB.processados||{},rem={};
+  var fl=fila().filter(function(x){return x.st!=='gravado'}).map(function(x){return x.p});
+  regs.concat(fl).forEach(function(r){if(r.t==='remover')rem[r.ref]=1});
+  Object.keys(DB.diet||{}).forEach(function(k){SLOTS.forEach(function(s){var a=DB.diet[k][s[0]];if(a)DB.diet[k][s[0]]=a.filter(function(x){return !(x.src&&rem[x.src])})})});
+  regs.concat(fl).forEach(function(r){
+    if(r.t!=='refeicao'||proc[r.id]||rem[r.id])return;
+    var d=dietDay(r.d);d[r.slot]=d[r.slot]||[];
+    if(!d[r.slot].some(function(x){return x.src===r.id}))d[r.slot].push({n:r.n,k:r.k,p:r.p,c:r.c,f:r.f,src:r.id});
   });
 }
 
@@ -548,12 +562,15 @@ function addMeal(){
   if(!n||!k){var e=document.getElementById('mName');e.style.borderColor='#c07070';setTimeout(function(){e.style.borderColor=''},600);return}
   var p=numv('mP'),c=numv('mC'),f=numv('mF');
   var d=dietDay(keyOf(curDate));d[curSlot]=d[curSlot]||[];
-  d[curSlot].push({n:n,k:k,p:p,c:c,f:f});
+  var id=uid();
+  d[curSlot].push({n:n,k:k,p:p,c:c,f:f,src:id});
   save();
+  enviar({v:1,t:'refeicao',id:id,d:keyOf(curDate),slot:curSlot,n:n.slice(0,80),k:k,p:p,c:c,f:f});
   ['mName','mK','mP','mC','mF'].forEach(function(id){document.getElementById(id).value=''});
   renderDiet();
 }
-function delMeal(slot,idx){var d=dietDay(keyOf(curDate));d[slot].splice(idx,1);save();renderDiet()}
+function delMeal(slot,idx){var d=dietDay(keyOf(curDate)),it=d[slot][idx];d[slot].splice(idx,1);save();renderDiet();
+  if(it&&it.src)enviar({v:1,t:'remover',id:uid(),ref:it.src})}
 function dayTotals(k){
   var d=dietDay(k);var t={k:0,p:0,c:0,f:0};
   SLOTS.forEach(function(s){(d[s[0]]||[]).forEach(function(x){t.k+=x.k;t.p+=x.p;t.c+=x.c;t.f+=x.f})});

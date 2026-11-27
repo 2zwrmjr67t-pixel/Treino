@@ -54,6 +54,21 @@ def clean(p):
         if not txt or not txt.strip():
             return None
         return {"t": "dieta", "id": cid, "d": p["ts"][:10], "ts": p["ts"][:16], "texto": txt.strip()}
+    if t == "refeicao":
+        if not DATE.match(str(p.get("d", ""))) or p.get("slot") not in ("cafe", "lm", "almoco", "lt", "janta", "ceia"):
+            return None
+        n = clip(p.get("n"), 80)
+        k = num(p.get("k"), 1, 3000)
+        if not n or k is None:
+            return None
+        return {"t": "refeicao", "id": cid, "d": p["d"], "slot": p["slot"], "n": n, "k": int(k),
+                "p": int(num(p.get("p"), 0, 400) or 0), "c": int(num(p.get("c"), 0, 600) or 0),
+                "f": int(num(p.get("f"), 0, 300) or 0)}
+    if t == "remover":
+        ref = clip(p.get("ref"), 40)
+        if not ref or not re.match(r"^[A-Za-z0-9_-]+$", ref):
+            return None
+        return {"t": "remover", "id": cid, "ref": ref}
     if t == "teste":
         return {"t": "teste", "id": cid, "ts": time.strftime("%Y-%m-%dT%H:%M")}
     return None
