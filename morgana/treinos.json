@@ -43,9 +43,45 @@
       "ts": "2026-11-26T10:24",
       "texto": "Smooth de 200 ml de água de coco um esculpe de way e um esculpe pequenino de psilium",
       "recebido": "2026-11-26T13:24"
+    },
+    {
+      "t": "treino",
+      "id": "mwyvj8uqkldnm6",
+      "d": "2026-11-27",
+      "dia": "Superiores B · Costas",
+      "ini": "07:56",
+      "dur": 8.0,
+      "ex": [
+        [
+          "Remada unilateral com halter",
+          10.0,
+          1
+        ],
+        [
+          "Puxada pegada neutra fechada",
+          35.0,
+          1
+        ],
+        [
+          "Supino inclinado com halteres",
+          12.0,
+          1
+        ],
+        [
+          "Elevação lateral com halteres",
+          4.0,
+          1
+        ],
+        [
+          "Crucifixo inverso (posterior de ombro)",
+          8.0,
+          1
+        ]
+      ],
+      "recebido": "2026-11-27T11:04"
     }
   ],
-  "ultimoId": "w27K4N4Nw9Vb",
+  "ultimoId": "WiKELZCJonpX",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }
