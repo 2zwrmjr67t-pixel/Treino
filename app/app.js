@@ -417,7 +417,9 @@ async function processarFila(){
   var f=fila(),ok=recebidosIds();
   for(var i=0;i<f.length;i++){
     if(ok[f[i].p.id])f[i].st='gravado';
-    else if(f[i].st==='pendente'){try{await postNtfy(f[i].p);f[i].st='enviado'}catch(e){}}
+    else if(f[i].st==='pendente'){try{await postNtfy(f[i].p);f[i].st='enviado';f[i].env=Date.now()}catch(e){}}
+    /* rede de segurança: o GitHub às vezes atrasa horas; se ainda não gravou após 2 h, reenvia (o id evita duplicar) */
+    else if(f[i].st==='enviado'&&Date.now()-(f[i].env||0)>2*3600000){try{await postNtfy(f[i].p);f[i].env=Date.now()}catch(e){}}
   }
   setFila(f);
 }
