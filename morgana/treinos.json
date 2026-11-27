@@ -79,9 +79,25 @@
         ]
       ],
       "recebido": "2026-11-27T11:04"
+    },
+    {
+      "t": "dieta",
+      "id": "mwz77vpqp4638m",
+      "d": "2026-11-27",
+      "ts": "2026-11-27T13:31",
+      "texto": "Hoje pela manhã tomei um shake com 200 ml de água de coco um esculpe de way e um esculpe pequeno de pilho e uma banana isso foi o pré treino voltando da academia eu tomei um pote pequeno de iogurte integral com 340 g sem sabor esse foi o café da manhã agora no almoço foram 100 de arroz branco sem de carne e mais ou menos umas 20 g de salada aí de sobremesa eu já comi mais ou menos umas 20 g de sorvete de maracujá e agora eu estou tomando um café preto sem açúcar mais ou menos umas 80 g desculpa ml",
+      "recebido": "2026-11-27T16:31"
+    },
+    {
+      "t": "dieta",
+      "id": "mwzgbqf69ar28c",
+      "d": "2026-11-27",
+      "ts": "2026-11-27T17:46",
+      "texto": "Agora à tarde eu comi 350 g de abacaxi puro",
+      "recebido": "2026-11-27T20:46"
     }
   ],
-  "ultimoId": "WiKELZCJonpX",
+  "ultimoId": "1nc9qSKdzsV6",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }

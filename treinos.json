@@ -155,9 +155,57 @@
       "recebido": "2026-11-27T10:55",
       "ignorar": true,
       "motivo": "envio acidental (confirmado pelo João em 27/11)"
+    },
+    {
+      "t": "dieta",
+      "id": "mwz1ktaq0wh3ph",
+      "d": "2026-11-27",
+      "ts": "2026-11-27T10:53",
+      "texto": "Dois morangos com pouco de doce de leite o suficiente para cobrir-los apenas",
+      "recebido": "2026-11-27T13:53"
+    },
+    {
+      "t": "dieta",
+      "id": "mwzipteposlbyh",
+      "d": "2026-11-27",
+      "ts": "2026-11-27T18:53",
+      "texto": "De almoço comi 200 g de entranha com 220 g de arroz e umas 30 g de alface",
+      "recebido": "2026-11-27T21:53"
+    },
+    {
+      "t": "dieta",
+      "id": "mwziqd8st9rgto",
+      "d": "2026-11-27",
+      "ts": "2026-11-27T18:53",
+      "texto": "À tarde eu comi umas 200 g de picanha assada além de três Torradinhas voltou com meia colher de chá de doce de leite",
+      "recebido": "2026-11-27T21:53"
+    },
+    {
+      "t": "refeicao",
+      "id": "mwziqnhqwfld19",
+      "d": "2026-11-27",
+      "slot": "cafe",
+      "n": "Pão de forma 1 fatia + presunto 2 fatias + queijo 1 fatia",
+      "k": 160,
+      "p": 11,
+      "c": 12,
+      "f": 7,
+      "recebido": "2026-11-27T21:53"
+    },
+    {
+      "t": "refeicao",
+      "id": "mwziqu513g6zvv",
+      "d": "2026-11-27",
+      "slot": "cafe",
+      "n": "Shake (água de coco 200 ml, banana, whey 1 scoop, aveia 2 scoops)",
+      "k": 481,
+      "p": 33,
+      "c": 69,
+      "f": 6,
+      "recebido": "2026-11-27T21:54"
     }
   ],
-  "ultimoId": "BzaKK7SvBaCz",
+  "ultimoId": "7bVmEH4fYoXh",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }
