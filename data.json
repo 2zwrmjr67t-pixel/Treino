@@ -2536,6 +2536,22 @@
           "c": 0,
           "f": 36,
           "src": "mwzipteposlbyh"
+        },
+        {
+          "n": "Arroz branco cozido (220 g)",
+          "k": 282,
+          "p": 6,
+          "c": 62,
+          "f": 0,
+          "src": "mwzipteposlbyh"
+        },
+        {
+          "n": "Alface (30 g)",
+          "k": 4,
+          "p": 0,
+          "c": 1,
+          "f": 0,
+          "src": "mwzipteposlbyh"
         }
       ],
       "lt": [
@@ -2545,6 +2561,14 @@
           "p": 53,
           "c": 0,
           "f": 39,
+          "src": "mwziqd8st9rgto"
+        },
+        {
+          "n": "Torradinhas (3 un., ~24 g) + doce de leite (1/2 colher de chá)",
+          "k": 105,
+          "p": 3,
+          "c": 19,
+          "f": 2,
           "src": "mwziqd8st9rgto"
         }
       ]
@@ -3061,10 +3085,10 @@
       "f": 117
     },
     "2026-11-27": {
-      "k": 2163,
-      "p": 179,
-      "c": 140,
-      "f": 93
+      "k": 2554,
+      "p": 188,
+      "c": 222,
+      "f": 95
     }
   },
   "avaliacoesProf": [
