@@ -2433,27 +2433,27 @@
       ],
       "lt": [
         {
-          "n": "Pão brioche caseiro (1 un., ~80 g)",
-          "k": 240,
-          "p": 6,
-          "c": 27,
-          "f": 12
+          "n": "Pão brioche da receita (1 un. de 16, c/ cobertura de doce de leite)",
+          "k": 357,
+          "p": 9,
+          "c": 57,
+          "f": 11
         },
         {
-          "n": "Cinnamon roll caseiro (1 un., ~100 g)",
-          "k": 380,
-          "p": 6,
-          "c": 52,
-          "f": 16
+          "n": "Cinnamon roll da receita (1 un. de 8, c/ glacê)",
+          "k": 585,
+          "p": 8,
+          "c": 98,
+          "f": 19
         }
       ],
       "janta": [
         {
-          "n": "Pão de hambúrguer caseiro (1 un., ~80 g)",
-          "k": 250,
-          "p": 8,
-          "c": 40,
-          "f": 7
+          "n": "Pão de hambúrguer da receita (1 un. de 5, ~105 g de massa)",
+          "k": 240,
+          "p": 6,
+          "c": 48,
+          "f": 2
         },
         {
           "n": "Hambúrguer peito bovino + acém (200 g cru)",
@@ -2484,10 +2484,10 @@
           "f": 4
         },
         {
-          "n": "Crumble de frutas vermelhas caseiro (2 colheres de sopa, ~50 g)",
-          "k": 110,
+          "n": "Crumble de morango da receita (2 colheres de sopa, ~50 g)",
+          "k": 100,
           "p": 1,
-          "c": 16,
+          "c": 13,
           "f": 5
         }
       ]
@@ -2998,10 +2998,10 @@
       "f": 51
     },
     "2026-11-26": {
-      "k": 3436,
-      "p": 205,
-      "c": 360,
-      "f": 125
+      "k": 3738,
+      "p": 208,
+      "c": 441,
+      "f": 122
     }
   },
   "avaliacoesProf": [
