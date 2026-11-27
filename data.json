@@ -2500,6 +2500,52 @@
           "p": 29,
           "c": 52,
           "f": 4
+        },
+        {
+          "n": "Pão de forma 1 fatia + presunto 2 fatias + queijo 1 fatia",
+          "k": 160,
+          "p": 11,
+          "c": 12,
+          "f": 7,
+          "src": "mwziqnhqwfld19"
+        },
+        {
+          "n": "Shake (água de coco 200 ml, banana, whey 1 scoop, aveia 2 scoops)",
+          "k": 481,
+          "p": 33,
+          "c": 69,
+          "f": 6,
+          "src": "mwziqu513g6zvv"
+        }
+      ],
+      "lm": [
+        {
+          "n": "Morangos (2 un., ~25 g) + doce de leite (~10 g, só cobrindo)",
+          "k": 40,
+          "p": 1,
+          "c": 7,
+          "f": 1,
+          "src": "mwz1ktaq0wh3ph"
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Entranha grelhada (200 g)",
+          "k": 540,
+          "p": 52,
+          "c": 0,
+          "f": 36,
+          "src": "mwzipteposlbyh"
+        }
+      ],
+      "lt": [
+        {
+          "n": "Picanha assada (200 g)",
+          "k": 578,
+          "p": 53,
+          "c": 0,
+          "f": 39,
+          "src": "mwziqd8st9rgto"
         }
       ]
     }
@@ -3015,10 +3061,10 @@
       "f": 117
     },
     "2026-11-27": {
-      "k": 364,
-      "p": 29,
-      "c": 52,
-      "f": 4
+      "k": 2163,
+      "p": 179,
+      "c": 140,
+      "f": 93
     }
   },
   "avaliacoesProf": [
@@ -3180,6 +3226,31 @@
       "d": "2026-11-26",
       "slot": "almoco",
       "k": 676
+    },
+    "mwziqnhqwfld19": {
+      "d": "2026-11-27",
+      "slot": "cafe",
+      "k": 160
+    },
+    "mwziqu513g6zvv": {
+      "d": "2026-11-27",
+      "slot": "cafe",
+      "k": 481
+    },
+    "mwz1ktaq0wh3ph": {
+      "d": "2026-11-27",
+      "slot": "lm",
+      "k": 40
+    },
+    "mwzipteposlbyh": {
+      "d": "2026-11-27",
+      "slot": "almoco",
+      "k": 826
+    },
+    "mwziqd8st9rgto": {
+      "d": "2026-11-27",
+      "slot": "lt",
+      "k": 683
     }
   }
 }
