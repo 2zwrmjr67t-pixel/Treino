@@ -84,6 +84,7 @@ document.body.insertAdjacentHTML('afterbegin',`
   <div id="trPanelCard" style="display:none">
   <div class="ibox" style="margin-top:0">${C.cardioProtocolo}</div>
   <div class="day-tabs" id="ctabs"></div>
+  <div class="card" id="hrrHist"></div>
   <div id="cpanels"></div>
   <div class="card">
     <div class="lbl">Checklist da semana</div>
@@ -390,7 +391,7 @@ function setTrainTab(t){
   setTimeout(setTrH,0);
 }
 function cardioBadge(){
-  var wk=weekKeyOf(new Date());var c=(DB.cardioWeek||{})[wk]||{};var n=CARD.filter(function(d,i){return c[i]}).length;
+  var n=0;weekDatesFrom(mondayOf(new Date())).forEach(function(d){var t=(DB.treinos||{})[keyOf(d)];if(t&&t.cardio)n++});
   var el=document.getElementById('trCardBadge');if(el)el.textContent='· '+n+'/'+CARD.length;
 }
 function resetCardioWeek(){var wk=weekKeyOf(new Date());DB.cardioWeek=DB.cardioWeek||{};DB.cardioWeek[wk]={};save();renderCardioChecks()}
@@ -475,12 +476,33 @@ function hrrCalc(i){
   var q=pk-f1,h=HRR.filter(function(x){return q>=x[0]&&q<=x[1]})[0]||HRR[0];
   el.className='hrr-res '+h[3];el.textContent='Queda de '+q+' bpm · '+h[2];
 }
+/* Histórico de recuperação: registros de cardio gravados + envios ainda pendentes */
+function renderHrrHist(){
+  var el=document.getElementById('hrrHist');if(!el)return;
+  var vistos={},rows=[];
+  var regs=((DB.recebidos||{}).registros||[]).filter(function(r){return r.t==='cardio'&&!r.ignorar});
+  var pend=fila().filter(function(x){return x.p.t==='cardio'}).map(function(x){return x.p});
+  regs.concat(pend).forEach(function(r){if(vistos[r.id]||r.pico==null||r.fc1==null)return;vistos[r.id]=1;rows.push(r)});
+  rows.sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
+  var h='<div class="lbl">Histórico de recuperação · queda em 1 min</div>';
+  if(!rows.length){el.innerHTML=h+'<div class="empty2">Nenhuma sessão com pico e FC de 1 min ainda. Preencha no fim do cardio.</div>';return}
+  var qs=rows.map(function(r){return r.pico-r.fc1}),med=qs.reduce(function(a,b){return a+b},0)/qs.length;
+  h+='<div class="kpis" style="margin:4px 0 8px"><div class="kpi"><div class="v">'+qs[0]+'<small> bpm</small></div><div class="t">última queda</div></div><div class="kpi"><div class="v">'+Math.round(med)+'<small> bpm</small></div><div class="t">média · '+rows.length+' sessões</div></div></div>';
+  rows.slice(0,12).forEach(function(r){
+    var q=r.pico-r.fc1,f=HRR.filter(function(x){return q>=x[0]&&q<=x[1]})[0]||HRR[0];
+    h+='<div class="hrr-row '+f[3]+'"><span>'+fmtD(r.d)+' · '+escH(r.sess||'Cardio')+'</span><span>'+Math.round(r.pico)+' → '+Math.round(r.fc1)+' · <b style="color:var(--tx)">−'+Math.round(q)+'</b> '+f[2].split(' —')[0]+'</span></div>';
+  });
+  h+='<div class="note" style="margin:6px 0 0">Compare sessões do mesmo tipo (tiros com tiros). Evoluir = pico mais baixo e queda maior.</div>';
+  el.innerHTML=h;
+}
+function escH(t){return String(t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 /* --- Dieta (ditado) --- */
 function enviarDitado(){
   var el=document.getElementById('ditTxt'),tx=(el.value||'').trim();if(!tx)return;
   el.value='';enviar({v:1,t:'dieta',id:uid(),ts:nowTs(),texto:tx.slice(0,1500)});
 }
 function renderEnvios(){
+  renderHrrHist();
   var box=document.getElementById('ditList');if(!box)return;
   var hoje=keyOf(new Date()),ok=recebidosIds(),rows=[];
   fila().forEach(function(x){if(x.p.t==='dieta'&&x.p.ts&&x.p.ts.slice(0,10)===hoje){var pr=(DB.processados||{})[x.p.id];rows.push([x.p.ts.slice(11),x.p.texto,pr?pr:(ok[x.p.id]?'gravado':x.st)])}});
@@ -504,6 +526,8 @@ function aplicarRecebidos(){
     if(r.t==='cardio')t.cardio=t.cardio||r.sess;
   });
   mesclarRefeicoes();
+  renderHrrHist();
+  cardioBadge();
 }
 /* Refeições lançadas no app: aparecem na Dieta mesmo antes do fechamento da noite */
 function mesclarRefeicoes(){
