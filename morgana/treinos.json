@@ -95,9 +95,45 @@
       "ts": "2026-11-27T17:46",
       "texto": "Agora à tarde eu comi 350 g de abacaxi puro",
       "recebido": "2026-11-27T20:46"
+    },
+    {
+      "t": "dieta",
+      "id": "mx0b3kw0us70o2",
+      "d": "2026-11-28",
+      "ts": "2026-11-28T08:07",
+      "texto": "Ainda sobre o dia 27 ontem à noite eu comi um sarro e de janta eu comi um pedaço de pizza de carne de panela um pedaço de pizza pequeno de Pepperoni e uma fatia de pizza de doce de chocolate branco com sorvete e uma bola de desculpa com uma bola de sorvete e um pouco de calda de frutas vermelhas",
+      "recebido": "2026-11-28T11:07"
+    },
+    {
+      "t": "dieta",
+      "id": "mx0b5ly4kwcafv",
+      "d": "2026-11-28",
+      "ts": "2026-11-28T08:09",
+      "texto": "Sobre hoje de manhã eu já tomei o pré treino que é um way com uma dose de w w nhe en 200 ml de água de coco uma banana esculpi pequeno de pilho",
+      "recebido": "2026-11-28T11:09"
+    },
+    {
+      "t": "cardio",
+      "id": "mx0db0yku7elpz",
+      "d": "2026-11-28",
+      "sess": "Zona 2 — Opcional",
+      "pico": null,
+      "fc1": null,
+      "obs": null,
+      "recebido": "2026-11-28T12:09"
+    },
+    {
+      "t": "cardio",
+      "id": "mx0dbd92xln50z",
+      "d": "2026-11-28",
+      "sess": "Zona 2 — Opcional",
+      "pico": null,
+      "fc1": null,
+      "obs": null,
+      "recebido": "2026-11-28T12:09"
     }
   ],
-  "ultimoId": "1nc9qSKdzsV6",
+  "ultimoId": "uGGfjYDOiUqa",
   "ultimoTeste": "2026-11-26T13:02",
   "ultimoTesteId": "teste-45825180674"
 }
