@@ -1,5 +1,90 @@
 {
-  "diet": {},
+  "diet": {
+    "2026-11-26": {
+      "lm": [
+        {
+          "n": "Smoothie pós (água de coco 200 ml, whey 1 scoop, psyllium 1 scoop pequeno)",
+          "k": 179,
+          "p": 24,
+          "c": 17,
+          "f": 2,
+          "src": "mwxl3go9g66rr8"
+        }
+      ]
+    },
+    "2026-11-27": {
+      "cafe": [
+        {
+          "n": "Shake pré (água de coco 200 ml, whey 1 scoop, psyllium 1 scoop pequeno, banana)",
+          "k": 269,
+          "p": 25,
+          "c": 40,
+          "f": 2,
+          "src": "mwz77vpqp4638m"
+        },
+        {
+          "n": "Iogurte natural integral sem sabor (340 g)",
+          "k": 214,
+          "p": 12,
+          "c": 17,
+          "f": 11,
+          "src": "mwz77vpqp4638m"
+        }
+      ],
+      "almoco": [
+        {
+          "n": "Arroz branco cozido (100 g)",
+          "k": 128,
+          "p": 3,
+          "c": 28,
+          "f": 0,
+          "src": "mwz77vpqp4638m"
+        },
+        {
+          "n": "Carne bovina magra grelhada (100 g)",
+          "k": 219,
+          "p": 36,
+          "c": 0,
+          "f": 7,
+          "src": "mwz77vpqp4638m"
+        },
+        {
+          "n": "Salada (20 g)",
+          "k": 4,
+          "p": 0,
+          "c": 1,
+          "f": 0,
+          "src": "mwz77vpqp4638m"
+        },
+        {
+          "n": "Sorvete de maracujá (20 g)",
+          "k": 30,
+          "p": 0,
+          "c": 5,
+          "f": 1,
+          "src": "mwz77vpqp4638m"
+        },
+        {
+          "n": "Café preto sem açúcar (80 ml)",
+          "k": 2,
+          "p": 0,
+          "c": 0,
+          "f": 0,
+          "src": "mwz77vpqp4638m"
+        }
+      ],
+      "lt": [
+        {
+          "n": "Abacaxi (350 g)",
+          "k": 168,
+          "p": 3,
+          "c": 43,
+          "f": 0,
+          "src": "mwzgbqf69ar28c"
+        }
+      ]
+    }
+  },
   "health": {
     "2026-11-21": {
       "peso": 62.35,
@@ -89,8 +174,46 @@
     }
   ],
   "avaliacoesProf": [],
-  "treinos": {},
+  "treinos": {
+    "2026-11-26": {
+      "musc": "Superiores A · Costas"
+    },
+    "2026-11-27": {
+      "musc": "Superiores B · Costas"
+    }
+  },
   "exames": [],
   "planoRevisoes": [],
-  "cargas": {}
+  "cargas": {},
+  "processados": {
+    "mwxl3go9g66rr8": {
+      "d": "2026-11-26",
+      "slot": "lm",
+      "k": 179
+    },
+    "mwz77vpqp4638m": {
+      "d": "2026-11-27",
+      "slot": "cafe",
+      "k": 866
+    },
+    "mwzgbqf69ar28c": {
+      "d": "2026-11-27",
+      "slot": "lt",
+      "k": 168
+    }
+  },
+  "totais": {
+    "2026-11-26": {
+      "k": 179,
+      "p": 24,
+      "c": 17,
+      "f": 2
+    },
+    "2026-11-27": {
+      "k": 1034,
+      "p": 79,
+      "c": 134,
+      "f": 21
+    }
+  }
 }
