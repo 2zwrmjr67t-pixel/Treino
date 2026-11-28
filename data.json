@@ -2571,6 +2571,43 @@
           "f": 2,
           "src": "mwziqd8st9rgto"
         }
+      ],
+      "janta": [
+        {
+          "n": "Pizza carne de panela (1 fatia)",
+          "k": 290,
+          "p": 14,
+          "c": 30,
+          "f": 12
+        },
+        {
+          "n": "Pizza pepperoni (2 fatias)",
+          "k": 600,
+          "p": 26,
+          "c": 64,
+          "f": 28
+        },
+        {
+          "n": "Pizza chocolate branco (1 fatia)",
+          "k": 330,
+          "p": 6,
+          "c": 45,
+          "f": 14
+        },
+        {
+          "n": "Sorvete (1 bola, ~60 g)",
+          "k": 120,
+          "p": 2,
+          "c": 14,
+          "f": 6
+        },
+        {
+          "n": "Calda de frutas vermelhas (pequena, ~20 g)",
+          "k": 50,
+          "p": 0,
+          "c": 12,
+          "f": 0
+        }
       ]
     }
   },
@@ -3085,10 +3122,10 @@
       "f": 117
     },
     "2026-11-27": {
-      "k": 2554,
-      "p": 188,
-      "c": 222,
-      "f": 95
+      "k": 3944,
+      "p": 236,
+      "c": 387,
+      "f": 155
     }
   },
   "avaliacoesProf": [
@@ -3225,7 +3262,7 @@
   "treinos": {
     "2026-11-26": {
       "cardio": "Tiros 5×20/40 na bike — pico ~140 bpm, recuperação difícil acima de 120",
-      "musc": "Costas"
+      "musc": "Ombros"
     },
     "2026-11-27": {
       "musc": "Posterior",

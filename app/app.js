@@ -676,8 +676,8 @@ function renderDash(){
   h+='<div class="today-t">'+(m?m.d.n:'Descanso')+(c?' <span style="color:var(--mt);font-weight:400">+ cardio</span>':'')+'</div>';
   h+='<div class="today-s">'+(m?m.d.foc:'Sem musculação programada. Dia de recuperação — a dieta continua em '+C.metaKcalTxt+' kcal.')+(c?'<br>Cardio: '+c.d.n+' · '+c.d.dur:'')+'</div>';
   h+='<div class="chips">';
-  if(m)h+='<span class="chip '+(t.musc?'ok':'')+'">'+(t.musc?'✓ treino registrado':'treino não registrado')+'</span>';
-  if(c)h+='<span class="chip '+(t.cardio?'ok':'')+'">'+(t.cardio?'✓ cardio registrado':'cardio não registrado')+'</span>';
+  if(m||t.musc)h+='<span class="chip '+(t.musc?'ok':'')+'">'+(t.musc?'✓ treino registrado · '+escH(t.musc):'treino não registrado')+'</span>';
+  if(c||t.cardio)h+='<span class="chip '+(t.cardio?'ok':'')+'">'+(t.cardio?'✓ cardio registrado · '+escH(t.cardio):'cardio não registrado')+'</span>';
   var nd=fila().filter(function(x){return x.p.t==='dieta'&&x.p.ts.slice(0,10)===kHoje&&!(DB.processados||{})[x.p.id]}).length;
   h+='<span class="chip '+(kc>=TARGET.kcal?'ok':'')+'">dieta '+(kc>0?Math.round(kc).toLocaleString('pt-BR'):'0')+' / '+TARGET.kcal.toLocaleString('pt-BR')+' kcal</span>'+(nd?'<span class="chip">'+nd+' refeição(ões) ditada(s) · aguardando cálculo</span>':'')+'</div>';
   if(m)h+='<button class="gobtn" onclick="openTreino('+m.i+',false)">Abrir treino de hoje →</button>';
@@ -687,10 +687,10 @@ function renderDash(){
   var mon=mondayOf(now),days=weekDatesFrom(mon),w='',nT=0,pT=0,nC=0,pC=0,nD=0,sumK=0;
   days.forEach(function(d){
     var k=keyOf(d),tm=muscOf(d),tc=cardOf(d),tr=treinoDia(k)||{},dk=dayTotals(k).k,past=k<=kHoje;
-    if(tm){pT++;if(tr.musc)nT++} if(tc){pC++;if(tr.cardio)nC++}
+    if(tm)pT++; if(tr.musc)nT++; if(tc)pC++; if(tr.cardio)nC++;
     if(dk>0){nD++;sumK+=dk}
     w+='<div class="c'+(k===kHoje?' now':'')+'"><div class="dn">'+DOWS[d.getDay()].charAt(0)+'</div><div class="mk">'
-      +'<i class="t '+(tm?(tr.musc?'on':''):'off')+'"></i><i class="k '+(tc?(tr.cardio?'on':''):'off')+'"></i><i class="d '+(dk>0?'on':'')+'"></i></div></div>';
+      +'<i class="t '+(tr.musc?'on':(tm?'':'off'))+'"></i><i class="k '+(tr.cardio?'on':(tc?'':'off'))+'"></i><i class="d '+(dk>0?'on':'')+'"></i></div></div>';
   });
   document.getElementById('dWeek').innerHTML=w;
   var ws=healthSorted('peso').filter(function(e){return daysBetween(dParse(e.d),now)<=7});
